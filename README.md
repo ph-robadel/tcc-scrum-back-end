@@ -10,11 +10,13 @@ Além disso, o repositório contém o código-fonte completo do sistema, que foi
 
 ## Cronograma
 
-Intervalo em dias do semestre 2023/01 (20/03/2023 - 21/07/2023): 123 dias
+Intervalo em dias do semestre 2023/01 (20/03/2023 - 21/07/2023): 
+Total dias do semestre letivo: 123 dias
+Restantes: 94 dias (13 semanas)
 
 | Atividades                        | Status da Atividade | Março | Abril | Maio | Junho | Julho |
 | --------------------------------- | ------------------- | ----- | ----- | ---- | ----- | ----- |
-| Modelar diagrama de caso de uso   | Pendente            |       | x     |      |       |       |
+| Modelar diagrama de caso de uso   | Ativo               |       | x     |      |       |       |
 | Documentar API's com Swagger.     | Pendente            |       | x     | x    |       |       |
 | Modelar diagrama de classe        | Pendente            |       |       | x    |       |       |
 | Iniciar implementação do software | Pendente            |       |       | x    | x     |       |
