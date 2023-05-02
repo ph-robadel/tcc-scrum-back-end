@@ -12,7 +12,7 @@ Além disso, o repositório contém o código-fonte completo do sistema, que foi
 
 Intervalo em dias do semestre 2023/01 (20/03/2023 - 21/07/2023): 
 Total dias do semestre letivo: 123 dias
-Restantes: 94 dias (13 semanas)
+Restantes: 80 dias (11 semanas)
 
 | Atividades                        | Status da Atividade | Março | Abril | Maio | Junho | Julho |
 | --------------------------------- | ------------------- | ----- | ----- | ---- | ----- | ----- |
