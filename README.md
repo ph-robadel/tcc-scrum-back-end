@@ -1,4 +1,4 @@
-# TCC Scrum back-end
+# Sistema Scrum back-end
 
 ## Descrição
 
