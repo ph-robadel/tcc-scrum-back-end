@@ -10,28 +10,23 @@ Além disso, o repositório contém o código-fonte completo do sistema, que foi
 
 ## Cronograma
 
-Intervalo em dias do semestre 2023/01 (20/03/2023 - 21/07/2023): 
+Intervalo em dias do semestre 2023/01 (11/03/2023 - 12/07/2024): 
 Total dias do semestre letivo: 123 dias
-Restantes: 73 dias (10 semanas)
+Restantes: 123 dias (17 semanas)
 
 | Atividades                         | Status da Atividade | Março | Abril | Maio | Junho | Julho |
 | ---------------------------------- | ------------------- | ----- | ----- | ---- | ----- | ----- |
-| Modelar diagrama de caso de uso    | Concluído           |       | x     |      |       |       |
-| Documentar API's com Swagger.      | Pendente            |       |       |      |       |       |
-| Modelar diagrama de classe         | Concluído           |       |       | x    |       |       |
-| Iniciar implementação do software  | Pendente            |       |       | x    | x     |       |
-| Escrever TCC 1                     | Concluído           |       | x     | x    | x     | x     |
-| Montar slide da apresentação TCC 1 | Concluído           |       |       |      | x     | x     |
-| Apresentar TCC 1                   | Concluído           |       |       |      |       | x     |
+| Modelar diagrama de caso de uso    | Concluído           |       |       |      |       |       |
+| Modelar diagrama de classe         | Concluído           |       |       |      |       |       |
+| Escrever TCC 1                     | Concluído           |       |       |      |       |       |
+| Montar slide da apresentação TCC 1 | Concluído           |       |       |      |       |       |
+| Apresentar TCC 1                   | Concluído           |       |       |      |       |       |
 |                                    |                     |       |       |      |       |       |
-|                                    |                     |       |       |      |       |       |
-|                                    |                     |       |       |      |       |       |
-|                                    |                     |       |       |      |       |       |
-|                                    |                     |       |       |      |       |       |
-| Implementar sistema                |                     |       |       |      |       |       |
-| Escrever TCC 2                     | Ativo               |       |       |      |       |       |
-| Montar slide da apresentação TCC 2 | Pendente            |       |       |      |       |       |
-| Apresentar TCC 2                   | Pendente            |       |       |      |       |       |
+| Documentar API's com Swagger.      | Pendente            | x     |       |      |       |       |
+| Implementar Software.              | Pendente            | x     | x     | x    | x     |       |
+| Escrever TCC 2                     | Ativo               | x     | x     | x    | x     |       |
+| Montar slide da apresentação TCC 2 | Pendente            |       |       |      | x     |       |
+| Apresentar TCC 2                   | Pendente            |       |       |      |       | x     |
 
 ## Informações sobre o TCC
 
