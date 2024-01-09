@@ -12,17 +12,26 @@ Além disso, o repositório contém o código-fonte completo do sistema, que foi
 
 Intervalo em dias do semestre 2023/01 (20/03/2023 - 21/07/2023): 
 Total dias do semestre letivo: 123 dias
-Restantes: 80 dias (11 semanas)
+Restantes: 73 dias (10 semanas)
 
-| Atividades                        | Status da Atividade | Março | Abril | Maio | Junho | Julho |
-| --------------------------------- | ------------------- | ----- | ----- | ---- | ----- | ----- |
-| Modelar diagrama de caso de uso   | Ativo               |       | x     |      |       |       |
-| Documentar API's com Swagger.     | Pendente            |       | x     | x    |       |       |
-| Modelar diagrama de classe        | Pendente            |       |       | x    |       |       |
-| Iniciar implementação do software | Pendente            |       |       | x    | x     |       |
-| Escrever TCC                      | Pendente            |       |       |      | x     | x     |
-| Montar slide da apresentação      | Pendente            |       |       |      |       | x     |
-| Apresentar TCC                    | Pendente            |       |       |      |       | x     |
+| Atividades                         | Status da Atividade | Março | Abril | Maio | Junho | Julho |
+| ---------------------------------- | ------------------- | ----- | ----- | ---- | ----- | ----- |
+| Modelar diagrama de caso de uso    | Concluído           |       | x     |      |       |       |
+| Documentar API's com Swagger.      | Pendente            |       |       |      |       |       |
+| Modelar diagrama de classe         | Concluído           |       |       | x    |       |       |
+| Iniciar implementação do software  | Pendente            |       |       | x    | x     |       |
+| Escrever TCC 1                     | Concluído           |       | x     | x    | x     | x     |
+| Montar slide da apresentação TCC 1 | Concluído           |       |       |      | x     | x     |
+| Apresentar TCC 1                   | Concluído           |       |       |      |       | x     |
+|                                    |                     |       |       |      |       |       |
+|                                    |                     |       |       |      |       |       |
+|                                    |                     |       |       |      |       |       |
+|                                    |                     |       |       |      |       |       |
+|                                    |                     |       |       |      |       |       |
+| Implementar sistema                |                     |       |       |      |       |       |
+| Escrever TCC 2                     | Ativo               |       |       |      |       |       |
+| Montar slide da apresentação TCC 2 | Pendente            |       |       |      |       |       |
+| Apresentar TCC 2                   | Pendente            |       |       |      |       |       |
 
 ## Informações sobre o TCC
 
