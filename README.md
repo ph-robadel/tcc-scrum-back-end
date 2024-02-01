@@ -38,6 +38,6 @@ Restantes: 123 dias (17 semanas)
 
 **Disciplinas**: 
 
-- [x] COM11212 Trabalho de conclusão de curso I
+- [x] ~~COM11212 Trabalho de conclusão de curso I~~
 - [ ] COM11261 Trabalho de conclusão de curso II
 
