@@ -10,7 +10,7 @@ Além disso, o repositório contém o código-fonte completo do sistema, que foi
 
 ## Cronograma
 
-Intervalo em dias do semestre 2023/01 (11/03/2023 - 12/07/2024): 
+Intervalo em dias do semestre 2023/01 (11/03/2024 - 12/07/2024): 
 Total dias do semestre letivo: 123 dias
 Restantes: 123 dias (17 semanas)
 
@@ -36,4 +36,8 @@ Restantes: 123 dias (17 semanas)
 
 **Instituição de ensino**: Universidade Federal do Espiríto Santo (UFES)
 
-**Disciplina**: COM11212 Trabalho de conclusão de curso I
+**Disciplinas**: 
+
+- [x] COM11212 Trabalho de conclusão de curso I
+- [ ] COM11261 Trabalho de conclusão de curso II
+
