@@ -40,3 +40,11 @@ Restantes: 123 dias (17 semanas)
 
 - [x] ~~COM11212 Trabalho de conclusão de curso I~~
 - [ ] COM11261 Trabalho de conclusão de curso II
+
+## Documentação OpenAPI
+
+Ao executar o projeto, é possível acessar a documentação da API no padrão OpenAPI através do link:
+~~~
+http://localhost:8080/v3/api-docs
+http://localhost:8080/swagger-ui/index.html
+~~~
