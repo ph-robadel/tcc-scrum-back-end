@@ -39,7 +39,8 @@ public class Usuario implements UserDetails {
 
 	private String email;
 
-	private Boolean ativo;
+	@Enumerated(EnumType.STRING)
+	private SituacaoUsuarioEnum situacao;
 
 	@Enumerated(EnumType.STRING)
 	private PerfilUsuarioEnum perfil;
@@ -81,7 +82,7 @@ public class Usuario implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return Boolean.TRUE.equals(ativo);
+		return SituacaoUsuarioEnum.ATIVO.equals(situacao);
 	}
 
 }
