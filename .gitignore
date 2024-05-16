@@ -23,3 +23,45 @@ codigo-fonte/scrum-back-end/target/*
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+HELP.md
+codigo-fonte/scrum-back-end/target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+codigo-fonte/scrum-back-end/.apt_generated
+codigo-fonte/scrum-back-end/.classpath
+codigo-fonte/scrum-back-end/.factorypath
+codigo-fonte/scrum-back-end/.project
+codigo-fonte/scrum-back-end/.settings
+codigo-fonte/scrum-back-end/.springBeans
+codigo-fonte/scrum-back-end/.sts4-cache
+
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
