@@ -1,4 +1,4 @@
-package br.ufes.domain.usuario;
+package br.ufes.entity;
 
 import java.util.Collection;
 import java.util.List;
@@ -7,6 +7,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import br.ufes.enums.PerfilUsuarioEnum;
+import br.ufes.enums.SituacaoUsuarioEnum;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -28,6 +31,7 @@ public class Usuario implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(name = "ID_USUARIO")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long Id;
 

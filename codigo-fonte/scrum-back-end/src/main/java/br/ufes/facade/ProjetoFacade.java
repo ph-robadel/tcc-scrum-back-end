@@ -2,7 +2,7 @@ package br.ufes.facade;
 
 import org.springframework.stereotype.Component;
 
-import br.ufes.domain.projeto.ProjetoDTO;
+import br.ufes.dto.ProjetoDTO;
 
 @Component
 public class ProjetoFacade {

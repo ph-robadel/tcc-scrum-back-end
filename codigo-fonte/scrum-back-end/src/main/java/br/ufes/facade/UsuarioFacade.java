@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import br.ufes.domain.usuario.Usuario;
-import br.ufes.domain.usuario.UsuarioDTO;
+import br.ufes.dto.UsuarioDTO;
+import br.ufes.entity.Usuario;
 import br.ufes.repository.UsuarioRepository;
 
 @Component

@@ -1,3 +1,3 @@
-package br.ufes.domain.usuario;
+package br.ufes.dto;
 
 public record LoginResponseDTO(String token) {}

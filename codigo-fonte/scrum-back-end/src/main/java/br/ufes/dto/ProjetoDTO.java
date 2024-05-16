@@ -1,4 +1,4 @@
-package br.ufes.domain.projeto;
+package br.ufes.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,4 +21,10 @@ public class ProjetoDTO {
 	private Integer minutosPlanning;
 
 	private Integer minutosReview;
+
+	public ProjetoDTO(Long id) {
+		this.id = id;
+	}
+	
+	
 }

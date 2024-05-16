@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ufes.domain.usuario.AuthenticationDTO;
-import br.ufes.domain.usuario.LoginResponseDTO;
-import br.ufes.domain.usuario.Usuario;
+import br.ufes.dto.AuthenticationDTO;
+import br.ufes.dto.LoginResponseDTO;
+import br.ufes.entity.Usuario;
 import br.ufes.security.TokenService;
 import lombok.extern.slf4j.Slf4j;
 

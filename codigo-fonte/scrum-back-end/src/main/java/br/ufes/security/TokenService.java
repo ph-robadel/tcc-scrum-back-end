@@ -12,7 +12,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 
-import br.ufes.domain.usuario.Usuario;
+import br.ufes.entity.Usuario;
 
 @Service
 public class TokenService {

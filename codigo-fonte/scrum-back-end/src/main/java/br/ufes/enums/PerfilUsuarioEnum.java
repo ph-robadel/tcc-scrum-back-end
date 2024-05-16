@@ -1,4 +1,4 @@
-package br.ufes.domain.usuario;
+package br.ufes.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

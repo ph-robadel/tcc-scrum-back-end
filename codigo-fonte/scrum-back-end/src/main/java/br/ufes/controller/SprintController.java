@@ -6,21 +6,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ufes.dto.ProjetoDTO;
-import br.ufes.facade.ProjetoFacade;
+import br.ufes.dto.SprintDTO;
+import br.ufes.facade.SprintFacade;
 
 @RestController
-@RequestMapping("projetos")
-public class ProjetoController {
+@RequestMapping("sprints")
+public class SprintController {
 
 	@Autowired
-	private ProjetoFacade projetoFacade;
+	private SprintFacade sprintFacade;
 
 	@GetMapping
-	public ResponseEntity<ProjetoDTO> getAllByUserLogin() {
+	public ResponseEntity<SprintDTO> getAllByUserLogin() {
 		try {
-			var projeto = projetoFacade.getAllByUserLogin();
-			return ResponseEntity.ok(projeto);
+			var sprint = sprintFacade.getAllByProjeto();
+			return ResponseEntity.ok(sprint);
 		} catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		} catch (Exception e) {
