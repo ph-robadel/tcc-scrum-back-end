@@ -15,10 +15,13 @@ import br.ufes.dto.AuthenticationDTO;
 import br.ufes.dto.LoginResponseDTO;
 import br.ufes.entity.Usuario;
 import br.ufes.security.TokenService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
+@Tag(name = "Autenticação do usuário")
 @RequestMapping("login")
 public class AutenticacaoController {
 
@@ -28,6 +31,7 @@ public class AutenticacaoController {
 	@Autowired
 	private TokenService tokenService;
 
+	@Operation(summary = "Obter token de autenticação")
 	@PostMapping
 	public ResponseEntity<LoginResponseDTO> login(@RequestBody @Validated AuthenticationDTO data) {
 		try {

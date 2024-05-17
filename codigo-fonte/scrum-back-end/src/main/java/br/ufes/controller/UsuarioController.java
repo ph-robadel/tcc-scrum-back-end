@@ -10,14 +10,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.dto.UsuarioDTO;
 import br.ufes.facade.UsuarioFacade;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
+@Tag(name="Usuários")
 @RequestMapping("usuarios")
+@SecurityRequirement(name = "token")
 public class UsuarioController {
 
 	@Autowired
 	private UsuarioFacade usuarioFacade;
 
+	@Operation(summary = "Cadastrar um novo usuário")
 	@PostMapping
 	public ResponseEntity<UsuarioDTO> cadastrarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
 		try {

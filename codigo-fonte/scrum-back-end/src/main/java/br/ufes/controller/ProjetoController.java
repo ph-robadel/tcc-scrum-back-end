@@ -8,14 +8,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.dto.ProjetoDTO;
 import br.ufes.facade.ProjetoFacade;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
+@Tag(name = "Projetos")
 @RequestMapping("projetos")
+@SecurityRequirement(name = "token")
 public class ProjetoController {
 
 	@Autowired
 	private ProjetoFacade projetoFacade;
 
+	@Operation(summary = "Obter todos os projetos do usuário autenticado")
 	@GetMapping
 	public ResponseEntity<ProjetoDTO> getAllByUserLogin() {
 		try {
