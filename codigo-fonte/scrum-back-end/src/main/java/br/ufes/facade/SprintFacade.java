@@ -1,24 +1,25 @@
 package br.ufes.facade;
 
-import java.time.LocalDate;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.ufes.dto.ProjetoDTO;
 import br.ufes.dto.SprintDTO;
+import br.ufes.services.ProjetoService;
+import br.ufes.services.SprintService;
 
 @Component
 public class SprintFacade {
 
+	@Autowired
+	private SprintService sprintService;
+
+	@Autowired
+	private ProjetoService projetoService;
+
 	public SprintDTO getAllByProjeto() throws Exception {
-		var sprintMock = new SprintDTO();
-		sprintMock.setId(1l);
-		sprintMock.setNumero(1);
-		sprintMock.setDataInicio(LocalDate.now());
-		sprintMock.setDataFim(LocalDate.now().plusDays(15));
-		sprintMock.setProjeto(new ProjetoDTO(1l));
-		
-		return sprintMock;
+		var mock = sprintService.getMock();
+		mock.setProjeto(projetoService.getMock());
+		return mock;
 	}
 
 }

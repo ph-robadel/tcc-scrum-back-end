@@ -1,23 +1,19 @@
 package br.ufes.facade;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.ufes.dto.ProjetoDTO;
+import br.ufes.services.ProjetoService;
 
 @Component
 public class ProjetoFacade {
 
-	public ProjetoDTO getAllByUserLogin() throws Exception {
-		var projetoMock = new ProjetoDTO();
-		projetoMock.setId(1l);
-		projetoMock.setNome("Nome projeto scrum");
-		projetoMock.setDescricao("Descrição projeto Scrum");
-		projetoMock.setMinutosDaily(30);
-		projetoMock.setMinutosPlanning(30);
-		projetoMock.setMinutosReview(30);
-		projetoMock.setDiasSprint(10);
+	@Autowired
+	private ProjetoService projetoService;
 
-		return projetoMock;
+	public ProjetoDTO getAllByUserLogin() throws Exception {
+		return projetoService.getMock();
 	}
 
 }

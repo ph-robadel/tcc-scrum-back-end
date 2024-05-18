@@ -7,27 +7,27 @@ import org.springframework.stereotype.Component;
 
 import br.ufes.dto.UsuarioDTO;
 import br.ufes.entity.Usuario;
-import br.ufes.repository.UsuarioRepository;
+import br.ufes.services.UsuarioService;
 
 @Component
 public class UsuarioFacade {
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
-	
+
 	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private UsuarioService usuarioService;
 
 	public void cadastrarUsuario(UsuarioDTO usuarioDTO) throws Exception {
-		if (usuarioRepository.findByNomeUsuario(usuarioDTO.getNomeUsuario()) != null) {
+		if (usuarioService.findByNomeUsuario(usuarioDTO.getNomeUsuario()) != null) {
 			throw new RuntimeException("O nome de usuário já cadastrado");
 		}
 
 		String senhaCriptografada = new BCryptPasswordEncoder().encode(usuarioDTO.getSenha());
 		var usuario = modelMapper.map(usuarioDTO, Usuario.class);
 		usuario.setSenha(senhaCriptografada);
-		
-		usuarioRepository.save(usuario);
+
+		usuarioService.insert(usuario);
 	}
 
 }
