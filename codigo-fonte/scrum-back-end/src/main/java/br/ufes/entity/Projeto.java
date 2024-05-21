@@ -1,5 +1,6 @@
 package br.ufes.entity;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -32,13 +33,13 @@ public class Projeto {
 
 	private String descricao;
 
-	private Integer diasSprint;
+	private Integer quantidadeDiasSprint;
 
-	private Integer minutosDaily;
+	private BigDecimal duracaoHorasDaily;
 
-	private Integer minutosPlanning;
+	private BigDecimal duracaoHorasPlanning;
 
-	private Integer minutosReview;
+	private BigDecimal duracaoHorasRetrospective;
 
 	@OneToMany(mappedBy = "projeto", fetch = FetchType.LAZY)
 	private List<Sprint> sprints;

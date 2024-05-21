@@ -37,14 +37,18 @@ public class ItemBacklogSprint {
 	@JoinColumn(name = "ID_USUARIO_REALIZACAO")
 	private Usuario responsavelRealizacao;
 
-	private BigDecimal tempoEstimativa;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_SPRINT")
+	private Sprint sprint;
 
-	private BigDecimal tempoRealizacao;
+	private BigDecimal horasEstimadas;
+
+	private BigDecimal horasRealizadas;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_ITEM_BACKLOG_PROJETO")
 	private ItemBacklogProjeto itemBacklogProjeto;
-
+	
 	@Enumerated(EnumType.STRING)
 	private SituacaoItemSprintEnum situacao;
 
