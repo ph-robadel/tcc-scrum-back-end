@@ -20,7 +20,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "projeto")
+@Table(name = "PROJETO")
 public class Projeto {
 
 	@Id
@@ -42,5 +42,11 @@ public class Projeto {
 
 	@OneToMany(mappedBy = "projeto", fetch = FetchType.LAZY)
 	private List<Sprint> sprints;
+
+	@OneToMany(mappedBy = "projeto", fetch = FetchType.LAZY)
+	private List<ItemBacklogProjeto> backlog;
+
+	@OneToMany(mappedBy = "projeto", fetch = FetchType.LAZY)
+	private List<ProjetoUsuario> time;
 
 }

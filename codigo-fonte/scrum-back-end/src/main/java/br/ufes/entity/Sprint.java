@@ -21,7 +21,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "sprint")
+@Table(name = "SPRINT")
 public class Sprint {
 
 	@Id
