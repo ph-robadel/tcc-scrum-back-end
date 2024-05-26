@@ -7,7 +7,7 @@ import br.ufes.dto.ProjetoDTO;
 import br.ufes.services.ProjetoService;
 
 @Component
-public class ProjetoFacade {
+public class ItemBackLogProjetoFacade {
 
 	@Autowired
 	private ProjetoService projetoService;

@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ProjetoDTO {
+
 	private Long id;
 
 	private String nome;
@@ -25,6 +26,4 @@ public class ProjetoDTO {
 	public ProjetoDTO(Long id) {
 		this.id = id;
 	}
-	
-	
 }

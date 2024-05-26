@@ -7,7 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum SituacaoItemProjetoEnum {
 	EM_ANÁLISE("Em análise"),
-	APROVADO("Aprovado");
+	APROVADO("Aprovado"),
+	CONCLUIDO("Concluído");
 
 	private String situacao;
 }

@@ -16,7 +16,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Projetos")
 @RequestMapping("projetos")
 @SecurityRequirement(name = "token")
-public class ProjetoController {
+public class ItemBackLogProjetoController {
 
 	@Autowired
 	private ProjetoFacade projetoFacade;

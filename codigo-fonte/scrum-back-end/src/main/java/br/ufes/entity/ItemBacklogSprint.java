@@ -48,9 +48,11 @@ public class ItemBacklogSprint {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_ITEM_BACKLOG_PROJETO")
 	private ItemBacklogProjeto itemBacklogProjeto;
-	
+
 	@Enumerated(EnumType.STRING)
 	private SituacaoItemSprintEnum situacao;
+
+	private String descricaoBloqueio;
 
 	private Long prioridade;
 
