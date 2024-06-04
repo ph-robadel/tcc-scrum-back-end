@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum SituacaoItemProjetoEnum {
-	EM_ANÁLISE("Em análise"),
+	EM_ANALISE("Em análise"),
 	APROVADO("Aprovado"),
 	CONCLUIDO("Concluído");
 

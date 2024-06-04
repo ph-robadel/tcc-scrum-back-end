@@ -1,5 +1,6 @@
 package br.ufes.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,10 +8,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ProjetoBasicDTO {
-	
-	private Long id;
+@AllArgsConstructor
+public class SprintBasicDTO {
 
-	private String nome;
+	private Long Id;
+
+	private Integer numero;
 
 }

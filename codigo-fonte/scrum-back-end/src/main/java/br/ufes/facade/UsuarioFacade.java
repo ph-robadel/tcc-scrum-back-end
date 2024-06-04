@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import br.ufes.dto.UsuarioDTO;
+import br.ufes.dto.UsuarioResponseDTO;
 import br.ufes.entity.Usuario;
 import br.ufes.services.UsuarioService;
 
@@ -28,6 +29,10 @@ public class UsuarioFacade {
 		usuario.setSenha(senhaCriptografada);
 
 		usuarioService.insert(usuario);
+	}
+
+	public UsuarioResponseDTO getById(Long idUsuario) throws Exception {
+		return usuarioService.getResponseMock();
 	}
 
 }

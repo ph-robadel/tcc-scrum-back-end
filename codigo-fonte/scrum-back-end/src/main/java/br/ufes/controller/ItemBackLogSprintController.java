@@ -6,27 +6,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ufes.dto.ProjetoDTO;
-import br.ufes.facade.ProjetoFacade;
+import br.ufes.dto.ItemBacklogSprintDTO;
+import br.ufes.facade.ItemBacklogSprintFacade;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@Tag(name = "Projetos")
-@RequestMapping("projetos")
+@Tag(name = "Item Backlog da Sprint")
+@RequestMapping("item-backlog-sprint")
 @SecurityRequirement(name = "token")
-public class ItemBackLogProjetoController {
+public class ItemBackLogSprintController {
 
 	@Autowired
-	private ProjetoFacade projetoFacade;
+	private ItemBacklogSprintFacade itemBacklogSprintFacade;
 
-	@Operation(summary = "Obter todos os projetos do usuário autenticado")
+	@Operation(summary = "Buscar itens do Backlog da Sprint")
 	@GetMapping
-	public ResponseEntity<ProjetoDTO> getAllByUserLogin() {
+	public ResponseEntity<ItemBacklogSprintDTO> search() {
 		try {
-			var projeto = projetoFacade.getAllByUserLogin();
-			return ResponseEntity.ok(projeto);
+			var itemBacklog = itemBacklogSprintFacade.search();
+			return ResponseEntity.ok(itemBacklog);
 		} catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		} catch (Exception e) {

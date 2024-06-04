@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ItemBackLogProjetoDTO {
+public class ItemBacklogProjetoDTO {
 
 	private Long id;
 

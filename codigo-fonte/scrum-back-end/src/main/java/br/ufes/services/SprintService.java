@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import org.springframework.stereotype.Service;
 
-import br.ufes.dto.ProjetoDTO;
+import br.ufes.dto.SprintBasicDTO;
 import br.ufes.dto.SprintDTO;
 
 @Service
@@ -18,6 +18,14 @@ public class SprintService {
 		sprintMock.setDataFim(LocalDate.now().plusDays(15));
 
 		return sprintMock;
+	}
+
+	public SprintBasicDTO getBasicMock() throws Exception {
+		var sprintBasicMock = new SprintBasicDTO();
+		sprintBasicMock.setId(1l);
+		sprintBasicMock.setNumero(1);
+
+		return sprintBasicMock;
 	}
 
 }
