@@ -1,4 +1,4 @@
-package br.ufes.dto;
+package br.ufes.dto.filter;
 
 import br.ufes.enums.PerfilUsuarioEnum;
 import br.ufes.enums.SituacaoUsuarioEnum;
@@ -6,20 +6,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import util.BaseFilterSearch;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsuarioDTO {
-
-	private Long Id;
+public class UsuarioFilterDTO extends BaseFilterSearch{
 
 	private String nomeCompleto;
 
 	private String nomeUsuario;
-
-	private String senha;
 
 	private String email;
 

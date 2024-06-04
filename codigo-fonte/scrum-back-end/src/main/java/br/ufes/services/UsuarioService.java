@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 
 import br.ufes.dto.UsuarioBasicDTO;
 import br.ufes.dto.UsuarioResponseDTO;
-import br.ufes.dto.UsuarioResponseDTO;
 import br.ufes.entity.Usuario;
 import br.ufes.enums.PerfilUsuarioEnum;
+import br.ufes.enums.SituacaoUsuarioEnum;
 import br.ufes.repository.UsuarioRepository;
 
 @Service
@@ -38,7 +38,7 @@ public class UsuarioService {
 		usuario.setNomeUsuario("Pedro Mock");
 		usuario.setNomeCompleto("Pedro Henrique Mock");
 		usuario.setEmail("Email mock");
-		usuario.setAtivo(true);
+		usuario.setSituacao(SituacaoUsuarioEnum.ATIVO);
 		usuario.setPerfil(PerfilUsuarioEnum.ADMINISTRADOR);
 		return usuario;
 	}

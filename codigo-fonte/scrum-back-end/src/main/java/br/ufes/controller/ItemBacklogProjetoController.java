@@ -13,7 +13,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@Tag(name = "Item Backlog do Projeto")
+@Tag(name = "Itens do Backlog do Projeto")
 @RequestMapping("item-backlog-projeto")
 @SecurityRequirement(name = "token")
 public class ItemBacklogProjetoController {

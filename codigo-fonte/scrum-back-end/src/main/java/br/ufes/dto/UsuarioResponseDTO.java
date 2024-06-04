@@ -1,6 +1,7 @@
 package br.ufes.dto;
 
 import br.ufes.enums.PerfilUsuarioEnum;
+import br.ufes.enums.SituacaoUsuarioEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,7 @@ public class UsuarioResponseDTO {
 
 	private String email;
 
-	private Boolean ativo;
+	private SituacaoUsuarioEnum situacao;
 
 	private PerfilUsuarioEnum perfil;
 
