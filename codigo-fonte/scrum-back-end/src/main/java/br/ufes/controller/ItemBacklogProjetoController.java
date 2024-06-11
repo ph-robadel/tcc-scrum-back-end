@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -61,6 +62,19 @@ public class ItemBacklogProjetoController {
 	public ResponseEntity<ResponseSearch<ItemBacklogProjetoDTO>> search(@PathVariable Long idProjeto, @RequestBody ItemBacklogProjetoFilterDTO filterDTO) {
 		try {
 			var itemBacklogProjeto = itemBacklogProjetoFacade.search(idProjeto, filterDTO);
+			return ResponseEntity.ok(itemBacklogProjeto);
+		} catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().build();
+		}
+	}
+	
+	@Operation(summary = "Buscar itens do Backlog do Projeto")
+	@GetMapping("/{idItemBacklogProjeto}")
+	public ResponseEntity<ItemBacklogProjetoDTO> getById(@PathVariable Long idItemBacklogProjeto) {
+		try {
+			var itemBacklogProjeto = itemBacklogProjetoFacade.getById(idItemBacklogProjeto);
 			return ResponseEntity.ok(itemBacklogProjeto);
 		} catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();

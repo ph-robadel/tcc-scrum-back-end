@@ -14,10 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.dto.ProjetoDTO;
 import br.ufes.dto.ProjetoUpsertDTO;
+import br.ufes.dto.SprintDTO;
+import br.ufes.dto.SprintUpsertDTO;
 import br.ufes.dto.UsuarioResponseDTO;
 import br.ufes.dto.filter.ProjetoFilterDTO;
 import br.ufes.dto.filter.ProjetoUsuarioFilterDTO;
+import br.ufes.dto.filter.SprintFilterDTO;
 import br.ufes.facade.ProjetoFacade;
+import br.ufes.facade.SprintFacade;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -32,6 +36,9 @@ public class ProjetoController {
 
 	@Autowired
 	private ProjetoFacade projetoFacade;
+	
+	@Autowired
+	private SprintFacade sprintFacade;
 
 	@Operation(summary = "Cadastrar um novo projeto")
 	@PostMapping
@@ -104,8 +111,8 @@ public class ProjetoController {
 	public ResponseEntity<ResponseSearch<UsuarioResponseDTO>> searchProjetoUsuario(
 			@PathParam("idProjeto") Long idProjeto, @RequestBody ProjetoUsuarioFilterDTO projetoUsuarioFiltroDTO) {
 		try {
-			projetoFacade.inativarProjeto(idProjeto);
-			return ResponseEntity.ok().build();
+			var responseSearch = projetoFacade.searchProjetoUsuario(idProjeto, projetoUsuarioFiltroDTO);
+			return ResponseEntity.ok(responseSearch);
 		} catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		} catch (Exception e) {
@@ -134,6 +141,34 @@ public class ProjetoController {
 		try {
 			projetoFacade.inativarProjetoUsuario(idProjeto, idUsuario);
 			return ResponseEntity.ok().build();
+		} catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().build();
+		}
+	}
+	
+	@Operation(summary = "Buscar sprints do projeto")
+	@PostMapping("/{idProjeto}/sprints/search")
+	public ResponseEntity<ResponseSearch<SprintDTO>> searchSprint(
+			@PathParam("idProjeto") Long idProjeto, @RequestBody SprintFilterDTO sprintFiltroDTO) {
+		try {
+			var responseSearch = sprintFacade.search(idProjeto, sprintFiltroDTO);
+			return ResponseEntity.ok(responseSearch);
+		} catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().build();
+		}
+	}
+
+	@Operation(summary = "Cadastrar uma nova sprint ao projeto")
+	@PostMapping("/{idProjeto}/sprints")
+	public ResponseEntity<SprintDTO> cadastrarSprint(@PathVariable("idProjeto") Long idProjeto,
+			@RequestBody SprintUpsertDTO sprintUpsertDTO) {
+		try {
+			var sprintDTO = sprintFacade.cadastrarSprint(idProjeto, sprintUpsertDTO);
+			return ResponseEntity.status(HttpStatus.CREATED).body(sprintDTO);
 		} catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		} catch (Exception e) {

@@ -51,17 +51,24 @@ public class ItemBacklogProjetoFacade {
 
 	public ResponseSearch<ItemBacklogProjetoDTO> search(Long idProjeto, ItemBacklogProjetoFilterDTO filterDTO)
 			throws Exception {
-		var responseSearch = new ResponseSearch<ItemBacklogProjetoDTO>();
 		var mock = itemBackLogProjetoService.getMock();
 		mock.setProjeto(projetoService.getBasicMock());
 		mock.setAutor(usuarioService.getBasicMock());
 
+		var responseSearch = new ResponseSearch<ItemBacklogProjetoDTO>();
 		responseSearch.setLista(List.of(mock));
 		responseSearch.setTotal(1l);
 		return responseSearch;
 	}
 
 	public void deleteItemBacklogProjeto(Long idItemBacklogProjeto) throws Exception {
+	}
+
+	public ItemBacklogProjetoDTO getById(Long idItemBacklogProjeto) throws Exception {
+		var mock = itemBackLogProjetoService.getMock();
+		mock.setProjeto(projetoService.getBasicMock());
+		mock.setAutor(usuarioService.getBasicMock());
+		return mock;
 	}
 
 }
