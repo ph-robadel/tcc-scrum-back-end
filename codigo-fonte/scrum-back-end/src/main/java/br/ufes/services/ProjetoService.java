@@ -1,5 +1,7 @@
 package br.ufes.services;
 
+import java.math.BigDecimal;
+
 import org.springframework.stereotype.Service;
 
 import br.ufes.dto.ProjetoBasicDTO;
@@ -13,9 +15,10 @@ public class ProjetoService {
 		projetoMock.setId(1l);
 		projetoMock.setNome("Nome projeto scrum");
 		projetoMock.setDescricao("Descrição projeto Scrum");
-		projetoMock.setMinutosDaily(30);
-		projetoMock.setMinutosPlanning(30);
-		projetoMock.setMinutosReview(30);
+		projetoMock.setDuracaoHorasDaily(new BigDecimal(0.5));
+		projetoMock.setDuracaoHorasPlanning(new BigDecimal(2));
+		projetoMock.setDuracaoHorasReview(new BigDecimal(1));
+		projetoMock.setDuracaoHorasRetrospective(new BigDecimal(1));
 		projetoMock.setDiasSprint(10);
 
 		return projetoMock;

@@ -39,7 +39,11 @@ public class Projeto {
 
 	private BigDecimal duracaoHorasPlanning;
 
+	private BigDecimal duracaoHorasReview;
+
 	private BigDecimal duracaoHorasRetrospective;
+
+	private Boolean ativo;
 
 	@OneToMany(mappedBy = "projeto", fetch = FetchType.LAZY)
 	private List<Sprint> sprints;

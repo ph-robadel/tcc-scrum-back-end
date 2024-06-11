@@ -27,7 +27,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Table(name = "ITEM_BACKLOG_SPRINT")
 public class ItemBacklogSprint {
-
+	
 	@Id
 	@Column(name = "ID_ITEM_BACKLOG_SPRINT")
 	@GeneratedValue(strategy = GenerationType.AUTO)

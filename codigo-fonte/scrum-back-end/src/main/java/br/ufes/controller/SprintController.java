@@ -1,6 +1,7 @@
 package br.ufes.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,13 +36,13 @@ public class SprintController {
 			return ResponseEntity.internalServerError().build();
 		}
 	}
-	
+
 	@Operation(summary = "Inserir uma sprints ao projeto")
 	@PostMapping
 	public ResponseEntity<SprintDTO> insert(@RequestBody SprintDTO dto) {
 		try {
 			var sprint = sprintFacade.getAllByProjeto();
-			return ResponseEntity.ok(sprint);
+			return ResponseEntity.status(HttpStatus.CREATED).body(sprint);
 		} catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		} catch (Exception e) {

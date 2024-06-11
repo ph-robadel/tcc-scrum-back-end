@@ -8,7 +8,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import br.ufes.enums.PerfilUsuarioEnum;
-import br.ufes.enums.SituacaoUsuarioEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -45,8 +44,7 @@ public class Usuario implements UserDetails {
 
 	private String email;
 
-	@Enumerated(EnumType.STRING)
-	private SituacaoUsuarioEnum situacao;
+	private Boolean ativo;
 
 	@Enumerated(EnumType.STRING)
 	private PerfilUsuarioEnum perfil;
@@ -88,7 +86,7 @@ public class Usuario implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return SituacaoUsuarioEnum.ATIVO.equals(situacao);
+		return Boolean.TRUE.equals(this.ativo);
 	}
 
 }

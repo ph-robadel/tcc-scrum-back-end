@@ -1,9 +1,6 @@
 package br.ufes.entity;
 
-import br.ufes.enums.SituacaoUsuarioEnum;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,7 +33,6 @@ public class ProjetoUsuario {
 	@JoinColumn(name = "ID_USUARIO")
 	private Usuario usuario;
 
-	@Enumerated(EnumType.STRING)
-	private SituacaoUsuarioEnum situacao;
+	private Boolean ativo;
 
 }

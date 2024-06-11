@@ -3,6 +3,7 @@ package br.ufes.entity;
 import java.time.LocalDateTime;
 
 import br.ufes.enums.SituacaoItemProjetoEnum;
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -34,8 +36,12 @@ public class ItemBacklogProjeto {
 
 	private String titulo;
 
+	@Column(unique = true)
 	private Long codigo;
 
+	@Lob
+	@Basic(fetch = FetchType.LAZY)
+	@Column(columnDefinition = "TEXT")
 	private String descricao;
 
 	private Integer prioridade;

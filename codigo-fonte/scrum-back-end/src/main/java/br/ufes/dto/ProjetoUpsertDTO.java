@@ -9,9 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ProjetoDTO {
-
-	private Long id;
+public class ProjetoUpsertDTO {
 
 	private String nome;
 
@@ -27,6 +25,4 @@ public class ProjetoDTO {
 
 	private BigDecimal duracaoHorasRetrospective;
 	
-	private Boolean ativo;
-
 }

@@ -10,9 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsuarioDTO {
-
-	private Long Id;
+public class UsuarioUpsertDTO {
 
 	private String nomeCompleto;
 
@@ -21,8 +19,6 @@ public class UsuarioDTO {
 	private String senha;
 
 	private String email;
-
-	private Boolean ativo;
 
 	private PerfilUsuarioEnum perfil;
 

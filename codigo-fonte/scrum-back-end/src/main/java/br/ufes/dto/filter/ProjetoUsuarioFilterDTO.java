@@ -1,29 +1,20 @@
-package br.ufes.dto;
+package br.ufes.dto.filter;
 
 import br.ufes.enums.PerfilUsuarioEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import util.BaseFilterSearch;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsuarioDTO {
-
-	private Long Id;
-
-	private String nomeCompleto;
+public class ProjetoUsuarioFilterDTO extends BaseFilterSearch {
 
 	private String nomeUsuario;
-
-	private String senha;
-
-	private String email;
-
-	private Boolean ativo;
-
 	private PerfilUsuarioEnum perfil;
+	private Boolean ativo;
 
 }

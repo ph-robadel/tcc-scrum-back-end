@@ -1,7 +1,6 @@
 package br.ufes.dto.filter;
 
 import br.ufes.enums.PerfilUsuarioEnum;
-import br.ufes.enums.SituacaoUsuarioEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +19,7 @@ public class UsuarioFilterDTO extends BaseFilterSearch{
 
 	private String email;
 
-	private SituacaoUsuarioEnum situacao;
+	private Boolean ativo;
 
 	private PerfilUsuarioEnum perfil;
 
