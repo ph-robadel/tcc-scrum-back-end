@@ -44,7 +44,7 @@ public class ItemBacklogProjeto {
 	@Column(columnDefinition = "TEXT")
 	private String descricao;
 
-	private Integer prioridade;
+	private Long prioridade;
 
 	@Enumerated(EnumType.STRING)
 	private SituacaoItemProjetoEnum situacao;

@@ -14,10 +14,8 @@ public class ItemBacklogProjetoUpsertDTO {
 
 	private String descricao;
 
-	private Integer prioridade;
+	private Long prioridade;
 
 	private SituacaoItemProjetoEnum situacao;
-
-	private Long idProjeto;
 
 }

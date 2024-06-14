@@ -17,7 +17,7 @@ public class ItemBacklogProjetoService {
 		itemBackLogProjetoDTO.setTitulo("Descrição projeto Scrum");
 		itemBackLogProjetoDTO.setCodigo(1L);
 		itemBackLogProjetoDTO.setDescricao("Descrição projeto Scrum");
-		itemBackLogProjetoDTO.setPrioridade(1);
+		itemBackLogProjetoDTO.setPrioridade(1l);
 		itemBackLogProjetoDTO.setSituacao(SituacaoItemProjetoEnum.EM_ANALISE);
 		itemBackLogProjetoDTO.setDataCriacao(LocalDateTime.now());
 

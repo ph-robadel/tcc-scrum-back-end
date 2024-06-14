@@ -20,7 +20,7 @@ public class ItemBacklogProjetoDTO {
 
 	private String descricao;
 
-	private Integer prioridade;
+	private Long prioridade;
 
 	private SituacaoItemProjetoEnum situacao;
 

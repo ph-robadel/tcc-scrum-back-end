@@ -98,7 +98,7 @@ public class UsuarioController {
 		}
 	}
 
-	@Operation(summary = "Atualizar senha de usuário pelo administrador")
+	@Operation(summary = "Atualizar senha de usuário como administrador")
 	@PatchMapping("/senha-admin")
 	public ResponseEntity<Object> atualizarSenhaUsuarioByAdmin(@RequestBody UsuarioUpdateSenhaAdminDTO updateSenhaDTO) {
 		try {
