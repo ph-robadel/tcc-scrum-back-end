@@ -32,6 +32,8 @@ public class ItemBacklogSprintDTO {
 	private Long prioridade;
 
 	private Boolean pendenteAprovacao;
+	
+	private Boolean pendenteRemocao;
 
 	private UsuarioBasicDTO responsavelInclusao;
 

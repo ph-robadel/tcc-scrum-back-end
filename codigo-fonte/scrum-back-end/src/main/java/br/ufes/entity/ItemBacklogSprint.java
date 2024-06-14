@@ -57,6 +57,8 @@ public class ItemBacklogSprint {
 	private Long prioridade;
 
 	private Boolean pendenteAprovacao;
+	
+	private Boolean pendenteRemocao;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_USUARIO_INCLUSAO")

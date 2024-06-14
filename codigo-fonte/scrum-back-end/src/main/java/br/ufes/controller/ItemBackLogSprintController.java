@@ -67,11 +67,50 @@ public class ItemBackLogSprintController {
 		}
 	}
 	
-	@Operation(summary = "Aprovar item do backlog da sprint")
-	@PostMapping("/{idItemBacklogSprint}/aprovar")
-	public ResponseEntity<Object> aprovar(@PathVariable Long idItemBacklogSprint) {
+	@Operation(summary = "Aprovar inclusão do item ao backlog da sprint")
+	@PostMapping("/{idItemBacklogSprint}/aprovar-inclusao")
+	public ResponseEntity<Object> aprovarInclusao(@PathVariable Long idItemBacklogSprint) {
 		try {
-			itemBacklogSprintFacade.delete(idItemBacklogSprint);
+			itemBacklogSprintFacade.aprovarInclusao(idItemBacklogSprint);
+			return ResponseEntity.ok().build();
+		} catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().build();
+		}
+	}
+	
+	@Operation(summary = "Recusar inclusão do item ao backlog da sprint")
+	@PostMapping("/{idItemBacklogSprint}/recusar-inclusao")
+	public ResponseEntity<Object> recusarInclusao(@PathVariable Long idItemBacklogSprint) {
+		try {
+			itemBacklogSprintFacade.recusarInclusao(idItemBacklogSprint);
+			return ResponseEntity.ok().build();
+		} catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().build();
+		}
+	}
+	
+	@Operation(summary = "Aprovar remoção item do backlog da sprint")
+	@PostMapping("/{idItemBacklogSprint}/aprovar-remocao")
+	public ResponseEntity<Object> aprovarRemocao(@PathVariable Long idItemBacklogSprint) {
+		try {
+			itemBacklogSprintFacade.aprovarRemocao(idItemBacklogSprint);
+			return ResponseEntity.ok().build();
+		} catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().build();
+		}
+	}
+	
+	@Operation(summary = "Recusar remoção do item ao backlog da sprint")
+	@PostMapping("/{idItemBacklogSprint}/recusar-remocao")
+	public ResponseEntity<Object> recusarRemocao(@PathVariable Long idItemBacklogSprint) {
+		try {
+			itemBacklogSprintFacade.recusarRemocao(idItemBacklogSprint);
 			return ResponseEntity.ok().build();
 		} catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();

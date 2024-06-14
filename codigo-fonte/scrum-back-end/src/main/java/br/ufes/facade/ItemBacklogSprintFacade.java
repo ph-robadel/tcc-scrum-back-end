@@ -78,5 +78,17 @@ public class ItemBacklogSprintFacade {
 
 	public void delete(Long idSprint) throws Exception{
 	}
+	
+	public void aprovarInclusao(Long idSprint) throws Exception{
+	}
+	
+	public void recusarInclusao(Long idSprint) throws Exception{
+	}
+	
+	public void aprovarRemocao(Long idSprint) throws Exception{
+	}
+	
+	public void recusarRemocao(Long idSprint) throws Exception{
+	}
 
 }
