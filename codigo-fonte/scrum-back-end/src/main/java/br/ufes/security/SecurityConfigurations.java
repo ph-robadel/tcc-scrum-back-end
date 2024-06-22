@@ -29,6 +29,7 @@ public class SecurityConfigurations {
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(authorize -> authorize
 						.requestMatchers(HttpMethod.GET, "/projetos").hasAuthority("SCRUM_MASTER")
+						.requestMatchers(HttpMethod.GET, "/projetos").hasAnyAuthority("DEV_TEAM", "SCRUM_MASTER")
 						.requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
 						.requestMatchers(HttpMethod.POST, "/login").permitAll()
 						.requestMatchers(HttpMethod.GET, "/api-docs").permitAll()

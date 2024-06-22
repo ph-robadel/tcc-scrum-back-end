@@ -1,6 +1,8 @@
 package br.ufes.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,11 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
-	public UserDetails findByNomeUsuario(String nomeUsuario) throws Exception {
+//	public UserDetails findByNomeUsuario(String nomeUsuario) throws Exception {
+//		return usuarioRepository.findByNomeUsuario(nomeUsuario);
+//	}
+	
+	public Usuario findByNomeUsuario(String nomeUsuario) throws Exception {
 		return usuarioRepository.findByNomeUsuario(nomeUsuario);
 	}
 
@@ -41,4 +47,16 @@ public class UsuarioService {
 		usuario.setPerfil(PerfilUsuarioEnum.ADMINISTRADOR);
 		return usuario;
 	}
+	
+	public Usuario getUsuarioAutenticado() throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+            String nomeUsuario = principal instanceof UserDetails ? ((UserDetails) principal).getUsername() : principal.toString();
+            return findByNomeUsuario(nomeUsuario);
+        }
+        
+        return null;
+    }
 }

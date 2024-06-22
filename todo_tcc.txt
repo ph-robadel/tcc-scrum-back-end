@@ -1,0 +1,33 @@
+Lista de atividades para a conclusão do TCC.
+
+Aplicação Java:
+[ ] Configurar melhor o Spring Security.
+[ ] Obter dados do usuário logado.
+[ ] Aplicar corretamente o JPA para a persistência de dados.
+[ ] Tratamento de excessão para validações.
+[ ] Resolver dilema do usuário adm.
+
+
+[ ] Implementar recursos UsuarioController.
+[ ] Implementar recursos ProjetoController.
+[ ] Implementar recursos SprintController.
+[ ] Implementar recursos ItemBacklogProjetoController.
+[ ] Implementar recursos ItemBackLogSprintController.
+
+Testes:
+[ ] Escrever testes para recursos do AutenticacaoController
+[ ] Escrever testes para recursos do UsuarioController
+[ ] Escrever testes para recursos do ProjetoController
+[ ] Escrever testes para recursos do SprintController
+[ ] Escrever testes para recursos do ItemBacklogProjetoController
+[ ] Escrever testes para recursos do ItemBackLogSprintController
+
+Docker:
+[ ] Escrever docker-file
+[ ] Publicar no docker-hub
+
+TCC:
+[ ] Escrever tópico 'Resultado Obitido'.
+[ ] Melhorar tópico introdução.
+[ ] Criar slide de apresentação.
+
