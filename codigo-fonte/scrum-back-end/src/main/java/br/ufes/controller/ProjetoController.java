@@ -182,6 +182,20 @@ public class ProjetoController {
 			return ResponseEntity.internalServerError().build();
 		}
 	}
+	
+	@Operation(summary = "Cadastrar uma nova sprint ao projeto")
+	@PostMapping("/{idProjeto}/sprints")
+	public ResponseEntity<SprintDTO> cadastrarSprint(@PathVariable("idProjeto") Long idProjeto,
+			@RequestBody SprintUpsertDTO sprintUpsertDTO) {
+		try {
+			var sprintDTO = sprintFacade.cadastrarSprint(idProjeto, sprintUpsertDTO);
+			return ResponseEntity.status(HttpStatus.CREATED).body(sprintDTO);
+		} catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().build();
+		}
+	}
 
 	@Operation(summary = "Buscar sprints do projeto")
 	@PostMapping("/{idProjeto}/sprints/search")
@@ -190,20 +204,6 @@ public class ProjetoController {
 		try {
 			var responseSearch = sprintFacade.search(idProjeto, sprintFiltroDTO);
 			return ResponseEntity.ok(responseSearch);
-		} catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		} catch (Exception e) {
-			return ResponseEntity.internalServerError().build();
-		}
-	}
-
-	@Operation(summary = "Cadastrar uma nova sprint ao projeto")
-	@PostMapping("/{idProjeto}/sprints")
-	public ResponseEntity<SprintDTO> cadastrarSprint(@PathVariable("idProjeto") Long idProjeto,
-			@RequestBody SprintUpsertDTO sprintUpsertDTO) {
-		try {
-			var sprintDTO = sprintFacade.cadastrarSprint(idProjeto, sprintUpsertDTO);
-			return ResponseEntity.status(HttpStatus.CREATED).body(sprintDTO);
 		} catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		} catch (Exception e) {

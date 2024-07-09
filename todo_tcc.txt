@@ -1,7 +1,7 @@
 Lista de atividades para a conclusão do TCC.
 
 Aplicação Java:
-[ ] Configurar melhor o Spring Security.
+[x] Configurar melhor o Spring Security.
 [ ] Obter dados do usuário logado.
 [ ] Aplicar corretamente o JPA para a persistência de dados.
 [ ] Tratamento de excessão para validações.

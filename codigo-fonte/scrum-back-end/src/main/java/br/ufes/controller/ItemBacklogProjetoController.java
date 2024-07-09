@@ -25,21 +25,7 @@ public class ItemBacklogProjetoController {
 
 	@Autowired
 	private ItemBacklogProjetoFacade itemBacklogProjetoFacade;
-	
-	@Operation(summary = "Atualizar Item Backlog Projeto")
-	@PutMapping("/{idItemBacklogProjeto}")
-	public ResponseEntity<ItemBacklogProjetoDTO> atualizarItemBacklogProjeto(@PathVariable Long idItemBacklogProjeto,
-			@RequestBody ItemBacklogProjetoUpsertDTO itemBacklogProjetoUpsertDTO) {
-		try {
-			var itemBacklogProjeto = itemBacklogProjetoFacade.atualizarItemBacklogProjeto(idItemBacklogProjeto, itemBacklogProjetoUpsertDTO);
-			return ResponseEntity.ok(itemBacklogProjeto);
-		} catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		} catch (Exception e) {
-			return ResponseEntity.internalServerError().build();
-		}
-	}
-	
+
 	@Operation(summary = "Obter item do Backlog do Projeto")
 	@GetMapping("/{idItemBacklogProjeto}")
 	public ResponseEntity<ItemBacklogProjetoDTO> getById(@PathVariable Long idItemBacklogProjeto) {
@@ -52,7 +38,22 @@ public class ItemBacklogProjetoController {
 			return ResponseEntity.internalServerError().build();
 		}
 	}
-	
+
+	@Operation(summary = "Atualizar Item Backlog Projeto")
+	@PutMapping("/{idItemBacklogProjeto}")
+	public ResponseEntity<ItemBacklogProjetoDTO> atualizarItemBacklogProjeto(@PathVariable Long idItemBacklogProjeto,
+			@RequestBody ItemBacklogProjetoUpsertDTO itemBacklogProjetoUpsertDTO) {
+		try {
+			var itemBacklogProjeto = itemBacklogProjetoFacade.atualizarItemBacklogProjeto(idItemBacklogProjeto,
+					itemBacklogProjetoUpsertDTO);
+			return ResponseEntity.ok(itemBacklogProjeto);
+		} catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().build();
+		}
+	}
+
 	@Operation(summary = "Remover Item Backlog Projeto")
 	@DeleteMapping("/{idItemBacklogProjeto}")
 	public ResponseEntity<Object> deleteItemBacklogProjeto(@PathVariable Long idItemBacklogProjeto) {

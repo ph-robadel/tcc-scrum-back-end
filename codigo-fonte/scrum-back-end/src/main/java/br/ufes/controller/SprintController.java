@@ -91,7 +91,6 @@ public class SprintController {
 		}
 	}
 	
-
 	@Operation(summary = "Buscar itens backlog da sprint")
 	@PostMapping("/{idSprint}/item-backlog-sprint/search")
 	public ResponseEntity<ResponseSearch<ItemBacklogSprintDTO>> searchItensBacklogSprint(
