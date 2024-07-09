@@ -2,6 +2,7 @@ package br.ufes.facade;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +13,7 @@ import br.ufes.dto.filter.ProjetoFilterDTO;
 import br.ufes.dto.filter.ProjetoUsuarioFilterDTO;
 import br.ufes.services.ProjetoService;
 import br.ufes.services.UsuarioService;
-import util.ModelMapperUtil;
+import exception.BusinessException;
 import util.ResponseSearch;
 
 @Component
@@ -23,6 +24,9 @@ public class ProjetoFacade {
 
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private ModelMapper modelMapper;
 
 	public ResponseSearch<ProjetoDTO> search(ProjetoFilterDTO filterDTO) throws Exception {
 		var responseSearch = new ResponseSearch<ProjetoDTO>();
@@ -39,14 +43,14 @@ public class ProjetoFacade {
 	public void inativarProjeto(Long idProjeto) throws Exception {
 	}
 
-	public ProjetoDTO cadastrarProjeto(ProjetoUpsertDTO projetoInsertDTO) throws Exception {
-		var projetoDTO = ModelMapperUtil.map(projetoInsertDTO, ProjetoDTO.class);
+	public ProjetoDTO cadastrarProjeto(ProjetoUpsertDTO projetoInsertDTO) throws Exception {		
+		var projetoDTO = modelMapper.map(projetoInsertDTO, ProjetoDTO.class);
 		projetoDTO.setId(1L);
 		return projetoDTO;
 	}
 
 	public ProjetoDTO atualizarProjeto(Long idProjeto, ProjetoUpsertDTO projetoUpdateDTO) throws Exception {
-		var projetoDTO = ModelMapperUtil.map(projetoUpdateDTO, ProjetoDTO.class);
+		var projetoDTO = modelMapper.map(projetoUpdateDTO, ProjetoDTO.class);
 		projetoDTO.setId(idProjeto);
 		return projetoDTO;
 	}

@@ -66,7 +66,7 @@ public class Usuario implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return nomeUsuario;
+		return nomeUsuario != null ? nomeUsuario.toLowerCase() : "";
 	}
 
 	@Override

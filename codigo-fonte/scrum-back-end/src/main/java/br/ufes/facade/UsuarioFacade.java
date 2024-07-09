@@ -2,6 +2,7 @@ package br.ufes.facade;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,6 @@ import br.ufes.dto.UsuarioUpsertDTO;
 import br.ufes.dto.filter.UsuarioFilterDTO;
 import br.ufes.entity.Usuario;
 import br.ufes.services.UsuarioService;
-import util.ModelMapperUtil;
 import util.ResponseSearch;
 
 @Component
@@ -22,6 +22,9 @@ public class UsuarioFacade {
 
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private ModelMapper modelMapper;
 
 	public UsuarioResponseDTO cadastrarUsuario(UsuarioUpsertDTO usuarioDTO) throws Exception {
 		if (usuarioService.findByNomeUsuario(usuarioDTO.getNomeUsuario()) != null) {
@@ -29,11 +32,12 @@ public class UsuarioFacade {
 		}
 
 		String senhaCriptografada = new BCryptPasswordEncoder().encode(usuarioDTO.getSenha());
-		var usuario = ModelMapperUtil.map(usuarioDTO, Usuario.class);
+		var usuario = modelMapper.map(usuarioDTO, Usuario.class);
 		usuario.setSenha(senhaCriptografada);
+		usuario.setAtivo(true);
 
 		usuario = usuarioService.insert(usuario);
-		return ModelMapperUtil.map(usuario, UsuarioResponseDTO.class);
+		return modelMapper.map(usuario, UsuarioResponseDTO.class);
 	}
 
 	public UsuarioResponseDTO getById(Long idUsuario) throws Exception {
@@ -58,7 +62,7 @@ public class UsuarioFacade {
 	}
 
 	public UsuarioDTO atualizarUsuario(Long idUsuario, UsuarioUpsertDTO usuarioUpdateDTO) throws Exception {
-		var usuarioDTO = ModelMapperUtil.map(usuarioUpdateDTO, UsuarioDTO.class);
+		var usuarioDTO = modelMapper.map(usuarioUpdateDTO, UsuarioDTO.class);
 		usuarioDTO.setId(idUsuario);
 		return usuarioDTO;
 	}

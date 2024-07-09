@@ -49,15 +49,9 @@ public class ProjetoController {
 
 	@Operation(summary = "Cadastrar um novo projeto")
 	@PostMapping
-	public ResponseEntity<ProjetoDTO> cadastrarProjeto(@RequestBody ProjetoUpsertDTO projetoInsertDTO) {
-		try {
-			var projeto = projetoFacade.cadastrarProjeto(projetoInsertDTO);
-			return ResponseEntity.status(HttpStatus.CREATED).body(projeto);
-		} catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		} catch (Exception e) {
-			return ResponseEntity.internalServerError().build();
-		}
+	public ResponseEntity<ProjetoDTO> cadastrarProjeto(@RequestBody ProjetoUpsertDTO projetoInsertDTO) throws Exception {
+		var projeto = projetoFacade.cadastrarProjeto(projetoInsertDTO);
+		return ResponseEntity.status(HttpStatus.CREATED).body(projeto);
 	}
 
 	@Operation(summary = "Atualizar projeto")
@@ -76,15 +70,9 @@ public class ProjetoController {
 
 	@Operation(summary = "buscar projetos do usuário autenticado")
 	@PostMapping("/search")
-	public ResponseEntity<ResponseSearch<ProjetoDTO>> search(@RequestBody ProjetoFilterDTO filterDTO) {
-		try {
-			var projeto = projetoFacade.search(filterDTO);
-			return ResponseEntity.ok(projeto);
-		} catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		} catch (Exception e) {
-			return ResponseEntity.internalServerError().build();
-		}
+	public ResponseEntity<ResponseSearch<ProjetoDTO>> search(@RequestBody ProjetoFilterDTO filterDTO) throws Exception{
+		var projeto = projetoFacade.search(filterDTO);
+		return ResponseEntity.ok(projeto);
 	}
 
 	@Operation(summary = "Obter projeto por id")
@@ -182,7 +170,7 @@ public class ProjetoController {
 			return ResponseEntity.internalServerError().build();
 		}
 	}
-	
+
 	@Operation(summary = "Cadastrar uma nova sprint ao projeto")
 	@PostMapping("/{idProjeto}/sprints")
 	public ResponseEntity<SprintDTO> cadastrarSprint(@PathVariable("idProjeto") Long idProjeto,

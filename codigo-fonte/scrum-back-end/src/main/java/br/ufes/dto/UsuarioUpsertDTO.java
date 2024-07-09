@@ -21,5 +21,9 @@ public class UsuarioUpsertDTO {
 	private String email;
 
 	private PerfilUsuarioEnum perfil;
+	
+	public String getNomeUsuario() {
+		return nomeUsuario != null ? nomeUsuario.toLowerCase() : "";
+	}
 
 }
