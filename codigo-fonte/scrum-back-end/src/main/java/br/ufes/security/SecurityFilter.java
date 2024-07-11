@@ -8,6 +8,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
+
 import br.ufes.repository.UsuarioRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -25,15 +27,22 @@ public class SecurityFilter extends OncePerRequestFilter {
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-		var token = recoverToken(request);
-		if(token != null) {
-			var nomeUsuario = tokenService.validarToken(token);
-			var usuario =  usuarioRepository.findByNomeUsuario(nomeUsuario);
-			var authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
-			
-			SecurityContextHolder.getContext().setAuthentication(authentication);			
+		try {
+			var token = recoverToken(request);
+			if(token != null) {
+				var nomeUsuario = tokenService.validarToken(token);
+				var usuario =  usuarioRepository.findByNomeUsuario(nomeUsuario);
+				var authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
+				
+				SecurityContextHolder.getContext().setAuthentication(authentication);			
+			}
+			filterChain.doFilter(request, response);
+		} catch(JWTVerificationException exception){
+			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+		    response.setCharacterEncoding("UTF-8");
+		    response.getWriter().write(exception.getLocalizedMessage());
 		}
-		filterChain.doFilter(request, response);
+		
 	}
 
 	private String recoverToken(HttpServletRequest request) {
