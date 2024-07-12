@@ -2,6 +2,7 @@ package br.ufes.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ import util.ResponseSearch;
 @Tag(name = "Sprints")
 @RequestMapping("sprints")
 @SecurityRequirement(name = "token")
+@Transactional(rollbackFor = Exception.class)
 public class SprintController {
 
 	@Autowired
@@ -35,74 +37,46 @@ public class SprintController {
 
 	@Autowired
 	private ItemBacklogSprintFacade itemBacklogSprintFacade;
-	
+
 	@Operation(summary = "Obter Sprint")
 	@GetMapping("/{idSprint}")
-	public ResponseEntity<SprintDTO> atualizarSprint(@PathVariable Long idSprint) {
-		try {
-			var sprint = sprintFacade.getById(idSprint);
-			return ResponseEntity.ok(sprint);
-		} catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		} catch (Exception e) {
-			return ResponseEntity.internalServerError().build();
-		}
+	public ResponseEntity<SprintDTO> atualizarSprint(@PathVariable Long idSprint) throws Exception {
+		var sprint = sprintFacade.getById(idSprint);
+		return ResponseEntity.ok(sprint);
 	}
 
 	@Operation(summary = "Atualizar Sprint")
 	@PutMapping("/{idSprint}")
 	public ResponseEntity<SprintDTO> atualizarSprint(@PathVariable Long idSprint,
-			@RequestBody SprintUpsertDTO sprintUpsertDTO) {
-		try {
-			var sprint = sprintFacade.atualizarSprint(idSprint, sprintUpsertDTO);
-			return ResponseEntity.ok(sprint);
-		} catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		} catch (Exception e) {
-			return ResponseEntity.internalServerError().build();
-		}
+			@RequestBody SprintUpsertDTO sprintUpsertDTO) throws Exception {
+		var sprint = sprintFacade.atualizarSprint(idSprint, sprintUpsertDTO);
+		return ResponseEntity.ok(sprint);
 	}
 
 	@Operation(summary = "Remover sprint")
 	@DeleteMapping("/{idSprint}")
-	public ResponseEntity<Object> deleteSprint(@PathVariable Long idSprint) {
-		try {
-			sprintFacade.deleteSprint(idSprint);
-			return ResponseEntity.ok().build();
-		} catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		} catch (Exception e) {
-			return ResponseEntity.internalServerError().build();
-		}
+	public ResponseEntity<Object> deleteSprint(@PathVariable Long idSprint) throws Exception {
+		sprintFacade.deleteSprint(idSprint);
+		return ResponseEntity.ok().build();
 	}
 
 	@Operation(summary = "Adicionar novo item backlog a sprint")
 	@PostMapping("/{idSprint}/item-backlog-projeto/{idItemBacklogProjeto}/item-backlog-sprint")
 	public ResponseEntity<ItemBacklogSprintDTO> adicionarItemBacklogSprint(@PathVariable Long idSprint,
-			@PathVariable Long idItemBacklogProjeto,
-			@RequestBody ItemBacklogSprintUpsertDTO itemBacklogSprintUpsertDTO) {
-		try {
-			var sprint = itemBacklogSprintFacade.adicionarItemBacklogSprint(idSprint, idItemBacklogProjeto, itemBacklogSprintUpsertDTO);
-			return ResponseEntity.ok(sprint);
-		} catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		} catch (Exception e) {
-			return ResponseEntity.internalServerError().build();
-		}
+			@PathVariable Long idItemBacklogProjeto, @RequestBody ItemBacklogSprintUpsertDTO itemBacklogSprintUpsertDTO)
+			throws Exception {
+		var sprint = itemBacklogSprintFacade.adicionarItemBacklogSprint(idSprint, idItemBacklogProjeto,
+				itemBacklogSprintUpsertDTO);
+		return ResponseEntity.ok(sprint);
 	}
-	
+
 	@Operation(summary = "Buscar itens backlog da sprint")
 	@PostMapping("/{idSprint}/item-backlog-sprint/search")
 	public ResponseEntity<ResponseSearch<ItemBacklogSprintDTO>> searchItensBacklogSprint(
-			@PathParam("idSprint") Long idSprint, @RequestBody ItemBacklogSprintFilterDTO itemBacklogSprintFilterDTO) {
-		try {
-			var responseSearch = itemBacklogSprintFacade.search(idSprint, itemBacklogSprintFilterDTO);
-			return ResponseEntity.ok(responseSearch);
-		} catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		} catch (Exception e) {
-			return ResponseEntity.internalServerError().build();
-		}
+			@PathParam("idSprint") Long idSprint, @RequestBody ItemBacklogSprintFilterDTO itemBacklogSprintFilterDTO)
+			throws Exception {
+		var responseSearch = itemBacklogSprintFacade.search(idSprint, itemBacklogSprintFilterDTO);
+		return ResponseEntity.ok(responseSearch);
 	}
 
 }

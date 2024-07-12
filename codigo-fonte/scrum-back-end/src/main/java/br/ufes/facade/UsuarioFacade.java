@@ -37,7 +37,9 @@ public class UsuarioFacade {
 		usuario.setAtivo(true);
 
 		usuario = usuarioService.insert(usuario);
-		return modelMapper.map(usuario, UsuarioResponseDTO.class);
+		
+		throw new Exception();
+//		return modelMapper.map(usuario, UsuarioResponseDTO.class);
 	}
 
 	public UsuarioResponseDTO getById(Long idUsuario) throws Exception {

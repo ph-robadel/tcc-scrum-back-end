@@ -13,7 +13,6 @@ import br.ufes.dto.filter.ProjetoFilterDTO;
 import br.ufes.dto.filter.ProjetoUsuarioFilterDTO;
 import br.ufes.services.ProjetoService;
 import br.ufes.services.UsuarioService;
-import exception.BusinessException;
 import util.ResponseSearch;
 
 @Component
