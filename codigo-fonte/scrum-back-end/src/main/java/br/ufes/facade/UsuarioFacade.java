@@ -22,7 +22,7 @@ public class UsuarioFacade {
 
 	@Autowired
 	private UsuarioService usuarioService;
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
 
@@ -37,9 +37,8 @@ public class UsuarioFacade {
 		usuario.setAtivo(true);
 
 		usuario = usuarioService.insert(usuario);
-		
-		throw new Exception();
-//		return modelMapper.map(usuario, UsuarioResponseDTO.class);
+
+		return modelMapper.map(usuario, UsuarioResponseDTO.class);
 	}
 
 	public UsuarioResponseDTO getById(Long idUsuario) throws Exception {

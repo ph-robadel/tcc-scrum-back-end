@@ -5,7 +5,7 @@ Aplicação Java:
 [x] Obter dados do usuário logado.
 [x] Tratamento de excessão para validações.
 [x] tratar TokenExpiredException
-[ ] Rollback
+[x] Rollback
 [ ] Resolver dilema do usuário adm. (Sobre criar o usuário padrão)
 
 
