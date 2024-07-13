@@ -11,6 +11,7 @@ import br.ufes.dto.UsuarioResponseDTO;
 import br.ufes.entity.Usuario;
 import br.ufes.enums.PerfilUsuarioEnum;
 import br.ufes.repository.UsuarioRepository;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class UsuarioService {
@@ -18,12 +19,21 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
-//	public UserDetails findByNomeUsuario(String nomeUsuario) throws Exception {
-//		return usuarioRepository.findByNomeUsuario(nomeUsuario);
-//	}
-	
 	public Usuario findByNomeUsuario(String nomeUsuario) throws Exception {
 		return usuarioRepository.findByNomeUsuario(nomeUsuario);
+	}
+
+	public Usuario getById(Long idUsuario) throws Exception {
+		if (idUsuario == null) {
+			return null;
+		}
+
+		var usuarioOptional = usuarioRepository.findById(idUsuario);
+		if (usuarioOptional.isEmpty()) {
+			throw new EntityNotFoundException("Usuário não encontrado");
+		}
+
+		return usuarioOptional.get();
 	}
 
 	public Usuario insert(Usuario usuario) {
@@ -47,16 +57,17 @@ public class UsuarioService {
 		usuario.setPerfil(PerfilUsuarioEnum.ADMINISTRADOR);
 		return usuario;
 	}
-	
-	public Usuario getUsuarioAutenticado() throws Exception {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (authentication != null && authentication.isAuthenticated()) {
-            Object principal = authentication.getPrincipal();
-            String nomeUsuario = principal instanceof UserDetails ? ((UserDetails) principal).getUsername() : principal.toString();
-            return findByNomeUsuario(nomeUsuario);
-        }
-        
-        return null;
-    }
+	public Usuario getUsuarioAutenticado() throws Exception {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		if (authentication != null && authentication.isAuthenticated()) {
+			Object principal = authentication.getPrincipal();
+			String nomeUsuario = principal instanceof UserDetails ? ((UserDetails) principal).getUsername()
+					: principal.toString();
+			return findByNomeUsuario(nomeUsuario);
+		}
+
+		return null;
+	}
 }

@@ -2,6 +2,7 @@ package br.ufes.controller.handler;
 
 import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.auth0.jwt.exceptions.TokenExpiredException;
 
 import exception.BusinessException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -41,6 +43,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(TokenExpiredException.class)
 	public ResponseEntity<String> tokenExpiredExceptionHandler(TokenExpiredException exception) {
 		return ResponseEntity.badRequest().body("O token de autenticação expirou!");
+	}
+
+	@ExceptionHandler(EntityNotFoundException.class)
+	public ResponseEntity<String> entityNotFoundExceptionHandler(EntityNotFoundException exception) {
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
 	}
 
 	private ResponseEntity<String> retornarErroNaoTratado(Exception exception) {

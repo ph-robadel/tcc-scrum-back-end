@@ -15,6 +15,7 @@ import br.ufes.dto.UsuarioUpsertDTO;
 import br.ufes.dto.filter.UsuarioFilterDTO;
 import br.ufes.entity.Usuario;
 import br.ufes.services.UsuarioService;
+import exception.BusinessException;
 import util.ResponseSearch;
 
 @Component
@@ -28,7 +29,7 @@ public class UsuarioFacade {
 
 	public UsuarioResponseDTO cadastrarUsuario(UsuarioUpsertDTO usuarioDTO) throws Exception {
 		if (usuarioService.findByNomeUsuario(usuarioDTO.getNomeUsuario()) != null) {
-			throw new RuntimeException("O nome de usuário já cadastrado");
+			throw new BusinessException("Nome de usuário já cadastrado");
 		}
 
 		String senhaCriptografada = new BCryptPasswordEncoder().encode(usuarioDTO.getSenha());
@@ -42,7 +43,8 @@ public class UsuarioFacade {
 	}
 
 	public UsuarioResponseDTO getById(Long idUsuario) throws Exception {
-		return usuarioService.getResponseMock();
+		var usuario = usuarioService.getById(idUsuario);
+		return modelMapper.map(usuario, UsuarioResponseDTO.class);
 	}
 
 	public ResponseSearch<UsuarioResponseDTO> search(UsuarioFilterDTO filterDTO) throws Exception {

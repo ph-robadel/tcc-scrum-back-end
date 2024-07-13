@@ -8,7 +8,7 @@ import br.ufes.entity.Usuario;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
-//	public UserDetails findByNomeUsuario(String nomeUsuario);
 	public Usuario findByNomeUsuario(String nomeUsuario);
 
+	public Usuario getReferenceById(Long idUsuario);
 }
