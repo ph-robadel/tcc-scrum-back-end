@@ -22,18 +22,21 @@ public class UsuarioService {
 	public Usuario findByNomeUsuario(String nomeUsuario) throws Exception {
 		return usuarioRepository.findByNomeUsuario(nomeUsuario);
 	}
+	
+	public boolean existsByNomeUsuario(String nomeUsuario) throws Exception {
+		return usuarioRepository.existsByNomeUsuario(nomeUsuario);
+	}
 
 	public Usuario getById(Long idUsuario) throws Exception {
 		if (idUsuario == null) {
 			return null;
 		}
 
-		var usuarioOptional = usuarioRepository.findById(idUsuario);
-		if (usuarioOptional.isEmpty()) {
-			throw new EntityNotFoundException("Usuário não encontrado");
-		}
+		var usuario = usuarioRepository.findById(idUsuario).orElseThrow(() -> 
+			new EntityNotFoundException("Usuário não encontrado")
+		);
 
-		return usuarioOptional.get();
+		return usuario;
 	}
 
 	public Usuario insert(Usuario usuario) {

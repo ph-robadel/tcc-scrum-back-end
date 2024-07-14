@@ -6,6 +6,7 @@ Aplicação Java:
 [x] Tratamento de excessão para validações.
 [x] tratar TokenExpiredException
 [x] Rollback
+[ ] PathParams para os métodos de search ( https://www.bezkoder.com/spring-boot-pagination-filter-jpa-pageable/ | https://bezkoder.com/spring-data-sort-multiple-columns/)
 [ ] Resolver dilema do usuário adm. (Sobre criar o usuário padrão)
 
 

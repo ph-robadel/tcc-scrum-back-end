@@ -44,7 +44,7 @@ public class UsuarioController {
 	}
 
 	@Operation(summary = "Buscar usuário")
-	@PostMapping("/search")
+	@GetMapping
 	public ResponseEntity<ResponseSearch<UsuarioResponseDTO>> search(@RequestBody UsuarioFilterDTO filterDTO)
 			throws Exception {
 		var resultSearch = usuarioFacade.search(filterDTO);
@@ -53,7 +53,7 @@ public class UsuarioController {
 
 	@Operation(summary = "Obter usuário por id")
 	@GetMapping("/{idUsuario}")
-	public ResponseEntity<UsuarioResponseDTO> cadastrarUsuario(@PathVariable("idUsuario") Long idUsuario)
+	public ResponseEntity<UsuarioResponseDTO> getById(@PathVariable("idUsuario") Long idUsuario)
 			throws Exception {
 		var usuarioResponseDTO = usuarioFacade.getById(idUsuario);
 		return ResponseEntity.ok(usuarioResponseDTO);

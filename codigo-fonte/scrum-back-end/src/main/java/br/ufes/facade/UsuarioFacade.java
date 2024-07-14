@@ -28,7 +28,7 @@ public class UsuarioFacade {
 	private ModelMapper modelMapper;
 
 	public UsuarioResponseDTO cadastrarUsuario(UsuarioUpsertDTO usuarioDTO) throws Exception {
-		if (usuarioService.findByNomeUsuario(usuarioDTO.getNomeUsuario()) != null) {
+		if (usuarioService.existsByNomeUsuario(usuarioDTO.getNomeUsuario())) {
 			throw new BusinessException("Nome de usuário já cadastrado");
 		}
 
