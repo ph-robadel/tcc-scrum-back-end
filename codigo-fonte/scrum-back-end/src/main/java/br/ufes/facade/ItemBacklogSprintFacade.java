@@ -13,7 +13,7 @@ import br.ufes.services.ItemBacklogProjetoService;
 import br.ufes.services.ItemBacklogSprintService;
 import br.ufes.services.SprintService;
 import br.ufes.services.UsuarioService;
-import util.ResponseSearch;
+import br.ufes.util.ResponseSearch;
 
 @Component
 public class ItemBacklogSprintFacade {

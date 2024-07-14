@@ -10,7 +10,7 @@ import br.ufes.dto.SprintUpsertDTO;
 import br.ufes.dto.filter.SprintFilterDTO;
 import br.ufes.services.ProjetoService;
 import br.ufes.services.SprintService;
-import util.ResponseSearch;
+import br.ufes.util.ResponseSearch;
 
 @Component
 public class SprintFacade {

@@ -1,4 +1,4 @@
-package util;
+package br.ufes.util;
 
 import java.util.List;
 

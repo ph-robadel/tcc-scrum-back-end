@@ -20,10 +20,10 @@ import br.ufes.dto.UsuarioUpdateSenhaDTO;
 import br.ufes.dto.UsuarioUpsertDTO;
 import br.ufes.dto.filter.UsuarioFilterDTO;
 import br.ufes.facade.UsuarioFacade;
+import br.ufes.util.ResponseSearch;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import util.ResponseSearch;
 
 @RestController
 @Tag(name = "Usuários")

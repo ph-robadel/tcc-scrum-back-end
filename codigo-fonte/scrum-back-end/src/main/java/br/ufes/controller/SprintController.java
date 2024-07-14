@@ -19,11 +19,11 @@ import br.ufes.dto.SprintUpsertDTO;
 import br.ufes.dto.filter.ItemBacklogSprintFilterDTO;
 import br.ufes.facade.ItemBacklogSprintFacade;
 import br.ufes.facade.SprintFacade;
+import br.ufes.util.ResponseSearch;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.websocket.server.PathParam;
-import util.ResponseSearch;
 
 @RestController
 @Tag(name = "Sprints")

@@ -1,4 +1,4 @@
-package util;
+package br.ufes.util;
 
 import br.ufes.enums.DirecaoOrdenacaoEnum;
 import lombok.Getter;

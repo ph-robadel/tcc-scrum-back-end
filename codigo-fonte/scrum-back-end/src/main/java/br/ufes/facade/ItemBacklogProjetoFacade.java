@@ -13,7 +13,7 @@ import br.ufes.dto.filter.ItemBacklogProjetoFilterDTO;
 import br.ufes.services.ItemBacklogProjetoService;
 import br.ufes.services.ProjetoService;
 import br.ufes.services.UsuarioService;
-import util.ResponseSearch;
+import br.ufes.util.ResponseSearch;
 
 @Component
 public class ItemBacklogProjetoFacade {

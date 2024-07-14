@@ -1,4 +1,4 @@
-package exception;
+package br.ufes.exception;
 
 import java.util.List;
 import java.util.stream.Collectors;

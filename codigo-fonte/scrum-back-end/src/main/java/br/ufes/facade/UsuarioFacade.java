@@ -14,9 +14,9 @@ import br.ufes.dto.UsuarioUpdateSenhaDTO;
 import br.ufes.dto.UsuarioUpsertDTO;
 import br.ufes.dto.filter.UsuarioFilterDTO;
 import br.ufes.entity.Usuario;
+import br.ufes.exception.BusinessException;
 import br.ufes.services.UsuarioService;
-import exception.BusinessException;
-import util.ResponseSearch;
+import br.ufes.util.ResponseSearch;
 
 @Component
 public class UsuarioFacade {

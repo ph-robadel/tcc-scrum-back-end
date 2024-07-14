@@ -13,7 +13,7 @@ import br.ufes.dto.filter.ProjetoFilterDTO;
 import br.ufes.dto.filter.ProjetoUsuarioFilterDTO;
 import br.ufes.services.ProjetoService;
 import br.ufes.services.UsuarioService;
-import util.ResponseSearch;
+import br.ufes.util.ResponseSearch;
 
 @Component
 public class ProjetoFacade {

@@ -27,11 +27,11 @@ import br.ufes.dto.filter.SprintFilterDTO;
 import br.ufes.facade.ItemBacklogProjetoFacade;
 import br.ufes.facade.ProjetoFacade;
 import br.ufes.facade.SprintFacade;
+import br.ufes.util.ResponseSearch;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.websocket.server.PathParam;
-import util.ResponseSearch;
 
 @RestController
 @Tag(name = "Projetos")
