@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 public class ResponseSearch<T> {
 
-	private List<T> lista;
+	private List<T> listPage;
 	private Long total;
 }

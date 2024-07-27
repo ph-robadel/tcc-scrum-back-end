@@ -12,4 +12,12 @@ public enum PerfilUsuarioEnum {
 	ADMINISTRADOR("Administrador do Sistema");
 
 	private String role;
+	
+	public static PerfilUsuarioEnum fromString(String valor) {
+		if (valor == null) {
+			return null;
+		}
+		var valorFormatado = valor.toUpperCase().trim();
+		return valueOf(valorFormatado);
+	}
 }

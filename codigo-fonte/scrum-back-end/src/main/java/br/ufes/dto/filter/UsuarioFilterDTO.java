@@ -11,16 +11,18 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsuarioFilterDTO extends BaseFilterSearch{
+public class UsuarioFilterDTO extends BaseFilterSearch {
 
-	private String nomeCompleto;
+	private String nome;
 
-	private String nomeUsuario;
-
-	private String email;
-
-	private Boolean ativo;
+	private Boolean apenasAtivo;
 
 	private PerfilUsuarioEnum perfil;
+
+	public UsuarioFilterDTO(String nome, Boolean apenasAtivo, String perfil) {
+		this.nome = nome;
+		this.apenasAtivo = apenasAtivo;
+		setPerfil(PerfilUsuarioEnum.fromString(perfil));
+	}
 
 }

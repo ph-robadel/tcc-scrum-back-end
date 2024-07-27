@@ -38,7 +38,7 @@ public class SprintFacade {
 		mock.setProjeto(projetoService.getMock());
 
 		var responseSearch = new ResponseSearch<SprintDTO>();
-		responseSearch.setLista(List.of(mock));
+		responseSearch.setListPage(List.of(mock));
 		responseSearch.setTotal(1l);
 		return responseSearch;
 	}

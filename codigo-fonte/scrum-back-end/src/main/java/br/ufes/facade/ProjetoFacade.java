@@ -30,7 +30,7 @@ public class ProjetoFacade {
 	public ResponseSearch<ProjetoDTO> search(ProjetoFilterDTO filterDTO) throws Exception {
 		var responseSearch = new ResponseSearch<ProjetoDTO>();
 		var projetoMock = projetoService.getMock();
-		responseSearch.setLista(List.of(projetoMock));
+		responseSearch.setListPage(List.of(projetoMock));
 		responseSearch.setTotal(1l);
 		return responseSearch;
 	}
@@ -58,7 +58,7 @@ public class ProjetoFacade {
 			ProjetoUsuarioFilterDTO projetoUsuarioFiltroDTO) throws Exception {
 		var responseSearch = new ResponseSearch<UsuarioResponseDTO>();
 		var usuarioMock = usuarioService.getResponseMock();
-		responseSearch.setLista(List.of(usuarioMock));
+		responseSearch.setListPage(List.of(usuarioMock));
 		responseSearch.setTotal(1l);
 		return responseSearch;
 	}

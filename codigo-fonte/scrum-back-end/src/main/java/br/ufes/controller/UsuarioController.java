@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.dto.UsuarioResponseDTO;
@@ -19,6 +20,7 @@ import br.ufes.dto.UsuarioUpdateSenhaAdminDTO;
 import br.ufes.dto.UsuarioUpdateSenhaDTO;
 import br.ufes.dto.UsuarioUpsertDTO;
 import br.ufes.dto.filter.UsuarioFilterDTO;
+import br.ufes.enums.PerfilUsuarioEnum;
 import br.ufes.facade.UsuarioFacade;
 import br.ufes.util.ResponseSearch;
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,11 +45,21 @@ public class UsuarioController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 
-	@Operation(summary = "Buscar usuário")
+	@Operation(summary = "Pesquisar usuário")
 	@GetMapping
-	public ResponseEntity<ResponseSearch<UsuarioResponseDTO>> search(@RequestBody UsuarioFilterDTO filterDTO)
-			throws Exception {
-		var resultSearch = usuarioFacade.search(filterDTO);
+	public ResponseEntity<ResponseSearch<UsuarioResponseDTO>> search(
+			@RequestParam(defaultValue = "") String nome,
+			@RequestParam(defaultValue = "true") Boolean apenasAtivo,
+			@RequestParam(defaultValue = "") String perfil,
+			@RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "") String fieldSort,
+            @RequestParam(defaultValue = "DESC") String sortOrder) throws Exception {
+		
+		var usuarioSearch = new UsuarioFilterDTO(nome, apenasAtivo, perfil);
+		usuarioSearch.setPageAndSorting(page, size, fieldSort, sortOrder);
+		
+		var resultSearch = usuarioFacade.search(usuarioSearch);
 		return ResponseEntity.ok(resultSearch);
 	}
 

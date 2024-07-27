@@ -47,10 +47,10 @@ public class UsuarioFacade {
 		return modelMapper.map(usuario, UsuarioResponseDTO.class);
 	}
 
-	public ResponseSearch<UsuarioResponseDTO> search(UsuarioFilterDTO filterDTO) throws Exception {
+	public ResponseSearch<UsuarioResponseDTO> search(UsuarioFilterDTO usuarioFilterDTO) throws Exception {
+		Implementar search
 		var responseSearch = new ResponseSearch<UsuarioResponseDTO>();
-		var usuarioMock = usuarioService.getResponseMock();
-		responseSearch.setLista(List.of(usuarioMock));
+		responseSearch.setListPage(List.of());
 		responseSearch.setTotal(1L);
 		return responseSearch;
 	}

@@ -39,7 +39,7 @@ public class ItemBacklogSprintFacade {
 		itemBacklogSprintMock.setSprint(sprintService.getBasicMock());
 		
 		var responseSearch = new ResponseSearch<ItemBacklogSprintDTO>();
-		responseSearch.setLista(List.of(itemBacklogSprintMock));
+		responseSearch.setListPage(List.of(itemBacklogSprintMock));
 		responseSearch.setTotal(1l);
 		return responseSearch;
 	}

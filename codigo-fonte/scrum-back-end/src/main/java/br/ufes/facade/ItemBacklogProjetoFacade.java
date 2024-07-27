@@ -58,7 +58,7 @@ public class ItemBacklogProjetoFacade {
 		mock.setAutor(usuarioService.getBasicMock());
 
 		var responseSearch = new ResponseSearch<ItemBacklogProjetoDTO>();
-		responseSearch.setLista(List.of(mock));
+		responseSearch.setListPage(List.of(mock));
 		responseSearch.setTotal(1l);
 		return responseSearch;
 	}
