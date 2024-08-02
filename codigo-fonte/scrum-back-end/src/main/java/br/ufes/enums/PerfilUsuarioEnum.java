@@ -1,5 +1,7 @@
 package br.ufes.enums;
 
+import org.apache.commons.lang3.StringUtils;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -14,7 +16,7 @@ public enum PerfilUsuarioEnum {
 	private String role;
 	
 	public static PerfilUsuarioEnum fromString(String valor) {
-		if (valor == null) {
+		if ( StringUtils.isEmpty(valor)) {
 			return null;
 		}
 		var valorFormatado = valor.toUpperCase().trim();

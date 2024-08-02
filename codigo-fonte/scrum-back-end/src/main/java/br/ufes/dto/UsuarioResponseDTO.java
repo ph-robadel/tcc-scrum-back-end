@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UsuarioResponseDTO {
 
-	private Long Id;
+	private Long id;
 
 	private String nomeCompleto;
 
@@ -23,5 +23,15 @@ public class UsuarioResponseDTO {
 	private Boolean ativo;
 
 	private PerfilUsuarioEnum perfil;
+
+	public UsuarioResponseDTO(Long id, String nomeCompleto, String nomeUsuario, String email, Boolean ativo) {
+		this.id = id;
+		this.nomeCompleto = nomeCompleto;
+		this.nomeUsuario = nomeUsuario;
+		this.email = email;
+		this.ativo = ativo;
+	}
+	
+	
 
 }

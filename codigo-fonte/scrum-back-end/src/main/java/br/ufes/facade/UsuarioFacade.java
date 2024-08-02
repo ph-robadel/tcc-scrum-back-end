@@ -48,10 +48,13 @@ public class UsuarioFacade {
 	}
 
 	public ResponseSearch<UsuarioResponseDTO> search(UsuarioFilterDTO usuarioFilterDTO) throws Exception {
-		Implementar search
 		var responseSearch = new ResponseSearch<UsuarioResponseDTO>();
-		responseSearch.setListPage(List.of());
-		responseSearch.setTotal(1L);
+		
+		List<UsuarioResponseDTO> listPage = usuarioService.search(usuarioFilterDTO);
+		Long total = usuarioService.searchCount(usuarioFilterDTO);
+		
+		responseSearch.setListPage(listPage);
+		responseSearch.setTotal(total);
 		return responseSearch;
 	}
 

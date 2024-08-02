@@ -1,5 +1,7 @@
 package br.ufes.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import br.ufes.dto.UsuarioBasicDTO;
 import br.ufes.dto.UsuarioResponseDTO;
+import br.ufes.dto.filter.UsuarioFilterDTO;
 import br.ufes.entity.Usuario;
 import br.ufes.enums.PerfilUsuarioEnum;
 import br.ufes.repository.UsuarioRepository;
@@ -72,5 +75,13 @@ public class UsuarioService {
 		}
 
 		return null;
+	}
+
+	public List<UsuarioResponseDTO> search(UsuarioFilterDTO usuarioFilterDTO) {
+		return usuarioRepository.search(usuarioFilterDTO);
+	}
+
+	public Long searchCount(UsuarioFilterDTO usuarioFilterDTO) {
+		return usuarioRepository.searchCount(usuarioFilterDTO);
 	}
 }
