@@ -8,17 +8,19 @@ import lombok.Setter;
 @Setter
 public abstract class BaseFilterSearch {
 
-	private Integer page;
-	private Integer size;
-	private String fieldSort;
-	private DirecaoOrdenacaoEnum sortOrder;
+	protected Integer page;
+	protected Integer size;
+	protected String fieldSort;
+	protected DirecaoOrdenacaoEnum sortOrder;
 	
 	public void setPageAndSorting(Integer page, Integer size, String fieldSort, String sortOrder) {
 		this.page = page;
 		this.size = size;
-		this.fieldSort = fieldSort;
+		setFieldSort(fieldSort);
 		setSortOrder(DirecaoOrdenacaoEnum.fromString(sortOrder));
 	}
+	
+	public abstract void setFieldSort(String nomeCampo);
 	
 	
 }

@@ -1,5 +1,7 @@
 package br.ufes.dto.filter;
 
+import java.util.HashMap;
+
 import br.ufes.enums.SituacaoItemProjetoEnum;
 import br.ufes.util.BaseFilterSearch;
 import lombok.AllArgsConstructor;
@@ -20,5 +22,15 @@ public class ItemBacklogProjetoFilterDTO extends BaseFilterSearch {
 	private SituacaoItemProjetoEnum situacao;
 
 	private Long idAutor;
+	
+	@Override
+	public void setFieldSort(String nomeCampo) {
+		var mapFieldSort = new HashMap<String, String>();
+		var campoFormatado = nomeCampo.toLowerCase().trim();
+
+		mapFieldSort.put("id", "id");
+
+		this.fieldSort = mapFieldSort.getOrDefault(campoFormatado, null);
+	}
 
 }

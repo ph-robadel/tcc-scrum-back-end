@@ -1,7 +1,5 @@
 package br.ufes.facade;
 
-import java.util.List;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -48,14 +46,10 @@ public class UsuarioFacade {
 	}
 
 	public ResponseSearch<UsuarioResponseDTO> search(UsuarioFilterDTO usuarioFilterDTO) throws Exception {
-		var responseSearch = new ResponseSearch<UsuarioResponseDTO>();
-		
-		List<UsuarioResponseDTO> listPage = usuarioService.search(usuarioFilterDTO);
-		Long total = usuarioService.searchCount(usuarioFilterDTO);
-		
-		responseSearch.setListPage(listPage);
-		responseSearch.setTotal(total);
-		return responseSearch;
+		var listPage = usuarioService.search(usuarioFilterDTO);
+		var total = usuarioService.searchCount(usuarioFilterDTO);
+
+		return new ResponseSearch<>(listPage, total);
 	}
 
 	public void inativarUsuario(Long idUsuario) throws Exception {

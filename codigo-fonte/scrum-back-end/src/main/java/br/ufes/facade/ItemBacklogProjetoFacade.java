@@ -57,10 +57,7 @@ public class ItemBacklogProjetoFacade {
 		mock.setProjeto(projetoService.getBasicMock());
 		mock.setAutor(usuarioService.getBasicMock());
 
-		var responseSearch = new ResponseSearch<ItemBacklogProjetoDTO>();
-		responseSearch.setListPage(List.of(mock));
-		responseSearch.setTotal(1l);
-		return responseSearch;
+		return new ResponseSearch<>(List.of(mock), 1l);
 	}
 
 	public void deleteItemBacklogProjeto(Long idItemBacklogProjeto) throws Exception {

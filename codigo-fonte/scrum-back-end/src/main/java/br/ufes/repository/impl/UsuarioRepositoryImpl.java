@@ -31,9 +31,41 @@ public class UsuarioRepositoryImpl {
 		sqlBuider.append("   u.perfil");
 		sqlBuider.append(" ) ");
 
+		searchFrom(usuarioFilterDTO, sqlBuider, params);
+
+		if (!ObjectUtils.isEmpty(usuarioFilterDTO.getFieldSort())
+				&& !ObjectUtils.isEmpty(usuarioFilterDTO.getSortOrder())) {
+			sqlBuider.append(
+					" ORDER BY " + usuarioFilterDTO.getFieldSort() + " " + usuarioFilterDTO.getSortOrder().name());
+		}
+
+		var query = manager.createQuery(sqlBuider.toString(), UsuarioResponseDTO.class);
+		params.forEach(query::setParameter);
+
+		query.setFirstResult(usuarioFilterDTO.getPage() * usuarioFilterDTO.getSize());
+		query.setMaxResults(usuarioFilterDTO.getSize());
+		return query.getResultList();
+	}
+
+	public Long searchCount(UsuarioFilterDTO usuarioFilterDTO) {
+
+		var sqlBuider = new StringBuilder();
+		var params = new HashMap<String, Object>();
+
+		sqlBuider.append(" SELECT count(1) ");
+		searchFrom(usuarioFilterDTO, sqlBuider, params);
+
+		var query = manager.createQuery(sqlBuider.toString(), Long.class);
+		params.forEach(query::setParameter);
+
+		var result = query.getResultList();
+		return !ObjectUtils.isEmpty(result) ? result.get(0) : 0l;
+	}
+
+	private void searchFrom(UsuarioFilterDTO usuarioFilterDTO, StringBuilder sqlBuider,
+			HashMap<String, Object> params) {
 		sqlBuider.append(" FROM ");
 		sqlBuider.append("   Usuario u ");
-
 		sqlBuider.append(" WHERE 1=1 ");
 
 		if (!ObjectUtils.isEmpty(usuarioFilterDTO.getNome())) {
@@ -49,22 +81,6 @@ public class UsuarioRepositoryImpl {
 			sqlBuider.append(" and u.perfil = :perfil");
 			params.put("perfil", usuarioFilterDTO.getPerfil());
 		}
-
-		if (!ObjectUtils.isEmpty(usuarioFilterDTO.getFieldSort())) {
-			sqlBuider.append(" ORDER BY :fieldSort :sortOrder ");
-			params.put("fieldSort", usuarioFilterDTO.getFieldSort());
-			params.put("sortOrder", usuarioFilterDTO.getSortOrder().name());
-		}
-
-		var query = manager.createQuery(sqlBuider.toString(), UsuarioResponseDTO.class);
-		params.forEach( query::setParameter );
-		
-		query.setFirstResult(usuarioFilterDTO.getPage() * usuarioFilterDTO.getSize());
-		query.setMaxResults(usuarioFilterDTO.getSize());
-		return query.getResultList();
 	}
 
-	public Long searchCount(UsuarioFilterDTO usuarioFilterDTO) {
-		return 10L;
-	}
 }

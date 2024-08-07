@@ -37,10 +37,7 @@ public class SprintFacade {
 		var mock = sprintService.getMock();
 		mock.setProjeto(projetoService.getMock());
 
-		var responseSearch = new ResponseSearch<SprintDTO>();
-		responseSearch.setListPage(List.of(mock));
-		responseSearch.setTotal(1l);
-		return responseSearch;
+		return new ResponseSearch<>(List.of(mock), 1l);
 	}
 
 	public SprintDTO atualizarSprint(Long idSprint, SprintUpsertDTO sprintUpsertDTO) throws Exception {

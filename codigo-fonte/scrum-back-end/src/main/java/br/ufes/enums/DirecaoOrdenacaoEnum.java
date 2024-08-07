@@ -1,5 +1,7 @@
 package br.ufes.enums;
 
+import br.ufes.exception.RequestArgumentException;
+
 public enum DirecaoOrdenacaoEnum {
 	ASC, DESC;
 
@@ -8,6 +10,10 @@ public enum DirecaoOrdenacaoEnum {
 			return null;
 		}
 		var valorFormatado = valor.toUpperCase().trim();
-		return valueOf(valorFormatado);
+		try {
+			return valueOf(valorFormatado);
+		} catch (IllegalArgumentException ex) {
+			throw new RequestArgumentException("O sortOrder '" + valor + "' não é válido");
+		}
 	}
 }

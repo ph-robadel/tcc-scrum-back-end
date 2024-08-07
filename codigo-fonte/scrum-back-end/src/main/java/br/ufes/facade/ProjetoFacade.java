@@ -28,11 +28,9 @@ public class ProjetoFacade {
 	private ModelMapper modelMapper;
 
 	public ResponseSearch<ProjetoDTO> search(ProjetoFilterDTO filterDTO) throws Exception {
-		var responseSearch = new ResponseSearch<ProjetoDTO>();
 		var projetoMock = projetoService.getMock();
-		responseSearch.setListPage(List.of(projetoMock));
-		responseSearch.setTotal(1l);
-		return responseSearch;
+		
+		return new ResponseSearch<>(List.of(projetoMock), 1l);
 	}
 
 	public ProjetoDTO getById(Long idProjeto) throws Exception {
@@ -56,11 +54,10 @@ public class ProjetoFacade {
 
 	public ResponseSearch<UsuarioResponseDTO> searchProjetoUsuario(Long idProjeto,
 			ProjetoUsuarioFilterDTO projetoUsuarioFiltroDTO) throws Exception {
-		var responseSearch = new ResponseSearch<UsuarioResponseDTO>();
+		
 		var usuarioMock = usuarioService.getResponseMock();
-		responseSearch.setListPage(List.of(usuarioMock));
-		responseSearch.setTotal(1l);
-		return responseSearch;
+		
+		return new ResponseSearch<>(List.of(usuarioMock), 1l);
 	}
 
 	public void cadastrarProjetoUsuario(Long idProjeto, Long idUsuario) throws Exception {

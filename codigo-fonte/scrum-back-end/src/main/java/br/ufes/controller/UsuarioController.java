@@ -53,7 +53,7 @@ public class UsuarioController {
 			@RequestParam(defaultValue = "") String perfil,
 			@RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "") String fieldSort,
+            @RequestParam(defaultValue = "id") String fieldSort,
             @RequestParam(defaultValue = "DESC") String sortOrder) throws Exception {
 		
 		var usuarioSearch = new UsuarioFilterDTO(nome, apenasAtivo, perfil);

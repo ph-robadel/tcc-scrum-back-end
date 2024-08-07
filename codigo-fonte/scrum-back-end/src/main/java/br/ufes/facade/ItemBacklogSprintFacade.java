@@ -38,10 +38,7 @@ public class ItemBacklogSprintFacade {
 		itemBacklogSprintMock.setResponsavelAprovacao(usuarioService.getBasicMock());
 		itemBacklogSprintMock.setSprint(sprintService.getBasicMock());
 		
-		var responseSearch = new ResponseSearch<ItemBacklogSprintDTO>();
-		responseSearch.setListPage(List.of(itemBacklogSprintMock));
-		responseSearch.setTotal(1l);
-		return responseSearch;
+		return new ResponseSearch<>(List.of(itemBacklogSprintMock), 1l);
 	}
 
 	public ItemBacklogSprintDTO adicionarItemBacklogSprint(Long idSprint, Long idItemBacklogProjeto, ItemBacklogSprintUpsertDTO itemBacklogSprintUpsertDTO) throws Exception {

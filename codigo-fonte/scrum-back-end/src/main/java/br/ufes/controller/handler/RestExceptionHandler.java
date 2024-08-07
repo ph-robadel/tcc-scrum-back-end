@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.auth0.jwt.exceptions.TokenExpiredException;
 
 import br.ufes.exception.BusinessException;
+import br.ufes.exception.RequestArgumentException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,6 +32,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(BusinessException.class)
 	private ResponseEntity<String> businessExceptionHandler(BusinessException exception) {
+		return ResponseEntity.badRequest().body(exception.getMessage());
+	}
+	
+	@ExceptionHandler(RequestArgumentException.class)
+	private ResponseEntity<String> requestArgumentException(RequestArgumentException exception) {
 		return ResponseEntity.badRequest().body(exception.getMessage());
 	}
 
