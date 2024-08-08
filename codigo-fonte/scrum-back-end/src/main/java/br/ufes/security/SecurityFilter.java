@@ -26,23 +26,27 @@ public class SecurityFilter extends OncePerRequestFilter {
 	private UsuarioRepository usuarioRepository;
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+			throws ServletException, IOException {
 		try {
 			var token = recoverToken(request);
-			if(token != null) {
+			if (token != null) {
 				var nomeUsuario = tokenService.validarToken(token);
-				var usuario =  usuarioRepository.findByNomeUsuario(nomeUsuario);
+				var usuario = usuarioRepository.findByNomeUsuario(nomeUsuario);
+				if (!Boolean.TRUE.equals(usuario.getAtivo())) {
+					throw new JWTVerificationException("Usuário inativo");
+				}
 				var authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
-				
-				SecurityContextHolder.getContext().setAuthentication(authentication);			
+
+				SecurityContextHolder.getContext().setAuthentication(authentication);
 			}
 			filterChain.doFilter(request, response);
-		} catch(JWTVerificationException exception){
+		} catch (JWTVerificationException exception) {
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-		    response.setCharacterEncoding("UTF-8");
-		    response.getWriter().write(exception.getLocalizedMessage());
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write(exception.getLocalizedMessage());
 		}
-		
+
 	}
 
 	private String recoverToken(HttpServletRequest request) {

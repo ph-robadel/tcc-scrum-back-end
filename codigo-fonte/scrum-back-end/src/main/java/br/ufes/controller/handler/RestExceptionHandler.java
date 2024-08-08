@@ -4,6 +4,8 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -43,7 +45,18 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(InternalAuthenticationServiceException.class)
 	private ResponseEntity<String> internalAuthenticationServiceExceptionHandler(
 			InternalAuthenticationServiceException exception) {
-		return ResponseEntity.badRequest().body("Não foi possível se autenticar com usuário e senha informado!");
+		return ResponseEntity.badRequest().body("Não foi possível se autenticar. Usuário inexistente!");
+	}
+	
+	@ExceptionHandler(BadCredentialsException.class)
+	private ResponseEntity<String> badCredentialsExceptionHandler(
+			BadCredentialsException exception) {
+		return ResponseEntity.badRequest().body("Não foi possível se autenticar. Senha inválida!");
+	}
+	
+	@ExceptionHandler(DisabledException.class)
+	private ResponseEntity<String> disabledExceptionHandler(RuntimeException exception) {
+		return ResponseEntity.badRequest().body("Não foi possível se autenticar. Usuário inativo!");
 	}
 
 	@ExceptionHandler(TokenExpiredException.class)

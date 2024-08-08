@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import br.ufes.dto.UsuarioUpsertDTO;
 import br.ufes.enums.PerfilUsuarioEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -58,6 +59,13 @@ public class Usuario implements UserDetails {
 		}
 		return null;
 	}
+	
+	public void atualizarAtributos(UsuarioUpsertDTO usuarioUpdateDTO) {
+		setNomeCompleto(usuarioUpdateDTO.getNomeCompleto());
+		setNomeUsuario(usuarioUpdateDTO.getNomeUsuario());
+		setEmail(usuarioUpdateDTO.getEmail());
+		setPerfil(usuarioUpdateDTO.getPerfil());
+	}
 
 	@Override
 	public String getPassword() {
@@ -81,7 +89,7 @@ public class Usuario implements UserDetails {
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return true;
+		return Boolean.TRUE.equals(this.ativo);
 	}
 
 	@Override

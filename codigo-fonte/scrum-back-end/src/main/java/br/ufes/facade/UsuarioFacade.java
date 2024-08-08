@@ -35,7 +35,7 @@ public class UsuarioFacade {
 		usuario.setSenha(senhaCriptografada);
 		usuario.setAtivo(true);
 
-		usuario = usuarioService.insert(usuario);
+		usuario = usuarioService.upsert(usuario);
 
 		return modelMapper.map(usuario, UsuarioResponseDTO.class);
 	}
@@ -45,26 +45,71 @@ public class UsuarioFacade {
 		return modelMapper.map(usuario, UsuarioResponseDTO.class);
 	}
 
-	public ResponseSearch<UsuarioResponseDTO> search(UsuarioFilterDTO usuarioFilterDTO) throws Exception {
+	public UsuarioResponseDTO getUsuarioAutenticado() throws Exception {
+		var usuario = usuarioService.getUsuarioAutenticado();
+		return modelMapper.map(usuario, UsuarioResponseDTO.class);
+	}
+
+	public ResponseSearch<UsuarioResponseDTO> search(UsuarioFilterDTO usuarioFilterDTO) {
 		var listPage = usuarioService.search(usuarioFilterDTO);
 		var total = usuarioService.searchCount(usuarioFilterDTO);
 
 		return new ResponseSearch<>(listPage, total);
 	}
 
+	public void inativarUsuarioAutenticado() throws Exception {
+		var usuarioAutenticado = usuarioService.getUsuarioAutenticado();
+		usuarioAutenticado.setAtivo(false);
+		usuarioService.upsert(usuarioAutenticado);
+	}
+
 	public void inativarUsuario(Long idUsuario) throws Exception {
+		var usuario = usuarioService.getById(idUsuario);
+
+		if (!Boolean.TRUE.equals(usuario.getAtivo())) {
+			throw new BusinessException("Usuário já está inativo");
+		}
+
+		usuario.setAtivo(false);
+		usuarioService.upsert(usuario);
+	}
+
+	public void reativar(Long idUsuario) throws Exception {
+		var usuario = usuarioService.getById(idUsuario);
+
+		if (Boolean.TRUE.equals(usuario.getAtivo())) {
+			throw new BusinessException("Usuário já está ativo");
+		}
+
+		usuario.setAtivo(true);
+		usuarioService.upsert(usuario);
+	}
+
+	public void reativarUsuario(Long idUsuario) throws Exception {
 	}
 
 	public void atualizarSenhaUsuario(UsuarioUpdateSenhaDTO udpateSenhaDTO) throws Exception {
 	}
 
-	public void atualizarSenhaUsuarioByAdmin(UsuarioUpdateSenhaAdminDTO udpateSenhaDTO) throws Exception {
+	public void atualizarSenhaUsuarioByAdmin(Long idUsuario, UsuarioUpdateSenhaAdminDTO udpateSenhaDTO) throws Exception {
 	}
 
+	public UsuarioDTO atualizarUsuarioAutenticado(UsuarioUpsertDTO usuarioUpdateDTO) throws Exception {
+		var usuarioAutenticado = usuarioService.getUsuarioAutenticado();
+		return updateUsuario(usuarioUpdateDTO, usuarioAutenticado);
+	}
+	
 	public UsuarioDTO atualizarUsuario(Long idUsuario, UsuarioUpsertDTO usuarioUpdateDTO) throws Exception {
-		var usuarioDTO = modelMapper.map(usuarioUpdateDTO, UsuarioDTO.class);
-		usuarioDTO.setId(idUsuario);
-		return usuarioDTO;
+		var usuario = usuarioService.getById(idUsuario);
+		return updateUsuario(usuarioUpdateDTO, usuario);
+	}
+
+	private UsuarioDTO updateUsuario(UsuarioUpsertDTO usuarioUpdateDTO, Usuario usuario) {
+		// TODO: validar update
+		usuario.atualizarAtributos(usuarioUpdateDTO);
+		usuarioService.upsert(usuario);
+		
+		return modelMapper.map(usuario, UsuarioDTO.class);
 	}
 
 }

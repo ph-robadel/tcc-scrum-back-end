@@ -42,7 +42,7 @@ public class UsuarioService {
 		return usuario;
 	}
 
-	public Usuario insert(Usuario usuario) {
+	public Usuario upsert(Usuario usuario) {
 		return usuarioRepository.save(usuario);
 	}
 
