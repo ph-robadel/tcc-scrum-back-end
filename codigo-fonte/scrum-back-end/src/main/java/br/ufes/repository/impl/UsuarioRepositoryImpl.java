@@ -8,6 +8,7 @@ import org.springframework.util.ObjectUtils;
 
 import br.ufes.dto.UsuarioResponseDTO;
 import br.ufes.dto.filter.UsuarioFilterDTO;
+import br.ufes.entity.Usuario;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
@@ -81,6 +82,27 @@ public class UsuarioRepositoryImpl {
 			sqlBuider.append(" and u.perfil = :perfil");
 			params.put("perfil", usuarioFilterDTO.getPerfil());
 		}
+	}
+	
+	public boolean isNomeUsuarioDisponivel(String nomeUsuario, Long idUsuario) {
+
+		var sqlBuider = new StringBuilder();
+		var params = new HashMap<String, Object>();
+
+		sqlBuider.append(" SELECT u ");
+		sqlBuider.append(" FROM Usuario u ");
+		sqlBuider.append(" WHERE u.nomeUsuario = :nomeUsuario ");
+		params.put("nomeUsuario", nomeUsuario);
+		
+		if(!ObjectUtils.isEmpty(idUsuario)) {
+			sqlBuider.append(" and u.id != :id ");
+			params.put("idUsuario", idUsuario);
+		}
+
+		var query = manager.createQuery(sqlBuider.toString(), Usuario.class);
+		params.forEach(query::setParameter);
+
+		return ObjectUtils.isEmpty(query.getResultList());
 	}
 
 }

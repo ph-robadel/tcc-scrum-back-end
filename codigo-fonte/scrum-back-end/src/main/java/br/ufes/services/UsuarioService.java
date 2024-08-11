@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import br.ufes.dto.UsuarioBasicDTO;
 import br.ufes.dto.UsuarioResponseDTO;
@@ -83,5 +84,9 @@ public class UsuarioService {
 
 	public Long searchCount(UsuarioFilterDTO usuarioFilterDTO) {
 		return usuarioRepository.searchCount(usuarioFilterDTO);
+	}
+	
+	public boolean isNomeUsuarioDisponível(String nomeUsuario, Long idUsuario) {
+		return usuarioRepository.isNomeUsuarioDisponivel(nomeUsuario, idUsuario);
 	}
 }

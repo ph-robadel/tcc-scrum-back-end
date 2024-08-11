@@ -10,7 +10,7 @@ Aplicação Java:
 [ ] Resolver dilema do usuário adm. (Sobre criar o usuário padrão)
 
 
-[ ] Implementar recursos UsuarioController.
+[o] Implementar recursos UsuarioController. (testar: atualizarUsuario, atualizarUsuarioAutenticado, cadastrarUsuario, atualizarSenhaUsuarioByAdmi, atualizarSenhaUsuario)
 [ ] Implementar recursos ProjetoController.
 [ ] Implementar recursos SprintController.
 [ ] Implementar recursos ItemBacklogProjetoController.

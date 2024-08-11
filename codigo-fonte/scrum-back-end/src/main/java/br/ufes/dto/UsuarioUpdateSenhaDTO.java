@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UsuarioUpdateSenhaDTO {
 
-	private String senhaAntiga;
+	private String senhaAtual;
 	
 	private String novaSenha;
 

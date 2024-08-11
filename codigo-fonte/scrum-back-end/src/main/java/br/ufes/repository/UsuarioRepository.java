@@ -19,4 +19,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	public List<UsuarioResponseDTO> search(UsuarioFilterDTO usuarioFilterDTO);
 
 	public Long searchCount(UsuarioFilterDTO usuarioFilterDTO);
+	
+	public boolean isNomeUsuarioDisponivel(String nomeUsuario, Long idUsuario);
 }
