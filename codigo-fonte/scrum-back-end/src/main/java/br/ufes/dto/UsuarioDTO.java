@@ -18,8 +18,6 @@ public class UsuarioDTO {
 
 	private String nomeUsuario;
 
-	private String senha;
-
 	private String email;
 
 	private Boolean ativo;

@@ -15,15 +15,19 @@ public class UsuarioUpsertDTO {
 	private String nomeCompleto;
 
 	private String nomeUsuario;
-
+	
 	private String senha;
-
+	
 	private String email;
 
-	private PerfilUsuarioEnum perfil;
+	private String perfil;
 	
 	public String getNomeUsuario() {
 		return nomeUsuario != null ? nomeUsuario.toLowerCase() : "";
+	}
+	
+	public PerfilUsuarioEnum getPerfil() {
+		return PerfilUsuarioEnum.fromString(perfil);
 	}
 
 }

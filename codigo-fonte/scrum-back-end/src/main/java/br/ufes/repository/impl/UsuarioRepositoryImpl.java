@@ -95,7 +95,7 @@ public class UsuarioRepositoryImpl {
 		params.put("nomeUsuario", nomeUsuario);
 		
 		if(!ObjectUtils.isEmpty(idUsuario)) {
-			sqlBuider.append(" and u.id != :id ");
+			sqlBuider.append(" and u.id != :idUsuario ");
 			params.put("idUsuario", idUsuario);
 		}
 

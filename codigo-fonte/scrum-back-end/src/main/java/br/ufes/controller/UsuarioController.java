@@ -117,7 +117,7 @@ public class UsuarioController {
 	}
 
 	@Operation(summary = "Atualizar usuário")
-	@PutMapping("/{idUsuario}")
+	@PutMapping("/{idUsuario:\\d+}")
 	public ResponseEntity<Object> atualizarUsuario(@PathVariable Long idUsuario,
 			@RequestBody UsuarioUpsertDTO usuarioUpdateDTO) throws Exception {
 		var usuario = usuarioFacade.atualizarUsuario(idUsuario, usuarioUpdateDTO);

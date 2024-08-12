@@ -24,13 +24,13 @@ public class UsuarioFacade {
 	private UsuarioService usuarioService;
 	
 	@Autowired
-	private UsuarioValidate UsuarioValidate;
+	private UsuarioValidate usuarioValidate;
 
 	@Autowired
 	private ModelMapper modelMapper;
 
 	public UsuarioResponseDTO cadastrarUsuario(UsuarioUpsertDTO usuarioDTO) throws Exception {
-		UsuarioValidate.validateUpsert(usuarioDTO, null);
+		usuarioValidate.validateUpsert(usuarioDTO, null);
 
 		String senhaCriptografada = new BCryptPasswordEncoder().encode(usuarioDTO.getSenha());
 		var usuario = modelMapper.map(usuarioDTO, Usuario.class);
@@ -112,7 +112,7 @@ public class UsuarioFacade {
 	}
 
 	private UsuarioDTO updateUsuario(UsuarioUpsertDTO usuarioUpdateDTO, Long idUsuario) throws Exception {
-		UsuarioValidate.validateUpsert(usuarioUpdateDTO, idUsuario);
+		usuarioValidate.validateUpsert(usuarioUpdateDTO, idUsuario);
 		
 		var usuario = usuarioService.getById(idUsuario);
 		usuario.atualizarAtributos(usuarioUpdateDTO);
@@ -121,7 +121,8 @@ public class UsuarioFacade {
 		return modelMapper.map(usuario, UsuarioDTO.class);
 	}
 	
-	private void atualizarSenha(String novaSenha, Usuario usuario) {
+	private void atualizarSenha(String novaSenha, Usuario usuario) throws Exception{
+		usuarioValidate.validateSenha(novaSenha);
 		String senhaCriptografada = new BCryptPasswordEncoder().encode(novaSenha);
 		usuario.setSenha(senhaCriptografada);
 		usuarioService.upsert(usuario);
