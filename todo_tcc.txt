@@ -11,9 +11,9 @@ Aplicação Java:
 
 
 [x] Implementar recursos UsuarioController.
-[ ] Implementar recursos ProjetoController.
-[ ] Implementar recursos SprintController.
+[x] Implementar recursos ProjetoController. (Testar: cadastrarProjeto, search, getById, inativarProjeto, ativarProjeto, cadastrarProjetoUsuario, inativarProjetoUsuario, searchProjetoUsuario )
 [ ] Implementar recursos ItemBacklogProjetoController.
+[ ] Implementar recursos SprintController.
 [ ] Implementar recursos ItemBackLogSprintController.
 
 Testes:

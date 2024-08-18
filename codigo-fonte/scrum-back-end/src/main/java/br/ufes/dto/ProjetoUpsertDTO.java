@@ -15,7 +15,7 @@ public class ProjetoUpsertDTO {
 
 	private String descricao;
 
-	private Integer diasSprint;
+	private Integer quantidadeDiasSprint;
 
 	private BigDecimal duracaoHorasDaily;
 

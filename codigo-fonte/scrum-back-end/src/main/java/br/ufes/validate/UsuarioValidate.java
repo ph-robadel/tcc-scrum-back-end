@@ -18,7 +18,7 @@ public class UsuarioValidate {
 	@Autowired
 	private UsuarioService usuarioService;
 
-	public void validateUpsert(UsuarioUpsertDTO usuarioUpsertDTO, Long idUsuario) throws Exception {
+	public void validateSave(UsuarioUpsertDTO usuarioUpsertDTO, Long idUsuario) throws Exception {
 		List<String> erros = new ArrayList<>();
 		boolean isUpdate = !ObjectUtils.isEmpty(idUsuario);
 		if (ObjectUtils.isEmpty(usuarioUpsertDTO.getNomeCompleto())) {
@@ -57,23 +57,23 @@ public class UsuarioValidate {
 			throw new BusinessException(erros);
 		}
 	}
-	
+
 	private List<String> getListErrosSenha(String senha) throws Exception {
 		List<String> erros = new ArrayList<>();
 		var senhaVazia = ObjectUtils.isEmpty(senha);
-		
+
 		if (senhaVazia || senha.length() < 6) {
 			erros.add("A senha deve ter 6 ou mais caracteres");
 		}
-		
+
 		if (senhaVazia || !senha.matches(".*\\d.*")) {
 			erros.add("A senha deve conter ao menos um número");
 		}
-		
+
 		if (senhaVazia || !senha.matches(".*[a-zA-Z].*")) {
 			erros.add("A senha deve conter ao menos uma letra");
 		}
-		
+
 		return erros;
 	}
 }

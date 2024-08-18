@@ -4,17 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.dto.ItemBacklogProjetoDTO;
 import br.ufes.dto.ItemBacklogProjetoUpsertDTO;
+import br.ufes.dto.ProjetoBasicDTO;
 import br.ufes.dto.ProjetoDTO;
 import br.ufes.dto.ProjetoUpsertDTO;
 import br.ufes.dto.SprintDTO;
@@ -57,18 +58,17 @@ public class ProjetoController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(projeto);
 	}
 
-	@Operation(summary = "Atualizar projeto")
-	@PutMapping("/{idProjeto}")
-	public ResponseEntity<ProjetoDTO> atualizarProjeto(@PathVariable Long idProjeto,
-			@RequestBody ProjetoUpsertDTO projetoUpdateDTO) throws Exception {
-		var projeto = projetoFacade.atualizarProjeto(idProjeto, projetoUpdateDTO);
-		return ResponseEntity.ok(projeto);
-	}
-
 	@Operation(summary = "buscar projetos do usuário autenticado")
-	@PostMapping("/search")
-	public ResponseEntity<ResponseSearch<ProjetoDTO>> search(@RequestBody ProjetoFilterDTO filterDTO) throws Exception {
-		var projeto = projetoFacade.search(filterDTO);
+	@GetMapping("/search")
+	public ResponseEntity<ResponseSearch<ProjetoBasicDTO>> search(@RequestParam(defaultValue = "") String nome,
+			@RequestParam(defaultValue = "true") Boolean apenasAtivo, @RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String fieldSort,
+			@RequestParam(defaultValue = "DESC") String sortOrder) throws Exception {
+
+		var projetoFilterDTO = new ProjetoFilterDTO(nome, apenasAtivo);
+		projetoFilterDTO.setPageAndSorting(page, size, fieldSort, sortOrder);
+
+		var projeto = projetoFacade.search(projetoFilterDTO);
 		return ResponseEntity.ok(projeto);
 	}
 
@@ -80,21 +80,27 @@ public class ProjetoController {
 
 	}
 
+	@Operation(summary = "Atualizar projeto")
+	@PutMapping("/{idProjeto}")
+	public ResponseEntity<ProjetoDTO> atualizarProjeto(@PathVariable Long idProjeto,
+			@RequestBody ProjetoUpsertDTO projetoUpdateDTO) throws Exception {
+		var projeto = projetoFacade.atualizarProjeto(idProjeto, projetoUpdateDTO);
+		return ResponseEntity.ok(projeto);
+	}
+
 	@Operation(summary = "Inativar projeto")
-	@DeleteMapping("/{idProjeto}")
+	@PostMapping("/{idProjeto}/inativar")
 	public ResponseEntity<Object> inativarProjeto(@PathVariable Long idProjeto) throws Exception {
 		projetoFacade.inativarProjeto(idProjeto);
 		return ResponseEntity.ok().build();
 
 	}
 
-	@Operation(summary = "Buscar usuários do projeto")
-	@PostMapping("/{idProjeto}/usuarios/search")
-	public ResponseEntity<ResponseSearch<UsuarioResponseDTO>> searchProjetoUsuario(
-			@PathParam("idProjeto") Long idProjeto, @RequestBody ProjetoUsuarioFilterDTO projetoUsuarioFiltroDTO)
-			throws Exception {
-		var responseSearch = projetoFacade.searchProjetoUsuario(idProjeto, projetoUsuarioFiltroDTO);
-		return ResponseEntity.ok(responseSearch);
+	@Operation(summary = "Ativar projeto")
+	@PostMapping("/{idProjeto}/ativar")
+	public ResponseEntity<Object> ativarProjeto(@PathVariable Long idProjeto) throws Exception {
+		projetoFacade.inativarProjeto(idProjeto);
+		return ResponseEntity.ok().build();
 
 	}
 
@@ -104,16 +110,37 @@ public class ProjetoController {
 			@PathVariable("idUsuario") Long idUsuario) throws Exception {
 		projetoFacade.cadastrarProjetoUsuario(idProjeto, idUsuario);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
-
 	}
 
-	@Operation(summary = "remover usuário do projeto")
-	@DeleteMapping("/{idProjeto}/usuarios/{idUsuario}")
+	@Operation(summary = "Inativar usuário do projeto")
+	@PostMapping("/{idProjeto}/usuarios/{idUsuario}/inativar")
 	public ResponseEntity<Object> inativarProjetoUsuario(@PathVariable("idProjeto") Long idProjeto,
 			@PathVariable("idUsuario") Long idUsuario) throws Exception {
 		projetoFacade.inativarProjetoUsuario(idProjeto, idUsuario);
 		return ResponseEntity.ok().build();
+	}
 
+	@Operation(summary = "Reativar usuário do projeto")
+	@PostMapping("/{idProjeto}/usuarios/{idUsuario}/reativar")
+	public ResponseEntity<Object> ativarProjetoUsuario(@PathVariable("idProjeto") Long idProjeto,
+			@PathVariable("idUsuario") Long idUsuario) throws Exception {
+		projetoFacade.reativarProjetoUsuario(idProjeto, idUsuario);
+		return ResponseEntity.ok().build();
+	}
+
+	@Operation(summary = "Buscar usuários do projeto")
+	@GetMapping("/{idProjeto}/usuarios/search")
+	public ResponseEntity<ResponseSearch<UsuarioResponseDTO>> searchProjetoUsuario(@PathVariable Long idProjeto,
+			@RequestParam(defaultValue = "") String nomeUsuario, @RequestParam(defaultValue = "") String perfil,
+			@RequestParam(defaultValue = "true") Boolean apenasAtivo, @RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String fieldSort,
+			@RequestParam(defaultValue = "DESC") String sortOrder) throws Exception {
+
+		var projetoFilterDTO = new ProjetoUsuarioFilterDTO(nomeUsuario, perfil, apenasAtivo);
+		projetoFilterDTO.setPageAndSorting(page, size, fieldSort, sortOrder);
+
+		var projeto = projetoFacade.searchProjetoUsuario(idProjeto, projetoFilterDTO);
+		return ResponseEntity.ok(projeto);
 	}
 
 	@Operation(summary = "Cadastrar um novo Item Backlog Projeto")

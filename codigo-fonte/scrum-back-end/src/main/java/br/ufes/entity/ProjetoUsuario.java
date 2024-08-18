@@ -21,6 +21,12 @@ import lombok.Setter;
 @Table(name = "PROJETO_USUARIO")
 public class ProjetoUsuario {
 
+	public ProjetoUsuario(Projeto projeto, Usuario usuario) {
+		setProjeto(projeto);
+		setUsuario(usuario);
+		setAtivo(true);
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long Id;
@@ -34,5 +40,9 @@ public class ProjetoUsuario {
 	private Usuario usuario;
 
 	private Boolean ativo;
+	
+	public boolean isAtivo() {
+		return Boolean.TRUE.equals(ativo);
+	}
 
 }

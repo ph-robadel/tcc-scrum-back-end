@@ -58,7 +58,7 @@ public class UsuarioController {
 	}
 
 	@Operation(summary = "Obter usuário por id")
-	@GetMapping("/{idUsuario}")
+	@GetMapping("/{idUsuario:\\d+}")
 	public ResponseEntity<UsuarioResponseDTO> getById(@PathVariable("idUsuario") Long idUsuario) throws Exception {
 		var usuarioResponseDTO = usuarioFacade.getById(idUsuario);
 		return ResponseEntity.ok(usuarioResponseDTO);

@@ -67,6 +67,10 @@ public class Usuario implements UserDetails {
 		setPerfil(usuarioUpdateDTO.getPerfil());
 	}
 
+	public boolean isAtivo() {
+		return Boolean.TRUE.equals(ativo);
+	}
+
 	@Override
 	public String getPassword() {
 		return senha;

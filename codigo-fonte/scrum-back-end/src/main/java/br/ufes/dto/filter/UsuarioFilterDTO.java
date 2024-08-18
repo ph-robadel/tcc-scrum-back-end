@@ -36,7 +36,6 @@ public class UsuarioFilterDTO extends BaseFilterSearch {
 		mapFieldSort.put("nomecompleto", "nomeCompleto");
 		mapFieldSort.put("nome", "nomeCompleto");
 		mapFieldSort.put("nomeusuario", "nomeUsuario");
-		mapFieldSort.put("email", "email");
 		mapFieldSort.put("ativo", "ativo");
 		mapFieldSort.put("perfil", "perfil");
 

@@ -3,6 +3,7 @@ package br.ufes.entity;
 import java.math.BigDecimal;
 import java.util.List;
 
+import br.ufes.dto.ProjetoUpsertDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -53,5 +54,19 @@ public class Projeto {
 
 	@OneToMany(mappedBy = "projeto", fetch = FetchType.LAZY)
 	private List<ProjetoUsuario> time;
+
+	public void atualizarAtributos(ProjetoUpsertDTO projetoInsertDTO) {
+		setNome(projetoInsertDTO.getNome());
+		setDescricao(projetoInsertDTO.getDescricao());
+		setQuantidadeDiasSprint(projetoInsertDTO.getQuantidadeDiasSprint());
+		setDuracaoHorasDaily(projetoInsertDTO.getDuracaoHorasDaily());
+		setDuracaoHorasPlanning(projetoInsertDTO.getDuracaoHorasPlanning());
+		setDuracaoHorasReview(projetoInsertDTO.getDuracaoHorasReview());
+		setDuracaoHorasRetrospective(projetoInsertDTO.getDuracaoHorasRetrospective());
+	}
+	
+	public boolean isAtivo() {
+		return Boolean.TRUE.equals(ativo);
+	}
 
 }

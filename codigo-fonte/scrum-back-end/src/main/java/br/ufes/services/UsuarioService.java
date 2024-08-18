@@ -7,7 +7,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 
 import br.ufes.dto.UsuarioBasicDTO;
 import br.ufes.dto.UsuarioResponseDTO;
@@ -43,10 +42,11 @@ public class UsuarioService {
 		return usuario;
 	}
 
-	public Usuario upsert(Usuario usuario) {
+	public Usuario save(Usuario usuario) {
 		return usuarioRepository.save(usuario);
 	}
 
+	@Deprecated
 	public UsuarioBasicDTO getBasicMock() {
 		var usuario = new UsuarioBasicDTO();
 		usuario.setId(1l);
@@ -54,6 +54,7 @@ public class UsuarioService {
 		return usuario;
 	}
 
+	@Deprecated
 	public UsuarioResponseDTO getResponseMock() {
 		var usuario = new UsuarioResponseDTO();
 		usuario.setId(1l);
