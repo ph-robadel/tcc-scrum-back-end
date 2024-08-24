@@ -53,10 +53,7 @@ public class UsuarioFacade {
 	}
 
 	public ResponseSearch<UsuarioResponseDTO> search(UsuarioFilterDTO usuarioFilterDTO) {
-		var listPage = usuarioService.search(usuarioFilterDTO);
-		var total = usuarioService.searchCount(usuarioFilterDTO);
-
-		return new ResponseSearch<>(listPage, total);
+		return usuarioService.search(usuarioFilterDTO);
 	}
 
 	public void inativarUsuarioAutenticado() throws Exception {

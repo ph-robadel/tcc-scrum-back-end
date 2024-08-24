@@ -1,7 +1,5 @@
 package br.ufes.facade;
 
-import java.util.List;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,6 +13,7 @@ import br.ufes.dto.filter.ProjetoFilterDTO;
 import br.ufes.dto.filter.ProjetoUsuarioFilterDTO;
 import br.ufes.entity.Projeto;
 import br.ufes.entity.ProjetoUsuario;
+import br.ufes.enums.PerfilUsuarioEnum;
 import br.ufes.exception.BusinessException;
 import br.ufes.services.ProjetoService;
 import br.ufes.services.ProjetoUsuarioService;
@@ -49,28 +48,31 @@ public class ProjetoFacade {
 
 		var projeto = modelMapper.map(projetoInsertDTO, Projeto.class);
 		projeto.setAtivo(true);
-
 		projeto = projetoService.save(projeto);
+
+		var usuarioAutenticado = usuarioService.getUsuarioAutenticado();
+
+		this.cadastrarProjetoUsuario(projeto.getId(), usuarioAutenticado.getId());
 		return modelMapper.map(projeto, ProjetoDTO.class);
 	}
 
 	public ResponseSearch<ProjetoBasicDTO> search(ProjetoFilterDTO filterDTO) throws Exception {
 		var usuario = usuarioService.getUsuarioAutenticado();
 		filterDTO.setIdUsuario(usuario.getId());
+		filterDTO.setIsAdmin(PerfilUsuarioEnum.ADMINISTRADOR.equals(usuario.getPerfil()));
 
-		List<ProjetoBasicDTO> listPage = projetoService.search(filterDTO);
-		Long total = projetoService.searchCount(filterDTO);
-
-		return new ResponseSearch<>(listPage, total);
+		return projetoService.search(filterDTO);
 	}
 
 	public ProjetoDTO getById(Long idProjeto) throws Exception {
+		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(idProjeto);
 
 		var projeto = projetoService.getById(idProjeto);
 		return modelMapper.map(projeto, ProjetoDTO.class);
 	}
 
 	public void inativarProjeto(Long idProjeto) throws Exception {
+		projetoUsuarioValidate.validarAcessoAdminOuUsuarioAutenticadoAoProjeto(idProjeto);
 		var projeto = projetoService.getById(idProjeto);
 
 		if (!projeto.isAtivo()) {
@@ -82,6 +84,8 @@ public class ProjetoFacade {
 	}
 
 	public void ativarProjeto(Long idProjeto) throws Exception {
+		projetoUsuarioValidate.validarAcessoAdminOuUsuarioAutenticadoAoProjeto(idProjeto);
+
 		var projeto = projetoService.getById(idProjeto);
 
 		if (projeto.isAtivo()) {
@@ -93,6 +97,7 @@ public class ProjetoFacade {
 	}
 
 	public ProjetoDTO atualizarProjeto(Long idProjeto, ProjetoUpsertDTO projetoInsertDTO) throws Exception {
+		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(idProjeto);
 		projetoValidate.validateSave(projetoInsertDTO);
 
 		var projeto = projetoService.getById(idProjeto);
@@ -104,18 +109,16 @@ public class ProjetoFacade {
 
 	public ResponseSearch<UsuarioResponseDTO> searchProjetoUsuario(Long idProjeto, ProjetoUsuarioFilterDTO filterDTO)
 			throws Exception {
+		projetoUsuarioValidate.validarAcessoAdminOuUsuarioAutenticadoAoProjeto(idProjeto);
 
-		var projeto = projetoService.getById(filterDTO.getIdProjeto());
+		var projeto = projetoService.getById(idProjeto);
 		if (!projeto.isAtivo()) {
 			throw new BusinessException("Projeto inativo");
 		}
 
 		filterDTO.setIdProjeto(idProjeto);
 
-		List<UsuarioResponseDTO> listPage = projetoUsuarioService.searchProjetoUsuario(filterDTO);
-		Long total = projetoUsuarioService.searchProjetoUsuarioCount(filterDTO);
-
-		return new ResponseSearch<>(listPage, total);
+		return projetoUsuarioService.search(filterDTO);
 	}
 
 	public void cadastrarProjetoUsuario(Long idProjeto, Long idUsuario) throws Exception {
@@ -126,10 +129,14 @@ public class ProjetoFacade {
 
 		var projetoUsuario = new ProjetoUsuario(projeto, usuario);
 		projetoUsuarioService.save(projetoUsuario);
-
 	}
 
 	public void inativarProjetoUsuario(Long idProjeto, Long idUsuario) {
+		var usuarioAutenticado = usuarioService.getUsuarioAutenticado();
+		if (!PerfilUsuarioEnum.ADMINISTRADOR.equals(usuarioAutenticado.getPerfil())) {
+			projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(idProjeto);
+		}
+
 		var projetoUsuario = projetoUsuarioService.getByIdProjetoAndIdUsuario(idProjeto, idUsuario);
 
 		if (ObjectUtils.isEmpty(projetoUsuario)) {
@@ -143,12 +150,17 @@ public class ProjetoFacade {
 	}
 
 	public void reativarProjetoUsuario(Long idProjeto, Long idUsuario) throws Exception {
+		var usuarioAutenticado = usuarioService.getUsuarioAutenticado();
+		if (!PerfilUsuarioEnum.ADMINISTRADOR.equals(usuarioAutenticado.getPerfil())) {
+			projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(idProjeto);
+		}
+
 		var projetoUsuario = projetoUsuarioService.getByIdProjetoAndIdUsuario(idProjeto, idUsuario);
 
 		if (ObjectUtils.isEmpty(projetoUsuario)) {
 			throw new BusinessException("O usuário não está cadastrado ao projeto informado");
-		} else if (!projetoUsuario.isAtivo()) {
-			throw new BusinessException("O usuário já está inativo neste projeto");
+		} else if (projetoUsuario.isAtivo()) {
+			throw new BusinessException("O usuário já está ativo neste projeto");
 		}
 
 		projetoUsuario.setAtivo(true);

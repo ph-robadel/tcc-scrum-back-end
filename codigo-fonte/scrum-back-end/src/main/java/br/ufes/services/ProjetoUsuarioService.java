@@ -10,6 +10,7 @@ import br.ufes.dto.UsuarioResponseDTO;
 import br.ufes.dto.filter.ProjetoUsuarioFilterDTO;
 import br.ufes.entity.ProjetoUsuario;
 import br.ufes.repository.ProjetoUsuarioRepository;
+import br.ufes.util.ResponseSearch;
 
 @Service
 public class ProjetoUsuarioService {
@@ -28,13 +29,12 @@ public class ProjetoUsuarioService {
 
 		return projetoUsuarioRepository.getByIdProjetoAndIdUsuario(idProjeto, idUsuario);
 	}
-	
-	public List<UsuarioResponseDTO> searchProjetoUsuario(ProjetoUsuarioFilterDTO filterDTO) {
-		return projetoUsuarioRepository.search(filterDTO);
-	}
 
-	public Long searchProjetoUsuarioCount(ProjetoUsuarioFilterDTO filterDTO) {
-		return projetoUsuarioRepository.searchCount(filterDTO);
+	public ResponseSearch<UsuarioResponseDTO> search(ProjetoUsuarioFilterDTO filterDTO) {
+		List<UsuarioResponseDTO> listPage = projetoUsuarioRepository.search(filterDTO);
+		Long total = projetoUsuarioRepository.searchCount(filterDTO);
+
+		return new ResponseSearch<>(listPage, total);
 	}
 
 }

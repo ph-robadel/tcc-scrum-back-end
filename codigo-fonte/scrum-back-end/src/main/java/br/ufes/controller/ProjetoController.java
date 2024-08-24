@@ -97,9 +97,9 @@ public class ProjetoController {
 	}
 
 	@Operation(summary = "Ativar projeto")
-	@PostMapping("/{idProjeto}/ativar")
+	@PostMapping("/{idProjeto}/reativar")
 	public ResponseEntity<Object> ativarProjeto(@PathVariable Long idProjeto) throws Exception {
-		projetoFacade.inativarProjeto(idProjeto);
+		projetoFacade.ativarProjeto(idProjeto);
 		return ResponseEntity.ok().build();
 
 	}

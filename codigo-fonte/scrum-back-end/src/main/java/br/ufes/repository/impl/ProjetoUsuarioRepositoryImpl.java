@@ -35,7 +35,7 @@ public class ProjetoUsuarioRepositoryImpl {
 		searchFrom(filterDTO, sqlBuider, params);
 
 		if (!ObjectUtils.isEmpty(filterDTO.getFieldSort()) && !ObjectUtils.isEmpty(filterDTO.getSortOrder())) {
-			sqlBuider.append(" ORDER BY " + filterDTO.getFieldSort() + " " + filterDTO.getSortOrder().name());
+			sqlBuider.append(" ORDER BY u." + filterDTO.getFieldSort() + " " + filterDTO.getSortOrder().name());
 		}
 
 		var query = manager.createQuery(sqlBuider.toString(), UsuarioResponseDTO.class);
@@ -71,7 +71,7 @@ public class ProjetoUsuarioRepositoryImpl {
 
 		if (!ObjectUtils.isEmpty(filterDTO.getIdProjeto())) {
 			sqlBuider.append(" and p.id = :idProjeto ");
-			params.put("idProjeto", "%" + filterDTO.getIdProjeto() + "%");
+			params.put("idProjeto", filterDTO.getIdProjeto() );
 		}
 
 		if (!ObjectUtils.isEmpty(filterDTO.getNomeUsuario())) {
@@ -95,8 +95,10 @@ public class ProjetoUsuarioRepositoryImpl {
 
 		sqlBuider.append(" SELECT pu ");
 		sqlBuider.append(" FROM ProjetoUsuario pu ");
-		sqlBuider.append(" WHERE pu.projeto.id = :idProjeto ");
-		sqlBuider.append("       pu.usuario.id = :idUsuario ");
+		sqlBuider.append("   JOIN pu.projeto p ");
+		sqlBuider.append("   JOIN pu.usuario u ");
+		sqlBuider.append(" WHERE p.id = :idProjeto ");
+		sqlBuider.append("       and u.id = :idUsuario ");
 
 		params.put("idProjeto", idProjeto);
 		params.put("idUsuario", idUsuario);

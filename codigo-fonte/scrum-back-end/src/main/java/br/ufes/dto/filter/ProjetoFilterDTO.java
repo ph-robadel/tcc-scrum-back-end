@@ -20,6 +20,8 @@ public class ProjetoFilterDTO extends BaseFilterSearch {
 	
 	private Long idUsuario;
 	
+	private Boolean isAdmin;
+	
 	
 	@Override
 	public void setFieldSort(String nomeCampo) {
@@ -33,9 +35,11 @@ public class ProjetoFilterDTO extends BaseFilterSearch {
 		this.fieldSort = mapFieldSort.getOrDefault(campoFormatado, null);
 	}
 
-
-
 	public ProjetoFilterDTO(String nome, Boolean apenasAtivo) {
 		this.nome = nome;
+	}
+	
+	public boolean isAdmin() {
+		return Boolean.TRUE.equals(isAdmin);
 	}
 }

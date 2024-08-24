@@ -11,6 +11,7 @@ import br.ufes.dto.ProjetoDTO;
 import br.ufes.dto.filter.ProjetoFilterDTO;
 import br.ufes.entity.Projeto;
 import br.ufes.repository.ProjetoRepository;
+import br.ufes.util.ResponseSearch;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
@@ -47,8 +48,12 @@ public class ProjetoService {
 		return projetoMock;
 	}
 
-	public List<ProjetoBasicDTO> search(ProjetoFilterDTO filterDTO) {
-		return projetoRepository.search(filterDTO);
+	public ResponseSearch<ProjetoBasicDTO> search(ProjetoFilterDTO filterDTO) {
+				
+		List<ProjetoBasicDTO> listPage = projetoRepository.search(filterDTO);
+		Long total = searchCount(filterDTO);
+
+		return new ResponseSearch<>(listPage, total);
 	}
 
 	public Long searchCount(ProjetoFilterDTO filterDTO) {
@@ -65,5 +70,6 @@ public class ProjetoService {
 
 		return usuario;
 	}
+	
 
 }

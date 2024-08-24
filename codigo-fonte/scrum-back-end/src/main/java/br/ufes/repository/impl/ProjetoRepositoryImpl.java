@@ -22,16 +22,16 @@ public class ProjetoRepositoryImpl {
 		var sqlBuider = new StringBuilder();
 		var params = new HashMap<String, Object>();
 
-		sqlBuider.append(" SELECT new br.ufes.dto.ProjetoBasicDTO (");
+		sqlBuider.append(" SELECT distinct new br.ufes.dto.ProjetoBasicDTO (");
 		sqlBuider.append("   p.id, ");
-		sqlBuider.append("   p.nomeCompleto, ");
+		sqlBuider.append("   p.nome, ");
 		sqlBuider.append("   p.descricao ");
 		sqlBuider.append(" ) ");
 
 		searchFrom(filterDTO, sqlBuider, params);
 
 		if (!ObjectUtils.isEmpty(filterDTO.getFieldSort()) && !ObjectUtils.isEmpty(filterDTO.getSortOrder())) {
-			sqlBuider.append(" ORDER BY " + filterDTO.getFieldSort() + " " + filterDTO.getSortOrder().name());
+			sqlBuider.append(" ORDER BY p." + filterDTO.getFieldSort() + " " + filterDTO.getSortOrder().name());
 		}
 
 		var query = manager.createQuery(sqlBuider.toString(), ProjetoBasicDTO.class);
@@ -59,12 +59,12 @@ public class ProjetoRepositoryImpl {
 
 	private void searchFrom(ProjetoFilterDTO filterDTO, StringBuilder sqlBuider, HashMap<String, Object> params) {
 		sqlBuider.append(" FROM ");
-		sqlBuider.append("   ProjetoUsuario pu");
-		sqlBuider.append("   join pu.projeto p");
-		sqlBuider.append("   join pu.usuario u");
+		sqlBuider.append("   Projeto p");
+		sqlBuider.append("   left join ProjetoUsuario pu on(pu.projeto.id = p.id)");
+		sqlBuider.append("   left join pu.usuario u");
 		sqlBuider.append(" WHERE 1=1 ");
 
-		if (!ObjectUtils.isEmpty(filterDTO.getIdUsuario())) {
+		if ( !filterDTO.isAdmin() && !ObjectUtils.isEmpty(filterDTO.getIdUsuario())) {
 			sqlBuider.append(" and u.id = :idUsuario");
 			params.put("idUsuario", filterDTO.getIdUsuario());
 		}
