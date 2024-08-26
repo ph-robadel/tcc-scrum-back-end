@@ -8,13 +8,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ItemBacklogProjetoUpsertDTO {
+public class ItemBacklogProjetoUpdateDTO {
 
 	private String titulo;
 
 	private String descricao;
-
-	private Long prioridade;
 
 	private SituacaoItemProjetoEnum situacao;
 

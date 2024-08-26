@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.dto.ItemBacklogProjetoDTO;
-import br.ufes.dto.ItemBacklogProjetoUpsertDTO;
+import br.ufes.dto.ItemBacklogProjetoUpdateDTO;
 import br.ufes.facade.ItemBacklogProjetoFacade;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -38,7 +38,7 @@ public class ItemBacklogProjetoController {
 	@Operation(summary = "Atualizar Item Backlog Projeto")
 	@PutMapping("/{idItemBacklogProjeto}")
 	public ResponseEntity<ItemBacklogProjetoDTO> atualizarItemBacklogProjeto(@PathVariable Long idItemBacklogProjeto,
-			@RequestBody ItemBacklogProjetoUpsertDTO itemBacklogProjetoUpsertDTO) throws Exception {
+			@RequestBody ItemBacklogProjetoUpdateDTO itemBacklogProjetoUpsertDTO) throws Exception {
 		var itemBacklogProjeto = itemBacklogProjetoFacade.atualizarItemBacklogProjeto(idItemBacklogProjeto,
 				itemBacklogProjetoUpsertDTO);
 		return ResponseEntity.ok(itemBacklogProjeto);

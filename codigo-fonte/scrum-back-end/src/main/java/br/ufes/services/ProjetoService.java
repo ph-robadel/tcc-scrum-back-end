@@ -1,7 +1,6 @@
 package br.ufes.services;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,7 +49,7 @@ public class ProjetoService {
 
 	public ResponseSearch<ProjetoBasicDTO> search(ProjetoFilterDTO filterDTO) {
 				
-		List<ProjetoBasicDTO> listPage = projetoRepository.search(filterDTO);
+		var listPage = projetoRepository.search(filterDTO);
 		Long total = searchCount(filterDTO);
 
 		return new ResponseSearch<>(listPage, total);

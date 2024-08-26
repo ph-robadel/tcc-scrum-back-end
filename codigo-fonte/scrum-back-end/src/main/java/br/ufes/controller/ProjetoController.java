@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.ufes.dto.ItemBacklogProjetoBasicDTO;
 import br.ufes.dto.ItemBacklogProjetoDTO;
-import br.ufes.dto.ItemBacklogProjetoUpsertDTO;
+import br.ufes.dto.ItemBacklogProjetoInsertDTO;
 import br.ufes.dto.ProjetoBasicDTO;
 import br.ufes.dto.ProjetoDTO;
 import br.ufes.dto.ProjetoUpsertDTO;
@@ -145,19 +146,28 @@ public class ProjetoController {
 
 	@Operation(summary = "Cadastrar um novo Item Backlog Projeto")
 	@PostMapping("/{idProjeto}/item-backlog-projeto")
-	public ResponseEntity<ItemBacklogProjetoDTO> cadastrarItemBacklogProjeto(
-			@RequestBody ItemBacklogProjetoUpsertDTO projetoInsertDTO) throws Exception {
-		var itemBacklogProjeto = itemBacklogProjetoFacade.cadastrarItemBacklogProjeto(projetoInsertDTO);
+	public ResponseEntity<ItemBacklogProjetoDTO> cadastrarItemBacklogProjeto(@PathVariable Long idProjeto,
+			@RequestBody ItemBacklogProjetoInsertDTO projetoInsertDTO) throws Exception {
+
+		var itemBacklogProjeto = itemBacklogProjetoFacade.cadastrarItemBacklogProjeto(idProjeto, projetoInsertDTO);
 		return ResponseEntity.status(HttpStatus.CREATED).body(itemBacklogProjeto);
 
 	}
 
 	@Operation(summary = "Buscar itens do Backlog do Projeto")
 	@PostMapping("/{idProjeto}/item-backlog-projeto/search")
-	public ResponseEntity<ResponseSearch<ItemBacklogProjetoDTO>> searchItemBacklogProjeto(@PathVariable Long idProjeto,
-			@RequestBody ItemBacklogProjetoFilterDTO filterDTO) throws Exception {
-		var itemBacklogProjeto = itemBacklogProjetoFacade.search(idProjeto, filterDTO);
-		return ResponseEntity.ok(itemBacklogProjeto);
+	public ResponseEntity<ResponseSearch<ItemBacklogProjetoBasicDTO>> searchItemBacklogProjeto(@PathVariable Long idProjeto,
+			@RequestParam(defaultValue = "") String titulo, @RequestParam(defaultValue = "") String codigo,
+			@RequestParam(defaultValue = "") String situacao, @RequestParam(defaultValue = "") String categoria,
+			@RequestParam(defaultValue = "") Long idAutor, @RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "prioridade") String fieldSort,
+			@RequestParam(defaultValue = "ASC") String sortOrder) throws Exception {
+
+		var itemProjetoFilterDTO = new ItemBacklogProjetoFilterDTO(titulo, codigo, situacao, categoria, idAutor);
+		itemProjetoFilterDTO.setPageAndSorting(page, size, fieldSort, sortOrder);
+
+		var itemBacklogProjetoDTO = itemBacklogProjetoFacade.search(idProjeto, itemProjetoFilterDTO);
+		return ResponseEntity.ok(itemBacklogProjetoDTO);
 
 	}
 
@@ -165,6 +175,7 @@ public class ProjetoController {
 	@PostMapping("/{idProjeto}/sprints")
 	public ResponseEntity<SprintDTO> cadastrarSprint(@PathVariable("idProjeto") Long idProjeto,
 			@RequestBody SprintUpsertDTO sprintUpsertDTO) throws Exception {
+
 		var sprintDTO = sprintFacade.cadastrarSprint(idProjeto, sprintUpsertDTO);
 		return ResponseEntity.status(HttpStatus.CREATED).body(sprintDTO);
 

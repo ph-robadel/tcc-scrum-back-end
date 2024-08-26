@@ -32,6 +32,8 @@ public class ItemBacklogSprint {
 	@Column(name = "ID_ITEM_BACKLOG_SPRINT")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
+	private String descricao; //NOVO
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_USUARIO_REALIZACAO")

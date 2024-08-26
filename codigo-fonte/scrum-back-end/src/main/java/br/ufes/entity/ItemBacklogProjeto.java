@@ -2,6 +2,7 @@ package br.ufes.entity;
 
 import java.time.LocalDateTime;
 
+import br.ufes.enums.CategoriaItemProjetoEnum;
 import br.ufes.enums.SituacaoItemProjetoEnum;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -36,7 +37,6 @@ public class ItemBacklogProjeto {
 
 	private String titulo;
 
-	@Column(unique = true)
 	private Long codigo;
 
 	@Lob
@@ -48,6 +48,9 @@ public class ItemBacklogProjeto {
 
 	@Enumerated(EnumType.STRING)
 	private SituacaoItemProjetoEnum situacao;
+	
+	@Enumerated(EnumType.STRING)
+	private CategoriaItemProjetoEnum categoria;
 
 	private LocalDateTime dataCriacao;
 
@@ -58,5 +61,6 @@ public class ItemBacklogProjeto {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_PROJETO")
 	private Projeto projeto;
+	
 
 }

@@ -2,14 +2,23 @@ package br.ufes.services;
 
 import java.time.LocalDateTime;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.ufes.dto.ItemBacklogProjetoBasicDTO;
 import br.ufes.dto.ItemBacklogProjetoDTO;
+import br.ufes.dto.filter.ItemBacklogProjetoFilterDTO;
+import br.ufes.entity.ItemBacklogProjeto;
+import br.ufes.enums.CategoriaItemProjetoEnum;
 import br.ufes.enums.SituacaoItemProjetoEnum;
+import br.ufes.repository.ItemBacklogProjetoRepository;
+import br.ufes.util.ResponseSearch;
 
 @Service
 public class ItemBacklogProjetoService {
+
+	@Autowired
+	private ItemBacklogProjetoRepository itemBacklogProjetoRepository;
 
 	public ItemBacklogProjetoDTO getMock() throws Exception {
 		var itemBackLogProjetoDTO = new ItemBacklogProjetoDTO();
@@ -18,7 +27,7 @@ public class ItemBacklogProjetoService {
 		itemBackLogProjetoDTO.setCodigo(1L);
 		itemBackLogProjetoDTO.setDescricao("Descrição projeto Scrum");
 		itemBackLogProjetoDTO.setPrioridade(1l);
-		itemBackLogProjetoDTO.setSituacao(SituacaoItemProjetoEnum.EM_ANALISE);
+		itemBackLogProjetoDTO.setSituacao(SituacaoItemProjetoEnum.REDIGINDO);
 		itemBackLogProjetoDTO.setDataCriacao(LocalDateTime.now());
 
 		return itemBackLogProjetoDTO;
@@ -31,5 +40,24 @@ public class ItemBacklogProjetoService {
 		itemBacklogProjetoBasicDTO.setCodigo(1L);
 
 		return itemBacklogProjetoBasicDTO;
+	}
+
+	public Long obterCodigoNovoItem(Long idProjeto, CategoriaItemProjetoEnum categoria) {
+		return itemBacklogProjetoRepository.obterCodigoNovoItem(idProjeto, categoria);
+	}
+	
+	public Long obterNumeroPrioridadeNovoItem(Long idProjeto) {
+		return itemBacklogProjetoRepository.obterNumeroPrioridadeNovoItem(idProjeto);
+	}
+
+	public ItemBacklogProjeto save(ItemBacklogProjeto itemBacklogProjeto) {
+		return itemBacklogProjetoRepository.save(itemBacklogProjeto);
+	}
+
+	public ResponseSearch<ItemBacklogProjetoBasicDTO> search(ItemBacklogProjetoFilterDTO filterDTO) {
+		var listPage = itemBacklogProjetoRepository.search(filterDTO);
+		var total = itemBacklogProjetoRepository.searchCount(filterDTO);
+
+		return new ResponseSearch<>(listPage, total);
 	}
 }

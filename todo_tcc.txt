@@ -12,7 +12,7 @@ Aplicação Java:
 
 [x] Implementar recursos UsuarioController.
 [x] Implementar recursos ProjetoController.
-[ ] Implementar recursos ItemBacklogProjetoController.
+[0] Implementar recursos ItemBacklogProjetoController.
 [ ] Implementar recursos SprintController.
 [ ] Implementar recursos ItemBackLogSprintController.
 
@@ -32,4 +32,3 @@ TCC:
 [ ] Escrever tópico 'Resultado Obitido'.
 [ ] Melhorar tópico introdução.
 [ ] Criar slide de apresentação.
-
