@@ -2,6 +2,7 @@ package br.ufes.entity;
 
 import java.time.LocalDateTime;
 
+import br.ufes.dto.ItemBacklogProjetoUpdateDTO;
 import br.ufes.enums.CategoriaItemProjetoEnum;
 import br.ufes.enums.SituacaoItemProjetoEnum;
 import jakarta.persistence.Basic;
@@ -61,6 +62,12 @@ public class ItemBacklogProjeto {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_PROJETO")
 	private Projeto projeto;
+
+	public void atualizarAtributos(ItemBacklogProjetoUpdateDTO itemBacklogProjetoUpsertDTO) {
+		this.titulo = itemBacklogProjetoUpsertDTO.getTitulo();
+		this.descricao = itemBacklogProjetoUpsertDTO.getDescricao();
+		this.situacao = itemBacklogProjetoUpsertDTO.getSituacao();
+	}
 	
 
 }

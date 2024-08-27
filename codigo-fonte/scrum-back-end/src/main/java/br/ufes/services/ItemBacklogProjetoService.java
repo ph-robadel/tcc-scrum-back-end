@@ -13,6 +13,7 @@ import br.ufes.enums.CategoriaItemProjetoEnum;
 import br.ufes.enums.SituacaoItemProjetoEnum;
 import br.ufes.repository.ItemBacklogProjetoRepository;
 import br.ufes.util.ResponseSearch;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class ItemBacklogProjetoService {
@@ -40,6 +41,17 @@ public class ItemBacklogProjetoService {
 		itemBacklogProjetoBasicDTO.setCodigo(1L);
 
 		return itemBacklogProjetoBasicDTO;
+	}
+	
+	public ItemBacklogProjeto getById(Long idItemBacklogProjeto) {
+		if (idItemBacklogProjeto == null) {
+			return null;
+		}
+
+		var usuario = itemBacklogProjetoRepository.findById(idItemBacklogProjeto)
+				.orElseThrow(() -> new EntityNotFoundException("Projeto não encontrado"));
+
+		return usuario;
 	}
 
 	public Long obterCodigoNovoItem(Long idProjeto, CategoriaItemProjetoEnum categoria) {

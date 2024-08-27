@@ -66,13 +66,15 @@ public class ItemBacklogProjetoFacade {
 	}
 
 	public ItemBacklogProjetoDTO atualizarItemBacklogProjeto(Long idItemBacklogProjeto, ItemBacklogProjetoUpdateDTO itemBacklogProjetoUpsertDTO) throws Exception {
-		var itemBacklogProjetoDTO = modelMapper.map(itemBacklogProjetoUpsertDTO, ItemBacklogProjetoDTO.class);
-		itemBacklogProjetoDTO.setCodigo(1l);
-		itemBacklogProjetoDTO.setDataCriacao(LocalDateTime.now());
-		itemBacklogProjetoDTO.setAutor(usuarioService.getBasicMock());
-		itemBacklogProjetoDTO.setProjeto(projetoService.getBasicMock());
+		var itemBacklogProjeto = itemBackLogProjetoService.getById(idItemBacklogProjeto);
+		
+		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(itemBacklogProjeto.getProjeto().getId());
+		itemBacklogProjetoValidate.validateSave(itemBacklogProjetoUpsertDTO);
 
-		return itemBacklogProjetoDTO;
+		itemBacklogProjeto.atualizarAtributos(itemBacklogProjetoUpsertDTO);
+
+		itemBacklogProjeto = itemBackLogProjetoService.save(itemBacklogProjeto);
+		return modelMapper.map(itemBacklogProjeto, ItemBacklogProjetoDTO.class);
 	}
 
 	public ResponseSearch<ItemBacklogProjetoBasicDTO> search(Long idProjeto, ItemBacklogProjetoFilterDTO filterDTO) throws Exception {
@@ -87,11 +89,9 @@ public class ItemBacklogProjetoFacade {
 	public void deleteItemBacklogProjeto(Long idItemBacklogProjeto) throws Exception {
 	}
 
-	public ItemBacklogProjetoDTO getById(Long idItemBacklogProjeto) throws Exception {
-		var mock = itemBackLogProjetoService.getMock();
-		mock.setProjeto(projetoService.getBasicMock());
-		mock.setAutor(usuarioService.getBasicMock());
-		return mock;
+	public ItemBacklogProjetoDTO getById(Long idItemBacklogProjeto) {
+		var itemBackLogProjeto = itemBackLogProjetoService.getById(idItemBacklogProjeto);
+		return modelMapper.map(itemBackLogProjeto, ItemBacklogProjetoDTO.class);
 	}
 
 }
