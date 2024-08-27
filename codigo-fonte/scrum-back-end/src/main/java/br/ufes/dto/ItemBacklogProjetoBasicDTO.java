@@ -31,6 +31,8 @@ public class ItemBacklogProjetoBasicDTO {
 	
 	private SituacaoItemProjetoEnum situacao;
 	
+	private Long prioridade;
+	
 	@JsonProperty(access = Access.READ_ONLY)
 	public String getCodigo() {
 		if (ObjectUtils.isEmpty(situacao) || ObjectUtils.isEmpty(categoria)) {

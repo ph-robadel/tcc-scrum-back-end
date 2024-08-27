@@ -27,7 +27,8 @@ public class ItemBacklogProjetoRepositoryImpl {
 		sqlBuider.append("   ibp.titulo, ");
 		sqlBuider.append("   ibp.codigo, ");
 		sqlBuider.append("   ibp.categoria, ");
-		sqlBuider.append("   ibp.situacao ");
+		sqlBuider.append("   ibp.situacao, ");
+		sqlBuider.append("   ibp.prioridade ");
 		sqlBuider.append(" ) ");
 
 		searchFrom(filterDTO, sqlBuider, params);
@@ -80,7 +81,7 @@ public class ItemBacklogProjetoRepositoryImpl {
 
 		if (!ObjectUtils.isEmpty(filterDTO.getCategoria())) {
 			sqlBuider.append(" and ibp.categoria = :categoria ");
-			params.put("categoria", filterDTO.getTitulo());
+			params.put("categoria", filterDTO.getCategoria());
 		}
 
 		if (!ObjectUtils.isEmpty(filterDTO.getSituacao())) {

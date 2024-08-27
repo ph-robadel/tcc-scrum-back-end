@@ -62,14 +62,22 @@ public class ItemBacklogProjetoFilterDTO extends BaseFilterSearch {
 	}
 
 	public Long getCodigo() {
-		return !ObjectUtils.isEmpty(codigo) ? Long.parseLong(codigo.replaceAll("\\D", "")) : null;
+		if(ObjectUtils.isEmpty(codigo)) {
+			return null;
+		}
+		var codigoSemSigla = codigo.replaceAll("\\D", "");
+		if(ObjectUtils.isEmpty(codigoSemSigla)) {
+			return null;
+		}
+		
+		return Long.parseLong(codigoSemSigla);
 	}
 
 	public void setCategoriaBySiglaCodigo(String codigo) {
 		if (ObjectUtils.isEmpty(codigo)) {
 			return;
 		}
-		var sigla = codigo.replaceAll("\\D", "");
+		var sigla = codigo.replaceAll("[^\\p{L}]", "");
 		this.categoria = CategoriaItemProjetoEnum.fromSigla(sigla);
 	}
 
