@@ -87,10 +87,10 @@ public class ItemBacklogProjetoService {
 		}
 
 		if (antigaPrioridade > novaPrioridade) {
-			itemBacklogProjetoRepository.aumentarPrioridadeItem(itemBacklogProjeto.getId(), idProjeto, antigaPrioridade,
+			itemBacklogProjetoRepository.aumentarPrioridadeItem(itemBacklogProjeto.getId(), antigaPrioridade,
 					novaPrioridade);
 		} else {
-			itemBacklogProjetoRepository.diminuirPrioridadeItem(itemBacklogProjeto.getId(), idProjeto, antigaPrioridade,
+			itemBacklogProjetoRepository.diminuirPrioridadeItem(itemBacklogProjeto.getId(), antigaPrioridade,
 					novaPrioridade);
 		}
 
