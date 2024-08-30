@@ -95,4 +95,9 @@ public class ItemBacklogProjetoService {
 		}
 
 	}
+
+	public void remover(Long itemBacklogProjeto) {
+		itemBacklogProjetoRepository.repriorizarDeleteItem(itemBacklogProjeto);
+		itemBacklogProjetoRepository.deleteById(itemBacklogProjeto);
+	}
 }

@@ -133,22 +133,69 @@ public class ItemBacklogProjetoRepositoryImpl {
 
 		return !ObjectUtils.isEmpty(result) && !ObjectUtils.isEmpty(result.get(0)) ? result.get(0) + 1l : 1l;
 	}
+
+	public void aumentarPrioridadeItem(Long idItemBacklogProjeto, Long antigaPrioridade, Long novaPrioridade) {
+		var hqlBuilder = new StringBuilder();
+		hqlBuilder.append(" update ");
+		hqlBuilder.append(" 	ItemBacklogProjeto ibp ");
+		hqlBuilder.append(" set ");
+		hqlBuilder.append(" 	ibp.prioridade = ibp.prioridade + 1 ");
+		hqlBuilder.append(" where ");
+		hqlBuilder.append(" 	ibp.prioridade < :antiga ");
+		hqlBuilder.append(" 	and prioridade >= :nova ");
+		hqlBuilder.append(" 	and ibp.projeto.id = ( ");
+		hqlBuilder.append(" 	select ");
+		hqlBuilder.append(" 		ibpSub.projeto.id ");
+		hqlBuilder.append(" 	from ");
+		hqlBuilder.append(" 		ItemBacklogProjeto ibpSub ");
+		hqlBuilder.append(" 	where ");
+		hqlBuilder.append(" 		ibpSub.id = :idItemBacklogProjeto) ");
+		executeUpdatePrioridade(idItemBacklogProjeto, antigaPrioridade, novaPrioridade, hqlBuilder.toString());
+		updateItem(idItemBacklogProjeto, novaPrioridade);
+	}
+
+	public void diminuirPrioridadeItem(Long idItemBacklogProjeto, Long antigaPrioridade, Long novaPrioridade) {
+		var hqlBuilder = new StringBuilder();
+		hqlBuilder.append(" update ");
+		hqlBuilder.append(" 	ItemBacklogProjeto ibp ");
+		hqlBuilder.append(" set ");
+		hqlBuilder.append(" 	ibp.prioridade = ibp.prioridade - 1 ");
+		hqlBuilder.append(" where ");
+		hqlBuilder.append(" 	ibp.prioridade > :antiga ");
+		hqlBuilder.append(" 	and prioridade <= :nova ");
+		hqlBuilder.append(" 	and ibp.projeto.id = ( ");
+		hqlBuilder.append(" 	select ");
+		hqlBuilder.append(" 		ibpSub.projeto.id ");
+		hqlBuilder.append(" 	from ");
+		hqlBuilder.append(" 		ItemBacklogProjeto ibpSub ");
+		hqlBuilder.append(" 	where ");
+		hqlBuilder.append(" 		ibpSub.id = :idItemBacklogProjeto); ");
+		executeUpdatePrioridade(idItemBacklogProjeto, antigaPrioridade, novaPrioridade, hqlBuilder.toString());
+		updateItem(idItemBacklogProjeto, novaPrioridade);
+	}
 	
-	public void aumentarPrioridadeItem(Long idItemBacklogProjeto, Long idProjeto, Long antigaPrioridade, Long novaPrioridade) {
-		var hql = " UPDATE ItemBacklogProjeto ibp SET ibp.prioridade = ibp.prioridade + 1 WHERE ibp.prioridade < :antiga AND prioridade >= :nova AND ibp.projeto.id = :idProjeto ";
-		executeUpdatePrioridade(idProjeto, antigaPrioridade, novaPrioridade, hql);
-		updateItem(idItemBacklogProjeto, novaPrioridade);
+	public void repriorizarDeleteItem(Long idItemBacklogProjeto) {
+		var hqlBuilder = new StringBuilder();
+		hqlBuilder.append(" UPDATE item_backlog_projeto " );
+		hqlBuilder.append(" SET prioridade = prioridade - 1 " );
+		hqlBuilder.append(" WHERE id_projeto = (" );
+		hqlBuilder.append("     SELECT ibpSub.id_projeto " );
+		hqlBuilder.append("     FROM item_backlog_projeto ibpSub " );
+		hqlBuilder.append("     WHERE ibpSub.id_item_backlog_projeto = :idItemBacklogProjeto " );
+		hqlBuilder.append(" ) " );
+		hqlBuilder.append(" AND prioridade > (" );
+		hqlBuilder.append("     SELECT ibpSub.prioridade " );
+		hqlBuilder.append("     FROM item_backlog_projeto ibpSub " );
+		hqlBuilder.append("     WHERE ibpSub.id_item_backlog_projeto = :idItemBacklogProjeto " );
+		hqlBuilder.append(" )" );
+		var updatePrioridadeQuery = manager.createQuery(hqlBuilder.toString());
+		updatePrioridadeQuery.setParameter("idItemBacklogProjeto", idItemBacklogProjeto);
+		updatePrioridadeQuery.executeUpdate();
 	}
 
-	public void diminuirPrioridadeItem(Long idItemBacklogProjeto, Long idProjeto, Long antigaPrioridade, Long novaPrioridade) {
-		var hql = " UPDATE ItemBacklogProjeto ibp SET ibp.prioridade = ibp.prioridade - 1 WHERE ibp.prioridade > :antiga AND prioridade <= :nova AND ibp.projeto.id = :idProjeto ";
-		executeUpdatePrioridade(idProjeto, antigaPrioridade, novaPrioridade, hql);
-		updateItem(idItemBacklogProjeto, novaPrioridade);
-	}
-
-	private void executeUpdatePrioridade(Long idProjeto, Long antigaPrioridade, Long novaPrioridade, String hql) {
+	private void executeUpdatePrioridade(Long idItemBacklogProjeto, Long antigaPrioridade, Long novaPrioridade, String hql) {
 		var query = manager.createQuery(hql);
-		query.setParameter("idProjeto", idProjeto);
+		query.setParameter("idItemBacklogProjeto", idItemBacklogProjeto);
 		query.setParameter("antiga", antigaPrioridade);
 		query.setParameter("nova", novaPrioridade);
 		query.executeUpdate();

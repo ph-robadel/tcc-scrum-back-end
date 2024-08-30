@@ -25,4 +25,6 @@ public interface ItemBacklogProjetoRepository extends JpaRepository<ItemBacklogP
 
 	void aumentarPrioridadeItem(Long idItemBacklogProjeto, Long idProjeto, Long antigaPrioridade, Long novaPrioridade);
 
+	void repriorizarDeleteItem(Long itemBacklogProjeto);
+
 }
