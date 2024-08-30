@@ -60,6 +60,7 @@ public class SecurityConfigurations {
 						
 						.requestMatchers(HttpMethod.GET, "/item-backlog-projeto/{idItemBacklogProjeto}").authenticated()
 						.requestMatchers(HttpMethod.PUT, "/item-backlog-projeto/{idItemBacklogProjeto}").hasAnyAuthority("PRODUCT_OWNER", "SCRUM_MASTER", "DEV_TEAM")
+						.requestMatchers(HttpMethod.POST, "/item-backlog-projeto/{idItemBacklogProjeto}/repriorizar/{valorPrioridade}").hasAnyAuthority("PRODUCT_OWNER")
 						.requestMatchers(HttpMethod.DELETE, "/item-backlog-projeto/{idItemBacklogProjeto}").hasAnyAuthority("PRODUCT_OWNER", "SCRUM_MASTER", "DEV_TEAM")
 						
 						.requestMatchers(HttpMethod.GET, "/sprints/{idSprint}").authenticated()

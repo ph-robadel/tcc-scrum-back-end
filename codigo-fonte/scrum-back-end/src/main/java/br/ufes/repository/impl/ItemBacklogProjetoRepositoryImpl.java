@@ -133,4 +133,32 @@ public class ItemBacklogProjetoRepositoryImpl {
 
 		return !ObjectUtils.isEmpty(result) && !ObjectUtils.isEmpty(result.get(0)) ? result.get(0) + 1l : 1l;
 	}
+	
+	public void aumentarPrioridadeItem(Long idItemBacklogProjeto, Long idProjeto, Long antigaPrioridade, Long novaPrioridade) {
+		var hql = " UPDATE ItemBacklogProjeto ibp SET ibp.prioridade = ibp.prioridade + 1 WHERE ibp.prioridade < :antiga AND prioridade >= :nova AND ibp.projeto.id = :idProjeto ";
+		executeUpdatePrioridade(idProjeto, antigaPrioridade, novaPrioridade, hql);
+		updateItem(idItemBacklogProjeto, novaPrioridade);
+	}
+
+	public void diminuirPrioridadeItem(Long idItemBacklogProjeto, Long idProjeto, Long antigaPrioridade, Long novaPrioridade) {
+		var hql = " UPDATE ItemBacklogProjeto ibp SET ibp.prioridade = ibp.prioridade - 1 WHERE ibp.prioridade > :antiga AND prioridade <= :nova AND ibp.projeto.id = :idProjeto ";
+		executeUpdatePrioridade(idProjeto, antigaPrioridade, novaPrioridade, hql);
+		updateItem(idItemBacklogProjeto, novaPrioridade);
+	}
+
+	private void executeUpdatePrioridade(Long idProjeto, Long antigaPrioridade, Long novaPrioridade, String hql) {
+		var query = manager.createQuery(hql);
+		query.setParameter("idProjeto", idProjeto);
+		query.setParameter("antiga", antigaPrioridade);
+		query.setParameter("nova", novaPrioridade);
+		query.executeUpdate();
+	}
+
+	private void updateItem(Long idItemBacklogProjeto, Long novaPrioridade) {
+		var updatePrioridadeItem = " UPDATE ItemBacklogProjeto ibp SET ibp.prioridade = :nova WHERE ibp.id = :idItem ";
+		var updatePrioridadeQuery = manager.createQuery(updatePrioridadeItem);
+		updatePrioridadeQuery.setParameter("idItem", idItemBacklogProjeto);
+		updatePrioridadeQuery.setParameter("nova", novaPrioridade);
+		updatePrioridadeQuery.executeUpdate();
+	}
 }

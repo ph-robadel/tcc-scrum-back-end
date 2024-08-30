@@ -87,11 +87,21 @@ public class ItemBacklogProjetoFacade {
 	}
 
 	public void deleteItemBacklogProjeto(Long idItemBacklogProjeto) throws Exception {
+//		Validar pertence ao projeto
+//		Validar PO (pode deletar qualquer um
+//		validar se usuário logado é o autor do item (caso não seja PO)
+//		REORDENAR AO DELETAR
 	}
 
 	public ItemBacklogProjetoDTO getById(Long idItemBacklogProjeto) {
 		var itemBackLogProjeto = itemBackLogProjetoService.getById(idItemBacklogProjeto);
 		return modelMapper.map(itemBackLogProjeto, ItemBacklogProjetoDTO.class);
+	}
+
+	public void repriorizarItemBacklogProjeto(Long idItemBacklogProjeto, Long valorPrioridade) {
+		var itemBacklogProjeto = itemBackLogProjetoService.getById(idItemBacklogProjeto);
+		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(itemBacklogProjeto.getProjeto().getId());
+		itemBackLogProjetoService.repriorizarItemBacklogProjeto(itemBacklogProjeto, valorPrioridade);		
 	}
 
 }

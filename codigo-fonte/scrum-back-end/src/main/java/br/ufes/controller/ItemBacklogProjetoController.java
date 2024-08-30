@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +43,13 @@ public class ItemBacklogProjetoController {
 		var itemBacklogProjeto = itemBacklogProjetoFacade.atualizarItemBacklogProjeto(idItemBacklogProjeto,
 				itemBacklogProjetoUpsertDTO);
 		return ResponseEntity.ok(itemBacklogProjeto);
+	}
+	
+	@Operation(summary = "Repriorizar Item Backlog Projeto")
+	@PostMapping("/{idItemBacklogProjeto}/repriorizar/{valorPrioridade}")
+	public ResponseEntity<Object> deleteItemBacklogProjeto(@PathVariable Long idItemBacklogProjeto, @PathVariable Long valorPrioridade) throws Exception {
+		itemBacklogProjetoFacade.repriorizarItemBacklogProjeto(idItemBacklogProjeto, valorPrioridade);
+		return ResponseEntity.ok().build();
 	}
 
 	@Operation(summary = "Remover Item Backlog Projeto")

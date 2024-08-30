@@ -42,22 +42,22 @@ public class ItemBacklogProjetoService {
 
 		return itemBacklogProjetoBasicDTO;
 	}
-	
+
 	public ItemBacklogProjeto getById(Long idItemBacklogProjeto) {
 		if (idItemBacklogProjeto == null) {
 			return null;
 		}
 
-		var usuario = itemBacklogProjetoRepository.findById(idItemBacklogProjeto)
-				.orElseThrow(() -> new EntityNotFoundException("Projeto não encontrado"));
+		var itemBacklogProjeto = itemBacklogProjetoRepository.findById(idItemBacklogProjeto)
+				.orElseThrow(() -> new EntityNotFoundException("Item backlog projeto não encontrado"));
 
-		return usuario;
+		return itemBacklogProjeto;
 	}
 
 	public Long obterCodigoNovoItem(Long idProjeto, CategoriaItemProjetoEnum categoria) {
 		return itemBacklogProjetoRepository.obterCodigoNovoItem(idProjeto, categoria);
 	}
-	
+
 	public Long obterNumeroPrioridadeNovoItem(Long idProjeto) {
 		return itemBacklogProjetoRepository.obterNumeroPrioridadeNovoItem(idProjeto);
 	}
@@ -71,5 +71,28 @@ public class ItemBacklogProjetoService {
 		var total = itemBacklogProjetoRepository.searchCount(filterDTO);
 
 		return new ResponseSearch<>(listPage, total);
+	}
+
+	public void repriorizarItemBacklogProjeto(ItemBacklogProjeto itemBacklogProjeto, Long valorNovaPrioridade) {
+		var idProjeto = itemBacklogProjeto.getProjeto().getId();
+		var valorMaximoPrioridade = this.obterNumeroPrioridadeNovoItem(idProjeto);
+		Long antigaPrioridade = itemBacklogProjeto.getPrioridade();
+		Long novaPrioridade = null;
+		if (valorNovaPrioridade <= 0) {
+			novaPrioridade = valorMaximoPrioridade = 1L;
+		} else if (valorNovaPrioridade < valorMaximoPrioridade) {
+			novaPrioridade = valorNovaPrioridade;
+		} else {
+			novaPrioridade = valorMaximoPrioridade - 1;
+		}
+
+		if (antigaPrioridade > novaPrioridade) {
+			itemBacklogProjetoRepository.aumentarPrioridadeItem(itemBacklogProjeto.getId(), idProjeto, antigaPrioridade,
+					novaPrioridade);
+		} else {
+			itemBacklogProjetoRepository.diminuirPrioridadeItem(itemBacklogProjeto.getId(), idProjeto, antigaPrioridade,
+					novaPrioridade);
+		}
+
 	}
 }
