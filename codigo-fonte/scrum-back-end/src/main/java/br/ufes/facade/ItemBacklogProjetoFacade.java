@@ -22,6 +22,7 @@ import br.ufes.services.UsuarioService;
 import br.ufes.util.ResponseSearch;
 import br.ufes.validate.ItemBacklogProjetoValidate;
 import br.ufes.validate.ProjetoUsuarioValidate;
+import br.ufes.validate.ProjetoValidate;
 
 @Component
 public class ItemBacklogProjetoFacade {
@@ -40,17 +41,24 @@ public class ItemBacklogProjetoFacade {
 
 	@Autowired
 	private ProjetoUsuarioValidate projetoUsuarioValidate;
+	
+	@Autowired
+	private ProjetoValidate projetoValidate;
 
 	@Autowired
 	private ModelMapper modelMapper;
 
 	public ItemBacklogProjetoDTO cadastrarItemBacklogProjeto(Long idProjeto,
 			ItemBacklogProjetoInsertDTO itemBacklogProjetoInsertDTO) throws Exception {
+		
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(idProjeto);
+		var projeto = projetoService.getById(idProjeto);
+		projetoValidate.validateProjetoAtivo(projeto);
+		
 		itemBacklogProjetoValidate.validateSave(itemBacklogProjetoInsertDTO);
 		var itemBacklogProjeto = modelMapper.map(itemBacklogProjetoInsertDTO, ItemBacklogProjeto.class);
 
-		var projeto = projetoService.getById(idProjeto);
+		
 		var codigoNovoItem = itemBackLogProjetoService.obterCodigoNovoItem(idProjeto,
 				itemBacklogProjetoInsertDTO.getCategoria());
 		var usuarioAutenticado = usuarioService.getUsuarioAutenticado();
@@ -74,6 +82,7 @@ public class ItemBacklogProjetoFacade {
 		var itemBacklogProjeto = itemBackLogProjetoService.getById(idItemBacklogProjeto);
 
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(itemBacklogProjeto.getProjeto().getId());
+		projetoValidate.validateProjetoAtivo(itemBacklogProjeto.getProjeto());
 		itemBacklogProjetoValidate.validateSave(itemBacklogProjetoUpsertDTO);
 
 		itemBacklogProjeto.atualizarAtributos(itemBacklogProjetoUpsertDTO);
@@ -86,6 +95,7 @@ public class ItemBacklogProjetoFacade {
 			throws Exception {
 
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(idProjeto);
+		projetoValidate.validateProjetoAtivo(projetoService.getById(idProjeto));
 
 		filterDTO.setIdProjeto(idProjeto);
 
@@ -95,6 +105,7 @@ public class ItemBacklogProjetoFacade {
 	public void deleteItemBacklogProjeto(Long idItemBacklogProjeto) throws Exception {
 		var itemBacklogProjeto = itemBackLogProjetoService.getById(idItemBacklogProjeto);
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(itemBacklogProjeto.getProjeto().getId());
+		projetoValidate.validateProjetoAtivo(itemBacklogProjeto.getProjeto());
 
 		var usuarioAutenticado = usuarioService.getUsuarioAutenticado();
 
@@ -110,13 +121,18 @@ public class ItemBacklogProjetoFacade {
 	}
 
 	public ItemBacklogProjetoDTO getById(Long idItemBacklogProjeto) {
-		var itemBackLogProjeto = itemBackLogProjetoService.getById(idItemBacklogProjeto);
-		return modelMapper.map(itemBackLogProjeto, ItemBacklogProjetoDTO.class);
+		var itemBacklogProjeto = itemBackLogProjetoService.getById(idItemBacklogProjeto);
+		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(itemBacklogProjeto.getProjeto().getId());
+		projetoValidate.validateProjetoAtivo(itemBacklogProjeto.getProjeto());
+		
+		return modelMapper.map(itemBacklogProjeto, ItemBacklogProjetoDTO.class);
 	}
 
 	public void repriorizarItemBacklogProjeto(Long idItemBacklogProjeto, Long valorPrioridade) {
 		var itemBacklogProjeto = itemBackLogProjetoService.getById(idItemBacklogProjeto);
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(itemBacklogProjeto.getProjeto().getId());
+		projetoValidate.validateProjetoAtivo(itemBacklogProjeto.getProjeto());
+		
 		itemBackLogProjetoService.repriorizarItemBacklogProjeto(itemBacklogProjeto, valorPrioridade);
 	}
 

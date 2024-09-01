@@ -48,27 +48,20 @@ public class ProjetoService {
 	}
 
 	public ResponseSearch<ProjetoBasicDTO> search(ProjetoFilterDTO filterDTO) {
-				
+
 		var listPage = projetoRepository.search(filterDTO);
-		Long total = searchCount(filterDTO);
+		Long total = projetoRepository.searchCount(filterDTO);
 
 		return new ResponseSearch<>(listPage, total);
 	}
 
-	public Long searchCount(ProjetoFilterDTO filterDTO) {
-		return projetoRepository.searchCount(filterDTO);
-	}
-
 	public Projeto getById(Long idProjeto) {
-		if (idProjeto == null) {
+		if (idProjeto == null || idProjeto <= 0) {
 			return null;
 		}
 
-		var usuario = projetoRepository.findById(idProjeto)
+		return projetoRepository.findById(idProjeto)
 				.orElseThrow(() -> new EntityNotFoundException("Projeto não encontrado"));
-
-		return usuario;
 	}
-	
 
 }

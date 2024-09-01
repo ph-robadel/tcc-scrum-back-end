@@ -2,6 +2,8 @@ package br.ufes.dto.filter;
 
 import java.util.HashMap;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.ufes.util.BaseFilterSearch;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,8 +20,10 @@ public class ProjetoFilterDTO extends BaseFilterSearch {
 	
 	private Boolean apenasAtivo;
 	
+	@JsonIgnore
 	private Long idUsuario;
 	
+	@JsonIgnore
 	private Boolean isAdmin;
 	
 	

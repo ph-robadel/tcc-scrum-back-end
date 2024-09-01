@@ -3,6 +3,7 @@ package br.ufes.services;
 import org.springframework.stereotype.Service;
 
 import br.ufes.dto.ItemBacklogSprintDTO;
+import br.ufes.entity.Sprint;
 import br.ufes.enums.SituacaoItemSprintEnum;
 
 @Service
@@ -20,5 +21,9 @@ public class ItemBacklogSprintService {
 		itemBacklogSprintDTO.setDataAprovacao(null);
 
 		return itemBacklogSprintDTO;
+	}
+
+	public void criarItensNovaSprint(Sprint sprint) {
+		
 	}
 }

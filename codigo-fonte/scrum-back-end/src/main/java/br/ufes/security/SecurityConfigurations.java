@@ -63,7 +63,7 @@ public class SecurityConfigurations {
 						.requestMatchers(HttpMethod.POST, "/item-backlog-projeto/{idItemBacklogProjeto}/repriorizar/{valorPrioridade}").hasAnyAuthority("PRODUCT_OWNER")
 						.requestMatchers(HttpMethod.DELETE, "/item-backlog-projeto/{idItemBacklogProjeto}").hasAnyAuthority("PRODUCT_OWNER", "SCRUM_MASTER", "DEV_TEAM")
 						
-						.requestMatchers(HttpMethod.GET, "/sprints/{idSprint}").authenticated()
+						.requestMatchers(HttpMethod.GET, "/sprints/{idSprint}").hasAnyAuthority("PRODUCT_OWNER", "SCRUM_MASTER", "DEV_TEAM")
 						.requestMatchers(HttpMethod.PUT, "/sprints/{idSprint}").hasAnyAuthority("PRODUCT_OWNER", "SCRUM_MASTER")
 						.requestMatchers(HttpMethod.DELETE, "/sprints/{idSprint}").hasAnyAuthority("PRODUCT_OWNER", "SCRUM_MASTER")
 						.requestMatchers(HttpMethod.POST, "/sprints/{idSprint}/item-backlog-projeto/{idItemBacklogProjeto}/item-backlog-sprint").hasAnyAuthority("PRODUCT_OWNER", "SCRUM_MASTER")

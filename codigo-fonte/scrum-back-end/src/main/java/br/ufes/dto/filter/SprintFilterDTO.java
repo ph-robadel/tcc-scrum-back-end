@@ -1,7 +1,8 @@
 package br.ufes.dto.filter;
 
-import java.time.LocalDate;
 import java.util.HashMap;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.ufes.util.BaseFilterSearch;
 import lombok.AllArgsConstructor;
@@ -16,10 +17,13 @@ import lombok.Setter;
 public class SprintFilterDTO extends BaseFilterSearch {
 
 	private Integer numero;
-
-	private LocalDate dataInicio;
-
-	private LocalDate dataFim;
+	
+	@JsonIgnore
+	private Long idProjeto;
+	
+	public SprintFilterDTO(Integer numero) {
+		this.numero = numero;
+	}
 	
 	@Override
 	public void setFieldSort(String nomeCampo) {
@@ -27,7 +31,9 @@ public class SprintFilterDTO extends BaseFilterSearch {
 		var campoFormatado = nomeCampo.toLowerCase().trim();
 
 		mapFieldSort.put("id", "id");
+		mapFieldSort.put("numero", "numero");
 
 		this.fieldSort = mapFieldSort.getOrDefault(campoFormatado, null);
-	}
+	}	
+	
 }

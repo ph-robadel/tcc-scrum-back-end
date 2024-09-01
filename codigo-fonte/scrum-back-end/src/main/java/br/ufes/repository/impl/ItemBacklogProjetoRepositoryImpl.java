@@ -169,25 +169,27 @@ public class ItemBacklogProjetoRepositoryImpl {
 		hqlBuilder.append(" 	from ");
 		hqlBuilder.append(" 		ItemBacklogProjeto ibpSub ");
 		hqlBuilder.append(" 	where ");
-		hqlBuilder.append(" 		ibpSub.id = :idItemBacklogProjeto); ");
+		hqlBuilder.append(" 		ibpSub.id = :idItemBacklogProjeto) ");
+		
 		executeUpdatePrioridade(idItemBacklogProjeto, antigaPrioridade, novaPrioridade, hqlBuilder.toString());
 		updateItem(idItemBacklogProjeto, novaPrioridade);
 	}
 	
 	public void repriorizarDeleteItem(Long idItemBacklogProjeto) {
 		var hqlBuilder = new StringBuilder();
-		hqlBuilder.append(" UPDATE item_backlog_projeto " );
-		hqlBuilder.append(" SET prioridade = prioridade - 1 " );
-		hqlBuilder.append(" WHERE id_projeto = (" );
-		hqlBuilder.append("     SELECT ibpSub.id_projeto " );
-		hqlBuilder.append("     FROM item_backlog_projeto ibpSub " );
-		hqlBuilder.append("     WHERE ibpSub.id_item_backlog_projeto = :idItemBacklogProjeto " );
+		hqlBuilder.append(" UPDATE ItemBacklogProjeto ibp " );
+		hqlBuilder.append(" SET ibp.prioridade = ibp.prioridade - 1 " );
+		hqlBuilder.append(" WHERE ibp.projeto.id = (" );
+		hqlBuilder.append("     SELECT ibpSub.projeto.id " );
+		hqlBuilder.append("     FROM ItemBacklogProjeto ibpSub " );
+		hqlBuilder.append("     WHERE ibpSub.id = :idItemBacklogProjeto " );
 		hqlBuilder.append(" ) " );
-		hqlBuilder.append(" AND prioridade > (" );
+		hqlBuilder.append(" AND ibp.prioridade > (" );
 		hqlBuilder.append("     SELECT ibpSub.prioridade " );
-		hqlBuilder.append("     FROM item_backlog_projeto ibpSub " );
-		hqlBuilder.append("     WHERE ibpSub.id_item_backlog_projeto = :idItemBacklogProjeto " );
+		hqlBuilder.append("     FROM ItemBacklogProjeto ibpSub " );
+		hqlBuilder.append("     WHERE ibpSub.id = :idItemBacklogProjeto " );
 		hqlBuilder.append(" )" );
+		
 		var updatePrioridadeQuery = manager.createQuery(hqlBuilder.toString());
 		updatePrioridadeQuery.setParameter("idItemBacklogProjeto", idItemBacklogProjeto);
 		updatePrioridadeQuery.executeUpdate();

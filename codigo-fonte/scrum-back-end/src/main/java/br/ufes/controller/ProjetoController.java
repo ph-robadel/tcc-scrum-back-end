@@ -19,6 +19,7 @@ import br.ufes.dto.ItemBacklogProjetoInsertDTO;
 import br.ufes.dto.ProjetoBasicDTO;
 import br.ufes.dto.ProjetoDTO;
 import br.ufes.dto.ProjetoUpsertDTO;
+import br.ufes.dto.SprintBasicDTO;
 import br.ufes.dto.SprintDTO;
 import br.ufes.dto.SprintUpsertDTO;
 import br.ufes.dto.UsuarioResponseDTO;
@@ -156,11 +157,12 @@ public class ProjetoController {
 
 	@Operation(summary = "Buscar itens do Backlog do Projeto")
 	@PostMapping("/{idProjeto}/item-backlog-projeto/search")
-	public ResponseEntity<ResponseSearch<ItemBacklogProjetoBasicDTO>> searchItemBacklogProjeto(@PathVariable Long idProjeto,
-			@RequestParam(defaultValue = "") String titulo, @RequestParam(defaultValue = "") String codigo,
-			@RequestParam(defaultValue = "") String situacao, @RequestParam(defaultValue = "") String categoria,
-			@RequestParam(defaultValue = "") Long idAutor, @RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "prioridade") String fieldSort,
+	public ResponseEntity<ResponseSearch<ItemBacklogProjetoBasicDTO>> searchItemBacklogProjeto(
+			@PathVariable Long idProjeto, @RequestParam(defaultValue = "") String titulo,
+			@RequestParam(defaultValue = "") String codigo, @RequestParam(defaultValue = "") String situacao,
+			@RequestParam(defaultValue = "") String categoria, @RequestParam(defaultValue = "") Long idAutor,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,
+			@RequestParam(defaultValue = "prioridade") String fieldSort,
 			@RequestParam(defaultValue = "ASC") String sortOrder) throws Exception {
 
 		var itemProjetoFilterDTO = new ItemBacklogProjetoFilterDTO(titulo, codigo, situacao, categoria, idAutor);
@@ -183,10 +185,16 @@ public class ProjetoController {
 
 	@Operation(summary = "Buscar sprints do projeto")
 	@PostMapping("/{idProjeto}/sprints/search")
-	public ResponseEntity<ResponseSearch<SprintDTO>> searchSprint(@PathParam("idProjeto") Long idProjeto,
-			@RequestBody SprintFilterDTO sprintFiltroDTO) throws Exception {
-		var responseSearch = sprintFacade.search(idProjeto, sprintFiltroDTO);
-		return ResponseEntity.ok(responseSearch);
+	public ResponseEntity<ResponseSearch<SprintBasicDTO>> searchSprint(@PathVariable("idProjeto") Long idProjeto,
+			@RequestParam(defaultValue = "") Integer numero, @RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "prioridade") String fieldSort,
+			@RequestParam(defaultValue = "ASC") String sortOrder) throws Exception {
+		
+		var sprintFilterDTO = new SprintFilterDTO(numero);
+		sprintFilterDTO.setPageAndSorting(page, size, fieldSort, sortOrder);
+
+		var itemBacklogProjetoDTO = sprintFacade.search(idProjeto, sprintFilterDTO);
+		return ResponseEntity.ok(itemBacklogProjetoDTO);
 
 	}
 

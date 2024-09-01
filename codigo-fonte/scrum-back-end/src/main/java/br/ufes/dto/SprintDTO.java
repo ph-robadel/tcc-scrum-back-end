@@ -21,6 +21,6 @@ public class SprintDTO {
 
 	private LocalDate dataFim;
 
-	private ProjetoDTO projeto;
+	private ProjetoBasicDTO projeto;
 
 }

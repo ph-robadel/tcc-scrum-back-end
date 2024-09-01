@@ -15,6 +15,4 @@ public class SprintUpsertDTO {
 
 	private LocalDate dataInicio;
 
-	private LocalDate dataFim;
-
 }
