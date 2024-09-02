@@ -24,7 +24,7 @@ public enum SituacaoItemProjetoEnum {
 		try {
 			return valueOf(valorFormatado);
 		} catch (IllegalArgumentException ex) {
-			throw new RequestArgumentException("A situação '" + valor + "' não é válido");
+			throw new RequestArgumentException("A situação '" + valor + "' não é válida");
 		}
 	}
 }

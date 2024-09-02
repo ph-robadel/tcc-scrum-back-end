@@ -28,7 +28,7 @@ import br.ufes.validate.ProjetoValidate;
 public class ItemBacklogProjetoFacade {
 
 	@Autowired
-	private ItemBacklogProjetoService itemBackLogProjetoService;
+	private ItemBacklogProjetoService itemBacklogProjetoService;
 
 	@Autowired
 	private ProjetoService projetoService;
@@ -58,11 +58,10 @@ public class ItemBacklogProjetoFacade {
 		itemBacklogProjetoValidate.validateSave(itemBacklogProjetoInsertDTO);
 		var itemBacklogProjeto = modelMapper.map(itemBacklogProjetoInsertDTO, ItemBacklogProjeto.class);
 
-		
-		var codigoNovoItem = itemBackLogProjetoService.obterCodigoNovoItem(idProjeto,
+		var codigoNovoItem = itemBacklogProjetoService.obterCodigoNovoItem(idProjeto,
 				itemBacklogProjetoInsertDTO.getCategoria());
 		var usuarioAutenticado = usuarioService.getUsuarioAutenticado();
-		var prioridadeNovoItem = itemBackLogProjetoService.obterNumeroPrioridadeNovoItem(idProjeto);
+		var prioridadeNovoItem = itemBacklogProjetoService.obterNumeroPrioridadeNovoItem(idProjeto);
 
 		itemBacklogProjeto.setPrioridade(prioridadeNovoItem);
 		itemBacklogProjeto.setCodigo(codigoNovoItem);
@@ -72,14 +71,14 @@ public class ItemBacklogProjetoFacade {
 		if (ObjectUtils.isEmpty(itemBacklogProjetoInsertDTO.getSituacao())) {
 			itemBacklogProjeto.setSituacao(SituacaoItemProjetoEnum.REDIGINDO);
 		}
-		itemBacklogProjeto = itemBackLogProjetoService.save(itemBacklogProjeto);
+		itemBacklogProjeto = itemBacklogProjetoService.save(itemBacklogProjeto);
 
 		return modelMapper.map(itemBacklogProjeto, ItemBacklogProjetoDTO.class);
 	}
 
 	public ItemBacklogProjetoDTO atualizarItemBacklogProjeto(Long idItemBacklogProjeto,
 			ItemBacklogProjetoUpdateDTO itemBacklogProjetoUpsertDTO) throws Exception {
-		var itemBacklogProjeto = itemBackLogProjetoService.getById(idItemBacklogProjeto);
+		var itemBacklogProjeto = itemBacklogProjetoService.getById(idItemBacklogProjeto);
 
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(itemBacklogProjeto.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(itemBacklogProjeto.getProjeto());
@@ -87,7 +86,7 @@ public class ItemBacklogProjetoFacade {
 
 		itemBacklogProjeto.atualizarAtributos(itemBacklogProjetoUpsertDTO);
 
-		itemBacklogProjeto = itemBackLogProjetoService.save(itemBacklogProjeto);
+		itemBacklogProjeto = itemBacklogProjetoService.save(itemBacklogProjeto);
 		return modelMapper.map(itemBacklogProjeto, ItemBacklogProjetoDTO.class);
 	}
 
@@ -99,11 +98,11 @@ public class ItemBacklogProjetoFacade {
 
 		filterDTO.setIdProjeto(idProjeto);
 
-		return itemBackLogProjetoService.search(filterDTO);
+		return itemBacklogProjetoService.search(filterDTO);
 	}
 
 	public void deleteItemBacklogProjeto(Long idItemBacklogProjeto) throws Exception {
-		var itemBacklogProjeto = itemBackLogProjetoService.getById(idItemBacklogProjeto);
+		var itemBacklogProjeto = itemBacklogProjetoService.getById(idItemBacklogProjeto);
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(itemBacklogProjeto.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(itemBacklogProjeto.getProjeto());
 
@@ -117,11 +116,11 @@ public class ItemBacklogProjetoFacade {
 		}
 		
 //		TODO: Não deixar remover caso tenha itens backlog da sprint associado.
-		itemBackLogProjetoService.remover(idItemBacklogProjeto);
+		itemBacklogProjetoService.remover(idItemBacklogProjeto);
 	}
 
 	public ItemBacklogProjetoDTO getById(Long idItemBacklogProjeto) {
-		var itemBacklogProjeto = itemBackLogProjetoService.getById(idItemBacklogProjeto);
+		var itemBacklogProjeto = itemBacklogProjetoService.getById(idItemBacklogProjeto);
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(itemBacklogProjeto.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(itemBacklogProjeto.getProjeto());
 		
@@ -129,11 +128,11 @@ public class ItemBacklogProjetoFacade {
 	}
 
 	public void repriorizarItemBacklogProjeto(Long idItemBacklogProjeto, Long valorPrioridade) {
-		var itemBacklogProjeto = itemBackLogProjetoService.getById(idItemBacklogProjeto);
+		var itemBacklogProjeto = itemBacklogProjetoService.getById(idItemBacklogProjeto);
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(itemBacklogProjeto.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(itemBacklogProjeto.getProjeto());
 		
-		itemBackLogProjetoService.repriorizarItemBacklogProjeto(itemBacklogProjeto, valorPrioridade);
+		itemBacklogProjetoService.repriorizarItemBacklogProjeto(itemBacklogProjeto, valorPrioridade);
 	}
 
 }

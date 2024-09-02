@@ -3,6 +3,7 @@ package br.ufes.entity;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import br.ufes.dto.ItemBacklogSprintUpsertDTO;
 import br.ufes.enums.SituacaoItemSprintEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,7 +34,7 @@ public class ItemBacklogSprint {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private String descricao; //NOVO
+	private String descricao;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_USUARIO_REALIZACAO")
@@ -54,8 +55,6 @@ public class ItemBacklogSprint {
 	@Enumerated(EnumType.STRING)
 	private SituacaoItemSprintEnum situacao;
 
-	private String descricaoBloqueio;
-
 	private Long prioridade;
 
 	private Boolean pendenteAprovacao;
@@ -73,5 +72,20 @@ public class ItemBacklogSprint {
 	private Usuario responsavelAprovacao;
 
 	private LocalDateTime dataAprovacao;
+
+	public void atualizarAtributos(ItemBacklogSprintUpsertDTO itemBacklogSprintUpsertDTO) {
+		this.descricao = itemBacklogSprintUpsertDTO.getDescricao();
+		this.horasEstimadas = itemBacklogSprintUpsertDTO.getHorasEstimadas();
+		this.horasEstimadas = itemBacklogSprintUpsertDTO.getHorasRealizadas();
+		this.situacao = itemBacklogSprintUpsertDTO.getSituacao();
+	}
+	
+	public boolean isPendenteAprovacao() {
+		return Boolean.TRUE.equals(pendenteAprovacao);
+	}
+	
+	public boolean isPendenteRemocao() {
+		return Boolean.TRUE.equals(pendenteRemocao);
+	}
 
 }

@@ -34,7 +34,6 @@ import br.ufes.util.ResponseSearch;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.websocket.server.PathParam;
 
 @RestController
 @Tag(name = "Projetos")
@@ -187,7 +186,7 @@ public class ProjetoController {
 	@PostMapping("/{idProjeto}/sprints/search")
 	public ResponseEntity<ResponseSearch<SprintBasicDTO>> searchSprint(@PathVariable("idProjeto") Long idProjeto,
 			@RequestParam(defaultValue = "") Integer numero, @RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "prioridade") String fieldSort,
+			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String fieldSort,
 			@RequestParam(defaultValue = "ASC") String sortOrder) throws Exception {
 		
 		var sprintFilterDTO = new SprintFilterDTO(numero);

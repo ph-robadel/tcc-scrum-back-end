@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.dto.ItemBacklogSprintDTO;
-import br.ufes.dto.SprintUpsertDTO;
+import br.ufes.dto.ItemBacklogSprintUpsertDTO;
 import br.ufes.facade.ItemBacklogSprintFacade;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -39,10 +39,10 @@ public class ItemBackLogSprintController {
 	@Operation(summary = "Atualizar item do backlog da sprint")
 	@PutMapping("/{idItemBacklogSprint}")
 	public ResponseEntity<ItemBacklogSprintDTO> atualizar(@PathVariable Long idItemBacklogSprint,
-			@RequestBody SprintUpsertDTO sprintUpsertDTO) throws Exception {
-		var sprint = itemBacklogSprintFacade.atualizar(idItemBacklogSprint, sprintUpsertDTO);
-		return ResponseEntity.ok(sprint);
-
+			@RequestBody ItemBacklogSprintUpsertDTO itemBacklogSprintUpsertDTO) throws Exception {
+		
+		var itemBacklogSprintDTO = itemBacklogSprintFacade.atualizar(idItemBacklogSprint, itemBacklogSprintUpsertDTO);
+		return ResponseEntity.ok(itemBacklogSprintDTO);
 	}
 
 	@Operation(summary = "Remover item do backlog da sprint")

@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SprintBasicDTO {
 
-	private Long Id;
+	private Long id;
 
 	private Integer numero;
 
