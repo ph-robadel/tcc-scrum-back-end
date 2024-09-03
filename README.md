@@ -48,3 +48,18 @@ Ao executar o projeto, é possível acessar a documentação da API no padrão O
 http://localhost:8080/v3/api-docs
 http://localhost:8080/swagger-ui/index.html
 ~~~
+
+## Executando projeto via Docker
+
+Para executar o projeto via docker, é possível construir uma nova imagem a partir do Dockerfile em ./codigo-fonte/scrum-back-end/Dockerfile ou baixar a imagem no Docker Hub.
+
+Criando um novo container a partir da imagem disponível no [Docker Hub](https://hub.docker.com/r/phrobadel/scrum-rest-api):
+
+~~~
+docker run --name scrum-api -e USER_DB=postgres -e PASSWD_DB=123456 -e URL_DB=jdbc:postgresql://172.19.0.2:5432/scrumdb -e JWT_SECRET=d5fecba7-3a72-44fc-862a-260ddb241ebb -p 8080:8080 --network rede-scrum phrobadel/scrum-rest-api
+~~~
+
+- USER_DB: usuário do banco
+- PASSWD_DB: senha do usuário do banco
+- URL_DB: Url de conexão completa do banco de dados. Para executar localmente, verificar se estão na mesma rede (network).
+- JWT_SECRET: Valor base para a geração da criptografia das senhas dos usuários.
