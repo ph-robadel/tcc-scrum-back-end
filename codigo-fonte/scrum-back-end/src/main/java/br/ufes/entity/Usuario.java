@@ -36,7 +36,7 @@ public class Usuario implements UserDetails {
 
 	@Id
 	@Column(name = "ID_USUARIO")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 
 	private String nomeCompleto;

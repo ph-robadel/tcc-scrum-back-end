@@ -31,7 +31,7 @@ public class ItemBacklogSprint {
 	
 	@Id
 	@Column(name = "ID_ITEM_BACKLOG_SPRINT")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	
 	private String descricao;

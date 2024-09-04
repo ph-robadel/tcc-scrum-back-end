@@ -9,7 +9,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum CategoriaItemProjetoEnum {
-	REQUISITO_FUNCIONAL("RF"), REQUISITO_NAO_FUNCIONAL("RNF"), BUG("B"), REUNIAO("R"), MELHORIA("M");
+	REQUISITO_FUNCIONAL("RF"), REQUISITO_NAO_FUNCIONAL("RNF"), BUG("B"), MELHORIA("M");
 
 	private String sigla;
 

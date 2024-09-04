@@ -8,16 +8,15 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum SituacaoItemProjetoEnum {
-	REDIGINDO("Redigindo"),
-	ESCRITA_FINALIZADA("Escrita finalizada"),
-	APROVADO("Aprovado"),	
-	EM_DESENVOLVIMENTO("Em desenvolvimento"),	
-	CONCLUIDO("Concluído");
+public enum SituacaoProjetoEnum {
+	NOVO("Novo"),
+	EM_ANDAMENTO("Sprint em andamento"),
+	CONCLUIDO("Sprint concluída"),
+	CANCELADO("Sprint cancelada");
 
 	private String situacao;
 	
-	public static SituacaoItemProjetoEnum fromString(String valor) {
+	public static SituacaoProjetoEnum fromString(String valor) {
 		if (StringUtils.isEmpty(valor)) {
 			return null;
 		}

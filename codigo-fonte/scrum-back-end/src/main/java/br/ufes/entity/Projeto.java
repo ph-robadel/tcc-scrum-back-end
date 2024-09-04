@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import br.ufes.dto.ProjetoUpsertDTO;
+import br.ufes.enums.EventoFinalizacaoProjetoEnum;
+import br.ufes.enums.SituacaoProjetoEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -27,7 +29,7 @@ public class Projeto {
 
 	@Id
 	@Column(name = "ID_PROJETO")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 
 	private String nome;
@@ -45,6 +47,10 @@ public class Projeto {
 	private BigDecimal duracaoHorasRetrospective;
 
 	private Boolean ativo;
+	
+	private SituacaoProjetoEnum situacao;
+	
+	private EventoFinalizacaoProjetoEnum eventoFinalizacao;
 
 	@OneToMany(mappedBy = "projeto", fetch = FetchType.LAZY)
 	private List<Sprint> sprints;

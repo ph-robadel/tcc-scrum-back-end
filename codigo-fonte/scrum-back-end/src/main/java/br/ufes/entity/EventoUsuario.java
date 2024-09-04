@@ -1,5 +1,6 @@
 package br.ufes.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -18,31 +19,21 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "PROJETO_USUARIO")
-public class ProjetoUsuario {
-
-	public ProjetoUsuario(Projeto projeto, Usuario usuario) {
-		setProjeto(projeto);
-		setUsuario(usuario);
-		setAtivo(true);
-	}
+@Table(name = "EVENTO_USUARIO")
+public class EventoUsuario {
 
 	@Id
+	@Column(name = "ID_EVENTO_USUARIO")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Long Id;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_PROJETO")
-	private Projeto projeto;
-
+	private Long id;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_USUARIO")
 	private Usuario usuario;
-
-	private Boolean ativo;
 	
-	public boolean isAtivo() {
-		return Boolean.TRUE.equals(ativo);
-	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_EVENTO")
+	private Evento evento;
+
 
 }

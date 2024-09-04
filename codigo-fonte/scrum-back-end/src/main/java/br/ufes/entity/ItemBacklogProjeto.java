@@ -33,7 +33,7 @@ public class ItemBacklogProjeto {
 
 	@Id
 	@Column(name = "ID_ITEM_BACKLOG_PROJETO")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 
 	private String titulo;

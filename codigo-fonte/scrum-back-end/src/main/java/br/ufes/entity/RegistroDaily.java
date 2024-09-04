@@ -1,5 +1,6 @@
 package br.ufes.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -18,31 +19,24 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "PROJETO_USUARIO")
-public class ProjetoUsuario {
-
-	public ProjetoUsuario(Projeto projeto, Usuario usuario) {
-		setProjeto(projeto);
-		setUsuario(usuario);
-		setAtivo(true);
-	}
+@Table(name = "REGISTRO_DAILY")
+public class RegistroDaily {
 
 	@Id
+	@Column(name = "ID_REGISTRO_DAILY")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Long Id;
+	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_PROJETO")
-	private Projeto projeto;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_USUARIO")
+	@JoinColumn(name = "ID_USUARIO_AUTOR")
 	private Usuario usuario;
-
-	private Boolean ativo;
 	
-	public boolean isAtivo() {
-		return Boolean.TRUE.equals(ativo);
-	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_PERGUNTA_RESPOSTA")
+	private PerguntaRespostaDaily perguntaResposta;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_SPRINT_DAILY")
+	private SprintDaily sprintDaily;
 
 }
