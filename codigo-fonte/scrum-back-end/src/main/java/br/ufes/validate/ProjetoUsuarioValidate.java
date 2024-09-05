@@ -10,7 +10,7 @@ import org.springframework.util.ObjectUtils;
 import br.ufes.entity.Projeto;
 import br.ufes.entity.Usuario;
 import br.ufes.enums.PerfilUsuarioEnum;
-import br.ufes.exception.AcessoProjetoException;
+import br.ufes.exception.AcessoUsuarioException;
 import br.ufes.exception.BusinessException;
 import br.ufes.services.ProjetoUsuarioService;
 import br.ufes.services.UsuarioService;
@@ -66,7 +66,7 @@ public class ProjetoUsuarioValidate {
 		var projetoUsuario = projetoUsuarioService.getByIdProjetoAndIdUsuario(idProjeto, usuarioAutenticado.getId());
 
 		if (ObjectUtils.isEmpty(projetoUsuario)) {
-			throw new AcessoProjetoException("Usuário autenticado não possui acesso ao projeto");
+			throw new AcessoUsuarioException("Usuário autenticado não possui acesso ao projeto");
 		}
 	}
 

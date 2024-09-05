@@ -11,7 +11,6 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
@@ -27,7 +26,7 @@ public abstract class Evento {
 
 	@Id
 	@Column(name = "ID_EVENTO")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue
 	private Long id;
 	
 	private String nome;

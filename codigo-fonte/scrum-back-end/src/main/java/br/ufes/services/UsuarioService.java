@@ -24,7 +24,7 @@ public class UsuarioService {
 	public Usuario findByNomeUsuario(String nomeUsuario) {
 		return usuarioRepository.findByNomeUsuario(nomeUsuario);
 	}
-	
+
 	public boolean existsByNomeUsuario(String nomeUsuario) {
 		return usuarioRepository.existsByNomeUsuario(nomeUsuario);
 	}
@@ -34,9 +34,8 @@ public class UsuarioService {
 			return null;
 		}
 
-		var usuario = usuarioRepository.findById(idUsuario).orElseThrow(() -> 
-			new EntityNotFoundException("Usuário não encontrado")
-		);
+		var usuario = usuarioRepository.findById(idUsuario)
+				.orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
 
 		return usuario;
 	}
@@ -84,8 +83,12 @@ public class UsuarioService {
 
 		return new ResponseSearch<>(listPage, total);
 	}
-	
+
 	public boolean isNomeUsuarioDisponível(String nomeUsuario, Long idUsuario) {
 		return usuarioRepository.isNomeUsuarioDisponivel(nomeUsuario, idUsuario);
+	}
+
+	public boolean existeUsuariosSalvos() {
+		return usuarioRepository.existsBy();
 	}
 }

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import br.ufes.dto.UsuarioUpsertDTO;
+import br.ufes.enums.PerfilUsuarioEnum;
+import br.ufes.exception.AcessoUsuarioException;
 import br.ufes.exception.BusinessException;
 import br.ufes.exception.RequestArgumentException;
 import br.ufes.services.UsuarioService;
@@ -21,6 +23,18 @@ public class UsuarioValidate {
 	public void validateSave(UsuarioUpsertDTO usuarioUpsertDTO, Long idUsuario) throws Exception {
 		List<String> erros = new ArrayList<>();
 		boolean isUpdate = !ObjectUtils.isEmpty(idUsuario);
+		boolean existeUsuariosSalvos = usuarioService.existeUsuariosSalvos();
+
+		if (existeUsuariosSalvos) {
+			var usuarioAutenticado = usuarioService.getUsuarioAutenticado();
+			if (ObjectUtils.isEmpty(usuarioAutenticado)) {
+				throw new AcessoUsuarioException("");
+			} else if (!PerfilUsuarioEnum.ADMINISTRADOR.equals(usuarioAutenticado.getPerfil())) {
+				erros.add("Apenas usuários de perfil Administrador possuem permissão para adicionar novos usuários");
+			}
+		} else if (!PerfilUsuarioEnum.ADMINISTRADOR.equals(usuarioUpsertDTO.getPerfil())) {
+			erros.add("O primeiro usuário deve ser do perfil administrador");
+		}
 		if (ObjectUtils.isEmpty(usuarioUpsertDTO.getNomeCompleto())) {
 			erros.add("Informe o nome completo");
 		}

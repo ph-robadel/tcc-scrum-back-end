@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.auth0.jwt.exceptions.TokenExpiredException;
 
-import br.ufes.exception.AcessoProjetoException;
+import br.ufes.exception.AcessoUsuarioException;
 import br.ufes.exception.BusinessException;
 import br.ufes.exception.RequestArgumentException;
 import jakarta.persistence.EntityNotFoundException;
@@ -38,8 +38,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 		return ResponseEntity.badRequest().body(exception.getMessage());
 	}
 	
-	@ExceptionHandler(AcessoProjetoException.class)
-	private ResponseEntity<String> acessoProjetoExceptionHandler(AcessoProjetoException exception) {
+	@ExceptionHandler(AcessoUsuarioException.class)
+	private ResponseEntity<String> acessoUsuarioExceptionHandler(AcessoUsuarioException exception) {
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(exception.getMessage());
 	}
 	

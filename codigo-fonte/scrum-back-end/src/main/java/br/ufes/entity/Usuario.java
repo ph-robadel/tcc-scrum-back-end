@@ -14,7 +14,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -36,7 +35,7 @@ public class Usuario implements UserDetails {
 
 	@Id
 	@Column(name = "ID_USUARIO")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue
 	private Long id;
 
 	private String nomeCompleto;
