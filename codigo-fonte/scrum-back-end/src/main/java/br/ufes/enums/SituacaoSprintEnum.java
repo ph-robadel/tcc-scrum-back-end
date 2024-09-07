@@ -9,11 +9,11 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum SituacaoSprintEnum {
-	CRIADA("Sprint criada"),
-	EM_PLANEJAMENTO("Sprint em planejamento"),
-	EM_ANDAMENTO("Sprint em andamento"),
-	CONCLUIDA("Sprint concluída"),
-	CANCELADA("Sprint cancelada");
+	CRIADA("criada"),
+	EM_PLANEJAMENTO("em planejamento"),
+	EM_ANDAMENTO("em andamento"),
+	CONCLUIDA("concluída"),
+	CANCELADA("cancelada");
 
 	private String situacao;
 	

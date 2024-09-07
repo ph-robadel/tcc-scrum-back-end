@@ -13,7 +13,7 @@ import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class ItemBacklogSprintService {
-	
+
 	@Autowired
 	private ItemBacklogSprintRepository itemBacklogSprintRepository;
 
@@ -30,7 +30,7 @@ public class ItemBacklogSprintService {
 	public Long obterNumeroPrioridadeNovoItem(Long idSprint) {
 		return itemBacklogSprintRepository.obterNumeroPrioridadeNovoItem(idSprint);
 	}
-	
+
 	public ItemBacklogSprint save(ItemBacklogSprint itemBacklogSprint) {
 		return itemBacklogSprintRepository.save(itemBacklogSprint);
 	}
@@ -50,4 +50,5 @@ public class ItemBacklogSprintService {
 		itemBacklogSprintRepository.repriorizarDeleteItem(idItemBacklogSprint);
 		itemBacklogSprintRepository.deleteById(idItemBacklogSprint);
 	}
+	
 }

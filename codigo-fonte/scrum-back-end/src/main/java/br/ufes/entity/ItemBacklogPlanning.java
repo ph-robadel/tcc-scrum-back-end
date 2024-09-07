@@ -1,5 +1,7 @@
 package br.ufes.entity;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -35,5 +37,11 @@ public class ItemBacklogPlanning {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_SPRINT_PLANNING")
 	private SprintPlanning sprintPlanning;
+	
+	private BigDecimal horasEstimadas;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_USUARIO_REALIZACAO")
+	private Usuario responsavelRealizacao;
 
 }

@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,52 +48,6 @@ public class ItemBackLogSprintController {
 	@DeleteMapping("/{idItemBacklogSprint}")
 	public ResponseEntity<Object> delete(@PathVariable Long idItemBacklogSprint) throws Exception {
 		itemBacklogSprintFacade.delete(idItemBacklogSprint);
-		return ResponseEntity.ok().build();
-	}
-
-	@Operation(summary = "Aprovar inclusão do item ao backlog da sprint")
-	@PostMapping("/{idItemBacklogSprint}/aprovar-inclusao")
-	public ResponseEntity<Object> aprovarInclusao(@PathVariable Long idItemBacklogSprint) throws Exception {
-		try {
-			itemBacklogSprintFacade.aprovarInclusao(idItemBacklogSprint);
-			return ResponseEntity.ok().build();
-		} catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		} catch (Exception e) {
-			return ResponseEntity.internalServerError().build();
-		}
-	}
-
-	@Operation(summary = "Recusar inclusão do item ao backlog da sprint")
-	@PostMapping("/{idItemBacklogSprint}/recusar-inclusao")
-	public ResponseEntity<Object> recusarInclusao(@PathVariable Long idItemBacklogSprint) throws Exception {
-		try {
-			itemBacklogSprintFacade.recusarInclusao(idItemBacklogSprint);
-			return ResponseEntity.ok().build();
-		} catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		} catch (Exception e) {
-			return ResponseEntity.internalServerError().build();
-		}
-	}
-
-	@Operation(summary = "Aprovar remoção item do backlog da sprint")
-	@PostMapping("/{idItemBacklogSprint}/aprovar-remocao")
-	public ResponseEntity<Object> aprovarRemocao(@PathVariable Long idItemBacklogSprint) throws Exception {
-		try {
-			itemBacklogSprintFacade.aprovarRemocao(idItemBacklogSprint);
-			return ResponseEntity.ok().build();
-		} catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		} catch (Exception e) {
-			return ResponseEntity.internalServerError().build();
-		}
-	}
-
-	@Operation(summary = "Recusar remoção do item ao backlog da sprint")
-	@PostMapping("/{idItemBacklogSprint}/recusar-remocao")
-	public ResponseEntity<Object> recusarRemocao(@PathVariable Long idItemBacklogSprint) throws Exception {
-		itemBacklogSprintFacade.recusarRemocao(idItemBacklogSprint);
 		return ResponseEntity.ok().build();
 	}
 

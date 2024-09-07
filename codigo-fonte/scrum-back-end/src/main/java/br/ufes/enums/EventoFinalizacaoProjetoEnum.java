@@ -9,8 +9,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum EventoFinalizacaoProjetoEnum {
-	REVIEW("Review"),
-	RETROSPECTIVA("Retrospectiva");
+	REVIEW("review"),
+	RETROSPECTIVE("retrospective");
 
 	private String evento;
 	

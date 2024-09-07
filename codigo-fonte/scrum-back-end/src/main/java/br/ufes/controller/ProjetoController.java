@@ -89,20 +89,25 @@ public class ProjetoController {
 		return ResponseEntity.ok(projeto);
 	}
 
-	@Operation(summary = "Inativar projeto")
-	@PostMapping("/{idProjeto}/inativar")
-	public ResponseEntity<Object> inativarProjeto(@PathVariable Long idProjeto) throws Exception {
-		projetoFacade.inativarProjeto(idProjeto);
+	@Operation(summary = "Sinalizar conclusão do projeto")
+	@PostMapping("/{idProjeto}/concluir")
+	public ResponseEntity<Object> concluirProjeto(@PathVariable Long idProjeto) throws Exception {
+		projetoFacade.concluirProjeto(idProjeto);
 		return ResponseEntity.ok().build();
-
+	}
+	
+	@Operation(summary = "Sinalizar cancelamento do projeto")
+	@PostMapping("/{idProjeto}/cancelar")
+	public ResponseEntity<Object> cancelarProjeto(@PathVariable Long idProjeto) throws Exception {
+		projetoFacade.cancelarProjeto(idProjeto);
+		return ResponseEntity.ok().build();
 	}
 
 	@Operation(summary = "Ativar projeto")
 	@PostMapping("/{idProjeto}/reativar")
-	public ResponseEntity<Object> ativarProjeto(@PathVariable Long idProjeto) throws Exception {
-		projetoFacade.ativarProjeto(idProjeto);
+	public ResponseEntity<Object> reativarProjeto(@PathVariable Long idProjeto) throws Exception {
+		projetoFacade.reativarProjeto(idProjeto);
 		return ResponseEntity.ok().build();
-
 	}
 
 	@Operation(summary = "Adicionar novo usuário ao projeto")
@@ -155,7 +160,7 @@ public class ProjetoController {
 	}
 
 	@Operation(summary = "Buscar itens do Backlog do Projeto")
-	@PostMapping("/{idProjeto}/item-backlog-projeto/search")
+	@GetMapping("/{idProjeto}/item-backlog-projeto/search")
 	public ResponseEntity<ResponseSearch<ItemBacklogProjetoBasicDTO>> searchItemBacklogProjeto(
 			@PathVariable Long idProjeto, @RequestParam(defaultValue = "") String titulo,
 			@RequestParam(defaultValue = "") String codigo, @RequestParam(defaultValue = "") String situacao,
@@ -183,7 +188,7 @@ public class ProjetoController {
 	}
 
 	@Operation(summary = "Buscar sprints do projeto")
-	@PostMapping("/{idProjeto}/sprints/search")
+	@GetMapping("/{idProjeto}/sprints/search")
 	public ResponseEntity<ResponseSearch<SprintBasicDTO>> searchSprint(@PathVariable("idProjeto") Long idProjeto,
 			@RequestParam(defaultValue = "") Integer numero, @RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String fieldSort,

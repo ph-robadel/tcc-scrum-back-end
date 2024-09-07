@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.ufes.dto.SprintBasicDTO;
-import br.ufes.dto.SprintDTO;
 import br.ufes.dto.filter.SprintFilterDTO;
 import br.ufes.entity.Sprint;
 import br.ufes.repository.SprintRepository;
@@ -19,24 +18,6 @@ public class SprintService {
 
 	@Autowired
 	private SprintRepository sprintRepository;
-
-	public SprintDTO getMock() throws Exception {
-		var sprintMock = new SprintDTO();
-		sprintMock.setId(1l);
-		sprintMock.setNumero(1);
-		sprintMock.setDataInicio(LocalDate.now());
-		sprintMock.setDataFim(LocalDate.now().plusDays(15));
-
-		return sprintMock;
-	}
-
-	public SprintBasicDTO getBasicMock() throws Exception {
-		var sprintBasicMock = new SprintBasicDTO();
-		sprintBasicMock.setId(1l);
-		sprintBasicMock.setNumero(1);
-
-		return sprintBasicMock;
-	}
 
 	public SprintBasicDTO obterSprintByData(Long idProjeto, LocalDate data) {
 		return sprintRepository.obterSprintByData(idProjeto, data);
@@ -68,10 +49,6 @@ public class SprintService {
 		Long total = sprintRepository.searchCount(sprintFiltroDTO);
 
 		return new ResponseSearch<>(listPage, total);
-	}
-
-	public void remove(Long idSprint) {
-		sprintRepository.deleteById(idSprint);
 	}
 
 }

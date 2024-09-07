@@ -12,9 +12,7 @@ import br.ufes.dto.ItemBacklogSprintDTO;
 import br.ufes.dto.ItemBacklogSprintUpsertDTO;
 import br.ufes.dto.filter.ItemBacklogSprintFilterDTO;
 import br.ufes.entity.ItemBacklogSprint;
-import br.ufes.enums.PerfilUsuarioEnum;
 import br.ufes.enums.SituacaoItemSprintEnum;
-import br.ufes.exception.BusinessException;
 import br.ufes.services.ItemBacklogProjetoService;
 import br.ufes.services.ItemBacklogSprintService;
 import br.ufes.services.SprintService;
@@ -73,7 +71,7 @@ public class ItemBacklogSprintFacade {
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(projeto.getId());
 		projetoValidate.validateProjetoAtivo(projeto);
 
-		itemBacklogSprintValidate.validateSave(itemBacklogSprintUpsertDTO);
+		itemBacklogSprintValidate.validateSave(itemBacklogSprintUpsertDTO, sprint);
 		var itemBacklogSprint = modelMapper.map(itemBacklogSprintUpsertDTO, ItemBacklogSprint.class);
 
 		var usuarioAutenticado = usuarioService.getUsuarioAutenticado();
@@ -90,14 +88,6 @@ public class ItemBacklogSprintFacade {
 
 		if (ObjectUtils.isEmpty(itemBacklogSprintUpsertDTO.getSituacao())) {
 			itemBacklogSprint.setSituacao(SituacaoItemSprintEnum.A_FAZER);
-		}
-
-		if (PerfilUsuarioEnum.PRODUCT_OWNER.equals(usuarioAutenticado.getPerfil())) {
-			itemBacklogSprint.setPendenteAprovacao(false);
-			itemBacklogSprint.setResponsavelAprovacao(usuarioAutenticado);
-			itemBacklogSprint.setDataAprovacao(dataHoraAtual);
-		} else {
-			itemBacklogSprint.setPendenteAprovacao(true);
 		}
 
 		itemBacklogSprint = itemBacklogSprintService.save(itemBacklogSprint);
@@ -121,7 +111,7 @@ public class ItemBacklogSprintFacade {
 		var projeto = itemBacklogSprint.getSprint().getProjeto();
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(projeto.getId());
 		projetoValidate.validateProjetoAtivo(projeto);
-		itemBacklogSprintValidate.validateSave(itemBacklogSprintUpsertDTO);
+		itemBacklogSprintValidate.validateSave(itemBacklogSprintUpsertDTO, itemBacklogSprint.getSprint());
 		var responsavelRealizacao = usuarioService.getById(itemBacklogSprintUpsertDTO.getIdResponsavelRealizacao());
 
 		itemBacklogSprint.atualizarAtributos(itemBacklogSprintUpsertDTO);
@@ -137,89 +127,7 @@ public class ItemBacklogSprintFacade {
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(projeto.getId());
 		projetoValidate.validateProjetoAtivo(projeto);
 
-		var usuarioAutenticado = usuarioService.getUsuarioAutenticado();
-		if (PerfilUsuarioEnum.PRODUCT_OWNER.equals(usuarioAutenticado.getPerfil())) {
-			itemBacklogSprintService.delete(idItemBacklogSprint);
-		} else {
-			itemBacklogSprint.setPendenteRemocao(true);
-			itemBacklogSprintService.save(itemBacklogSprint);
-		}
-	}
-
-	public void aprovarInclusao(Long idItemBacklogSprint) throws Exception {
-		var usuarioAutenticado = usuarioService.getUsuarioAutenticado();
-		if (PerfilUsuarioEnum.PRODUCT_OWNER.equals(usuarioAutenticado.getPerfil())) {
-			throw new BusinessException("Apenas Product Owner podem aprovar a inclusão de um item backlog na sprint");
-		}
-
-		var itemBacklogSprint = itemBacklogSprintService.getById(idItemBacklogSprint);
-		var projeto = itemBacklogSprint.getSprint().getProjeto();
-		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(projeto.getId());
-		projetoValidate.validateProjetoAtivo(projeto);
-
-		if (itemBacklogSprint.isPendenteAprovacao()) {
-			itemBacklogSprint.setDataAprovacao(LocalDateTime.now());
-			itemBacklogSprint.setResponsavelAprovacao(usuarioAutenticado);
-			itemBacklogSprintService.save(itemBacklogSprint);
-		} else {
-			throw new BusinessException("Este item backlog da sprint não está pendente de aprovação da inclusão");
-		}
-
-	}
-
-	public void recusarInclusao(Long idItemBacklogSprint) throws Exception {
-		var usuarioAutenticado = usuarioService.getUsuarioAutenticado();
-		if (PerfilUsuarioEnum.PRODUCT_OWNER.equals(usuarioAutenticado.getPerfil())) {
-			throw new BusinessException("Apenas Product Owner podem recusar a inclusão de um item backlog na sprint");
-		}
-
-		var itemBacklogSprint = itemBacklogSprintService.getById(idItemBacklogSprint);
-		var projeto = itemBacklogSprint.getSprint().getProjeto();
-		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(projeto.getId());
-		projetoValidate.validateProjetoAtivo(projeto);
-
-		if (itemBacklogSprint.isPendenteRemocao()) {
-			itemBacklogSprintService.delete(idItemBacklogSprint);
-		} else {
-			throw new BusinessException("Este item backlog da sprint não está pendente de aprovação para inclusão");
-		}
-	}
-
-	public void aprovarRemocao(Long idItemBacklogSprint) throws Exception {
-		var usuarioAutenticado = usuarioService.getUsuarioAutenticado();
-		if (PerfilUsuarioEnum.PRODUCT_OWNER.equals(usuarioAutenticado.getPerfil())) {
-			throw new BusinessException("Apenas Product Owner podem aprovar a inclusão de um item backlog na sprint");
-		}
-
-		var itemBacklogSprint = itemBacklogSprintService.getById(idItemBacklogSprint);
-		var projeto = itemBacklogSprint.getSprint().getProjeto();
-		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(projeto.getId());
-		projetoValidate.validateProjetoAtivo(projeto);
-
-		if (itemBacklogSprint.isPendenteRemocao()) {
-			itemBacklogSprintService.delete(idItemBacklogSprint);
-		} else {
-			throw new BusinessException("Este item backlog da sprint não está pendente de aprovação para a remoção");
-		}
-	}
-
-	public void recusarRemocao(Long idItemBacklogSprint) throws Exception {
-		var usuarioAutenticado = usuarioService.getUsuarioAutenticado();
-		if (PerfilUsuarioEnum.PRODUCT_OWNER.equals(usuarioAutenticado.getPerfil())) {
-			throw new BusinessException("Apenas Product Owner podem recusar a inclusão de um item backlog na sprint");
-		}
-
-		var itemBacklogSprint = itemBacklogSprintService.getById(idItemBacklogSprint);
-		var projeto = itemBacklogSprint.getSprint().getProjeto();
-		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(projeto.getId());
-		projetoValidate.validateProjetoAtivo(projeto);
-
-		if (itemBacklogSprint.isPendenteRemocao()) {
-			itemBacklogSprint.setPendenteRemocao(false);
-			itemBacklogSprintService.save(itemBacklogSprint);
-		} else {
-			throw new BusinessException("Este item backlog da sprint não está pendente de aprovação para a remoção");
-		}
+		itemBacklogSprintService.delete(idItemBacklogSprint);
 	}
 
 }

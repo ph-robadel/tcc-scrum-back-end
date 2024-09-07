@@ -34,5 +34,11 @@ public class EventoUsuario {
 	@JoinColumn(name = "ID_EVENTO")
 	private Evento evento;
 
+	public EventoUsuario(Evento evento, Usuario usuario) {
+		this.evento = evento;
+		this.usuario = usuario;
+	}
+
+	
 
 }

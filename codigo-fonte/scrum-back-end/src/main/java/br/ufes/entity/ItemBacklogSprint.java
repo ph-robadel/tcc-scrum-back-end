@@ -56,35 +56,17 @@ public class ItemBacklogSprint {
 
 	private Long prioridade;
 
-	private Boolean pendenteAprovacao;
-	
-	private Boolean pendenteRemocao;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_USUARIO_INCLUSAO")
 	private Usuario responsavelInclusao;
 
 	private LocalDateTime dataInclusao;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_USUARIO_APROVACAO")
-	private Usuario responsavelAprovacao;
-
-	private LocalDateTime dataAprovacao;
-
 	public void atualizarAtributos(ItemBacklogSprintUpsertDTO itemBacklogSprintUpsertDTO) {
 		this.descricao = itemBacklogSprintUpsertDTO.getDescricao();
 		this.horasEstimadas = itemBacklogSprintUpsertDTO.getHorasEstimadas();
 		this.horasEstimadas = itemBacklogSprintUpsertDTO.getHorasRealizadas();
 		this.situacao = itemBacklogSprintUpsertDTO.getSituacao();
-	}
-	
-	public boolean isPendenteAprovacao() {
-		return Boolean.TRUE.equals(pendenteAprovacao);
-	}
-	
-	public boolean isPendenteRemocao() {
-		return Boolean.TRUE.equals(pendenteRemocao);
 	}
 
 }

@@ -39,6 +39,10 @@ public class ProjetoValidate {
 		if (ObjectUtils.isEmpty(projetoInsertDTO.getDuracaoHorasRetrospective())) {
 			erros.add("Informe em horas a duração da sprint retrospective");
 		}
+		
+		if (ObjectUtils.isEmpty(projetoInsertDTO.getEventoFinalizacao())) {
+			erros.add("Informe o evento de finalização da sprint");
+		}
 
 		if (!ObjectUtils.isEmpty(erros)) {
 			throw new BusinessException(erros);
@@ -47,7 +51,7 @@ public class ProjetoValidate {
 
 	public void validateProjetoAtivo(Projeto projeto) {
 		if (!ObjectUtils.isEmpty(projeto) && !projeto.isAtivo()) {
-			throw new BusinessException("O projeto está inaivo");
+			throw new BusinessException("O projeto está " + projeto.getSituacao().getSituacao());
 		}
 	}
 }

@@ -9,10 +9,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum SituacaoProjetoEnum {
-	NOVO("Novo"),
-	EM_ANDAMENTO("Sprint em andamento"),
-	CONCLUIDO("Sprint concluída"),
-	CANCELADO("Sprint cancelada");
+	NOVO("novo"),
+	EM_ANDAMENTO("em andamento"),
+	CONCLUIDO("concluído"),
+	CANCELADO("cancelado");
 
 	private String situacao;
 	

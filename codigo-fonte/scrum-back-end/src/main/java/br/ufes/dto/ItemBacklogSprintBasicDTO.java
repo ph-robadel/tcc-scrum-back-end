@@ -15,6 +15,8 @@ import lombok.Setter;
 public class ItemBacklogSprintBasicDTO {
 
 	private Long id;
+	
+	private String descricao;
 
 	private UsuarioBasicDTO responsavelRealizacao;
 

@@ -2,6 +2,7 @@ package br.ufes.dto;
 
 import java.math.BigDecimal;
 
+import br.ufes.enums.EventoFinalizacaoProjetoEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,5 +25,7 @@ public class ProjetoUpsertDTO {
 	private BigDecimal duracaoHorasReview;
 
 	private BigDecimal duracaoHorasRetrospective;
+	
+	private EventoFinalizacaoProjetoEnum eventoFinalizacao;
 	
 }

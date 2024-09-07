@@ -45,8 +45,6 @@ public class Projeto {
 
 	private BigDecimal duracaoHorasRetrospective;
 
-	private Boolean ativo;
-	
 	private SituacaoProjetoEnum situacao;
 	
 	private EventoFinalizacaoProjetoEnum eventoFinalizacao;
@@ -71,7 +69,7 @@ public class Projeto {
 	}
 	
 	public boolean isAtivo() {
-		return Boolean.TRUE.equals(ativo);
+		return !SituacaoProjetoEnum.CONCLUIDO.equals(situacao) && !SituacaoProjetoEnum.CANCELADO.equals(situacao);
 	}
 
 }

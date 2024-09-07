@@ -14,6 +14,7 @@ import br.ufes.dto.filter.ProjetoUsuarioFilterDTO;
 import br.ufes.entity.Projeto;
 import br.ufes.entity.ProjetoUsuario;
 import br.ufes.enums.PerfilUsuarioEnum;
+import br.ufes.enums.SituacaoProjetoEnum;
 import br.ufes.exception.BusinessException;
 import br.ufes.services.ProjetoService;
 import br.ufes.services.ProjetoUsuarioService;
@@ -47,7 +48,7 @@ public class ProjetoFacade {
 		projetoValidate.validateSave(projetoInsertDTO);
 
 		var projeto = modelMapper.map(projetoInsertDTO, Projeto.class);
-		projeto.setAtivo(true);
+		projeto.setSituacao(SituacaoProjetoEnum.NOVO);
 		projeto = projetoService.save(projeto);
 
 		var usuarioAutenticado = usuarioService.getUsuarioAutenticado();
@@ -71,36 +72,49 @@ public class ProjetoFacade {
 		return modelMapper.map(projeto, ProjetoDTO.class);
 	}
 
-	public void inativarProjeto(Long idProjeto) throws Exception {
+	public void concluirProjeto(Long idProjeto) throws Exception {
 		projetoUsuarioValidate.validarAcessoAdminOuUsuarioAutenticadoAoProjeto(idProjeto);
 		var projeto = projetoService.getById(idProjeto);
 
 		if (!projeto.isAtivo()) {
-			throw new BusinessException("Projeto já está inativo");
+			throw new BusinessException("Projeto não está em andamento");
 		}
 
-		projeto.setAtivo(false);
+		projeto.setSituacao(SituacaoProjetoEnum.CONCLUIDO);
 		projetoService.save(projeto);
 	}
 
-	public void ativarProjeto(Long idProjeto) throws Exception {
+	public void cancelarProjeto(Long idProjeto) throws Exception {
+		projetoUsuarioValidate.validarAcessoAdminOuUsuarioAutenticadoAoProjeto(idProjeto);
+		var projeto = projetoService.getById(idProjeto);
+
+		if (!projeto.isAtivo()) {
+			throw new BusinessException("Projeto não está em andamento");
+		}
+
+		projeto.setSituacao(SituacaoProjetoEnum.CANCELADO);
+		projetoService.save(projeto);
+	}
+
+	public void reativarProjeto(Long idProjeto) throws Exception {
 		projetoUsuarioValidate.validarAcessoAdminOuUsuarioAutenticadoAoProjeto(idProjeto);
 
 		var projeto = projetoService.getById(idProjeto);
 
 		if (projeto.isAtivo()) {
-			throw new BusinessException("Projeto já está ativo");
+			throw new BusinessException("Projeto já está em andamento");
 		}
 
-		projeto.setAtivo(true);
+		projeto.setSituacao(SituacaoProjetoEnum.EM_ANDAMENTO);
 		projetoService.save(projeto);
 	}
 
 	public ProjetoDTO atualizarProjeto(Long idProjeto, ProjetoUpsertDTO projetoInsertDTO) throws Exception {
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(idProjeto);
 		projetoValidate.validateSave(projetoInsertDTO);
-
 		var projeto = projetoService.getById(idProjeto);
+		projetoValidate.validateProjetoAtivo(projeto);
+
 		projeto.atualizarAtributos(projetoInsertDTO);
 
 		projeto = projetoService.save(projeto);
@@ -124,7 +138,8 @@ public class ProjetoFacade {
 	public void cadastrarProjetoUsuario(Long idProjeto, Long idUsuario) throws Exception {
 		var projeto = projetoService.getById(idProjeto);
 		var usuario = usuarioService.getById(idUsuario);
-
+		
+		projetoValidate.validateProjetoAtivo(projeto);
 		projetoUsuarioValidate.validateSave(projeto, usuario);
 
 		var projetoUsuario = new ProjetoUsuario(projeto, usuario);
@@ -138,7 +153,8 @@ public class ProjetoFacade {
 		}
 
 		var projetoUsuario = projetoUsuarioService.getByIdProjetoAndIdUsuario(idProjeto, idUsuario);
-
+		projetoValidate.validateProjetoAtivo(projetoUsuario.getProjeto());
+		
 		if (ObjectUtils.isEmpty(projetoUsuario)) {
 			throw new BusinessException("O usuário não está cadastrado ao projeto informado");
 		} else if (!projetoUsuario.isAtivo()) {
@@ -156,6 +172,7 @@ public class ProjetoFacade {
 		}
 
 		var projetoUsuario = projetoUsuarioService.getByIdProjetoAndIdUsuario(idProjeto, idUsuario);
+		projetoValidate.validateProjetoAtivo(projetoUsuario.getProjeto());
 
 		if (ObjectUtils.isEmpty(projetoUsuario)) {
 			throw new BusinessException("O usuário não está cadastrado ao projeto informado");

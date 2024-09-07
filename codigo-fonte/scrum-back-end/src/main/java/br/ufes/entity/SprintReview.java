@@ -2,6 +2,7 @@ package br.ufes.entity;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
@@ -21,15 +22,15 @@ import lombok.Setter;
 @Table(name = "SPRINT_REVIEW")
 public class SprintReview extends Evento {
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinTable(name = "ITEM_APROVADO_REVIEW", joinColumns = @JoinColumn(name = "ID_ITEM_REVIEW"), inverseJoinColumns = @JoinColumn(name = "ID_EVENTO"))
 	private List<ItemReview> itensAprovados;
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinTable(name = "ITEM_REJEITADO_REVIEW", joinColumns = @JoinColumn(name = "ID_ITEM_REVIEW"), inverseJoinColumns = @JoinColumn(name = "ID_EVENTO"))
 	private List<ItemReview> itensRejeitados;
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinTable(name = "ITEM_APROVADO_PARCIALMENTE_REVIEW", joinColumns = @JoinColumn(name = "ID_ITEM_REVIEW"), inverseJoinColumns = @JoinColumn(name = "ID_EVENTO"))
 	private List<ItemReview> itensAprovadosParcialmente;
 

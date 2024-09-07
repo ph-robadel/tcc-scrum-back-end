@@ -27,11 +27,18 @@ public class ItemBacklogPlanejamento {
 	private Long id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_ITEM_BACKLOG_PROJETO")
-	private ItemBacklogProjeto itemBacklogProjeto;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_SPRINT")
 	private Sprint sprint;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_ITEM_BACKLOG_PROJETO")
+	private ItemBacklogProjeto itemBacklogProjeto;
+
+	public ItemBacklogPlanejamento(Sprint sprint, ItemBacklogProjeto itemBacklogProjeto) {
+		this.sprint = sprint;
+		this.itemBacklogProjeto = itemBacklogProjeto;
+	}
+	
+	
 
 }

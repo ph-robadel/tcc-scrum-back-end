@@ -9,11 +9,11 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum SituacaoItemProjetoEnum {
-	REDIGINDO("Redigindo"),
-	ESCRITA_FINALIZADA("Escrita finalizada"),
-	APROVADO("Aprovado"),	
-	EM_DESENVOLVIMENTO("Em desenvolvimento"),	
-	CONCLUIDO("Concluído");
+	REDIGINDO("redigindo"),
+	ESCRITA_FINALIZADA("escrita finalizada"),
+	APROVADO("aprovado"),	
+	EM_DESENVOLVIMENTO("em desenvolvimento"),	
+	CONCLUIDO("concluído");
 
 	private String situacao;
 	

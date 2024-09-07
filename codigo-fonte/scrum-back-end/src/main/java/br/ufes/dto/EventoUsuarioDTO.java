@@ -1,6 +1,5 @@
 package br.ufes.dto;
 
-import br.ufes.enums.SituacaoProjetoEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,12 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjetoBasicDTO {
-	
-	private Long id;
+public class EventoUsuarioDTO {
 
-	private String nome;
-	
-	private SituacaoProjetoEnum situacao;
+	private UsuarioBasicDTO usuario;
 
 }

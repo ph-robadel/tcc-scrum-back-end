@@ -25,7 +25,7 @@ public class ProjetoRepositoryImpl {
 		sqlBuider.append(" SELECT distinct new br.ufes.dto.ProjetoBasicDTO (");
 		sqlBuider.append("   p.id, ");
 		sqlBuider.append("   p.nome, ");
-		sqlBuider.append("   p.descricao ");
+		sqlBuider.append("   p.situacao ");
 		sqlBuider.append(" ) ");
 
 		searchFrom(filterDTO, sqlBuider, params);

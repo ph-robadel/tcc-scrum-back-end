@@ -67,6 +67,7 @@ public class ItemBacklogProjeto {
 		this.descricao = itemBacklogProjetoUpsertDTO.getDescricao();
 		this.situacao = itemBacklogProjetoUpsertDTO.getSituacao();
 	}
+
 	
 
 }

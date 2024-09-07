@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import br.ufes.dto.EventoDTO;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -37,7 +39,7 @@ public abstract class Evento {
 	@Enumerated(EnumType.STRING)
 	private List<String> anexos;
 
-	@OneToMany(mappedBy = "evento", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "evento", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<EventoUsuario> participantes;
 
 	private LocalDateTime inicio;
@@ -45,5 +47,14 @@ public abstract class Evento {
 	private LocalDateTime fim;
 
 	private BigDecimal duracaoMinutos;
+	
+	public void atualizarAtributos(EventoDTO eventoDTO) {
+		this.nome = eventoDTO.getNome();
+		this.descricao = eventoDTO.getDescricao();
+		this.anexos = eventoDTO.getAnexos();
+		this.inicio = eventoDTO.getInicio();
+		this.fim = eventoDTO.getFim();
+		this.duracaoMinutos = eventoDTO.getDuracaoMinutos();
+	}
 
 }
