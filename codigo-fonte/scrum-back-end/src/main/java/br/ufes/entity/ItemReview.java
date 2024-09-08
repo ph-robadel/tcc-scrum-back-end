@@ -22,7 +22,7 @@ public class ItemReview {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_ITEM_BACKLOG_PROJETO")
-	private ItemBacklogProjeto item;
+	private ItemBacklogProjeto itemBacklogProjeto;
 
 	private String descricao;
 

@@ -80,6 +80,9 @@ public class SecurityConfigurations {
 						.requestMatchers(HttpMethod.GET, "/sprints/{idSprint}/daily/{idDaily}").hasAnyAuthority("SCRUM_MASTER")
 						.requestMatchers(HttpMethod.PUT, "/sprints/{idSprint}/daily/{idDaily}").hasAnyAuthority("SCRUM_MASTER")
 						.requestMatchers(HttpMethod.GET, "/sprints/{idSprint}/daily/search").hasAnyAuthority("SCRUM_MASTER")
+						.requestMatchers(HttpMethod.POST, "/sprints/{idSprint}/review").hasAnyAuthority("SCRUM_MASTER")
+						.requestMatchers(HttpMethod.GET, "/sprints/{idSprint}/review").hasAnyAuthority("SCRUM_MASTER")
+						.requestMatchers(HttpMethod.PUT, "/sprints/{idSprint}/review").hasAnyAuthority("SCRUM_MASTER")
 						
 						.requestMatchers(HttpMethod.GET, "/item-backlog-sprint/{idItemBacklogSprint}").authenticated()
 						.requestMatchers(HttpMethod.PUT, "/item-backlog-sprint/{idItemBacklogSprint}").hasAnyAuthority("SCRUM_MASTER", "DEV_TEAM")

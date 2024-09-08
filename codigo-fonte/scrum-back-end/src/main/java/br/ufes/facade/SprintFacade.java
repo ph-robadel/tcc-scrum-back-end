@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 import br.ufes.dto.ItemBacklogProjetoSimpleDTO;
 import br.ufes.dto.SprintBasicDTO;
@@ -14,6 +15,7 @@ import br.ufes.dto.SprintDTO;
 import br.ufes.dto.SprintDailyBasicDTO;
 import br.ufes.dto.SprintDailyDTO;
 import br.ufes.dto.SprintPlanningDTO;
+import br.ufes.dto.SprintReviewDTO;
 import br.ufes.dto.SprintUpsertDTO;
 import br.ufes.dto.filter.ItemBacklogPlanejamentoFilterDTO;
 import br.ufes.dto.filter.SprintDailyFilterDTO;
@@ -212,6 +214,10 @@ public class SprintFacade {
 		var sprint = sprintService.getById(idSprint);
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
+		
+		if(ObjectUtils.isEmpty(sprint.getPlanning())) {
+			throw new BusinessException("Planning não cadastrada");
+		}
 
 		return modelMapper.map(sprint.getPlanning(), SprintPlanningDTO.class);
 	}
@@ -266,6 +272,16 @@ public class SprintFacade {
 	}
 
 	public ResponseSearch<SprintDailyBasicDTO> SprintDailyBasicDTO(Long idSprint, SprintDailyFilterDTO filterDTO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public SprintReviewDTO saveSprintReview(Long idSprint, SprintReviewDTO reviewDTO, boolean isUpdate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public SprintReviewDTO getSprintReview(Long idSprint) {
 		// TODO Auto-generated method stub
 		return null;
 	}

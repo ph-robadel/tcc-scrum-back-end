@@ -22,6 +22,7 @@ import br.ufes.dto.SprintDTO;
 import br.ufes.dto.SprintDailyBasicDTO;
 import br.ufes.dto.SprintDailyDTO;
 import br.ufes.dto.SprintPlanningDTO;
+import br.ufes.dto.SprintReviewDTO;
 import br.ufes.dto.SprintUpsertDTO;
 import br.ufes.dto.filter.ItemBacklogPlanejamentoFilterDTO;
 import br.ufes.dto.filter.ItemBacklogSprintFilterDTO;
@@ -162,8 +163,6 @@ public class SprintController {
 		return ResponseEntity.ok().body(null);
 	}
 	
-	
-	
 	@Operation(summary = "Adicionar nova daily a sprint")
 	@PostMapping("/{idSprint}/daily")
 	public ResponseEntity<SprintDailyDTO> adicionarSprintDaily(@PathVariable Long idSprint,
@@ -173,7 +172,6 @@ public class SprintController {
 		var daily = sprintFacade.insertSprintDaily(idSprint, dailyDTO);
 		return ResponseEntity.status(HttpStatus.CREATED).body(daily);
 	}
-	
 	
 	@Operation(summary = "Obter daily da sprint")
 	@GetMapping("/{idSprint}/daily/{idDaily}")
@@ -201,6 +199,32 @@ public class SprintController {
 		filterDTO.setPageAndSorting(page, size, fieldSort, sortOrder);
 		var dailys = sprintFacade.SprintDailyBasicDTO(idSprint, filterDTO);
 		return ResponseEntity.ok().body(dailys);
+	}
+	
+	@Operation(summary = "Adicionar review a sprint")
+	@PostMapping("/{idSprint}/review")
+	public ResponseEntity<SprintReviewDTO> adicionarSprintReview(@PathVariable Long idSprint,
+			@RequestBody SprintReviewDTO reviewDTO)
+			throws Exception {
+
+		var review = sprintFacade.saveSprintReview(idSprint, reviewDTO, false);
+		return ResponseEntity.status(HttpStatus.CREATED).body(review);
+	}
+	
+	@Operation(summary = "obter review da sprint")
+	@GetMapping("/{idSprint}/review")
+	public ResponseEntity<SprintReviewDTO> getSprintReview(@PathVariable Long idSprint) throws Exception {
+		
+		var review = sprintFacade.getSprintReview(idSprint);
+		return ResponseEntity.ok().body(review);
+	}
+	
+	@Operation(summary = "Atualizar a review a sprint")
+	@PutMapping("/{idSprint}/review")
+	public ResponseEntity<SprintReviewDTO> updateSprintReview(@PathVariable Long idSprint, @RequestBody SprintReviewDTO reviewDTO) throws Exception {
+		
+		var review = sprintFacade.saveSprintReview(idSprint, reviewDTO, true);
+		return ResponseEntity.ok().body(review);
 	}
 
 }
