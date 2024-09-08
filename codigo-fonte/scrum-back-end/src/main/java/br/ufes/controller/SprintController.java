@@ -22,6 +22,7 @@ import br.ufes.dto.SprintDTO;
 import br.ufes.dto.SprintDailyBasicDTO;
 import br.ufes.dto.SprintDailyDTO;
 import br.ufes.dto.SprintPlanningDTO;
+import br.ufes.dto.SprintRetrospectiveDTO;
 import br.ufes.dto.SprintReviewDTO;
 import br.ufes.dto.SprintUpsertDTO;
 import br.ufes.dto.filter.ItemBacklogPlanejamentoFilterDTO;
@@ -225,6 +226,51 @@ public class SprintController {
 		
 		var review = sprintFacade.saveSprintReview(idSprint, reviewDTO, true);
 		return ResponseEntity.ok().body(review);
+	}
+	
+	@Operation(summary = "Adicionar retrospective a sprint")
+	@PostMapping("/{idSprint}/retrospective")
+	public ResponseEntity<SprintRetrospectiveDTO> adicionarSprintRetrospective(@PathVariable Long idSprint,
+			@RequestBody SprintRetrospectiveDTO retrospectiveDTO)
+					throws Exception {
+		
+		var retrospective = sprintFacade.saveSprintRetrospective(idSprint, retrospectiveDTO, false);
+		return ResponseEntity.status(HttpStatus.CREATED).body(retrospective);
+	}
+	
+	@Operation(summary = "obter retrospective da sprint")
+	@GetMapping("/{idSprint}/retrospective")
+	public ResponseEntity<SprintRetrospectiveDTO> getSprintRetrospective(@PathVariable Long idSprint) throws Exception {
+		
+		var retrospective = sprintFacade.getSprintRetrospective(idSprint);
+		return ResponseEntity.ok().body(retrospective);
+	}
+	
+	@Operation(summary = "Atualizar a retrospective a sprint")
+	@PutMapping("/{idSprint}/retrospective")
+	public ResponseEntity<SprintRetrospectiveDTO> updateSprintRetrospective(@PathVariable Long idSprint, @RequestBody SprintRetrospectiveDTO retrospectiveDTO) throws Exception {
+		
+		var retrospective = sprintFacade.saveSprintRetrospective(idSprint, retrospectiveDTO, true);
+		return ResponseEntity.ok().body(retrospective);
+	}
+	
+
+	@Operation(summary = "Concluir sprint")
+	@PostMapping("/{idSprint}/concluir")
+	public ResponseEntity<Object> concluirSprint(@PathVariable Long idSprint)
+					throws Exception {
+		
+		sprintFacade.concluirSprint(idSprint);
+		return ResponseEntity.ok().build();
+	}
+	
+	@Operation(summary = "Cancelar sprint")
+	@PostMapping("/{idSprint}/cancelar")
+	public ResponseEntity<Object> cancelarSprint(@PathVariable Long idSprint)
+			throws Exception {
+		
+		sprintFacade.cancelarSprint(idSprint);
+		return ResponseEntity.ok().build();
 	}
 
 }

@@ -15,6 +15,7 @@ import br.ufes.dto.SprintDTO;
 import br.ufes.dto.SprintDailyBasicDTO;
 import br.ufes.dto.SprintDailyDTO;
 import br.ufes.dto.SprintPlanningDTO;
+import br.ufes.dto.SprintRetrospectiveDTO;
 import br.ufes.dto.SprintReviewDTO;
 import br.ufes.dto.SprintUpsertDTO;
 import br.ufes.dto.filter.ItemBacklogPlanejamentoFilterDTO;
@@ -139,12 +140,24 @@ public class SprintFacade {
 		return modelMapper.map(sprint, SprintDTO.class);
 	}
 
+	public void concluirSprint(Long idSprint) throws Exception {
+		var sprint = sprintService.getById(idSprint);
+		var idProjeto = sprint.getProjeto().getId();
+		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(idProjeto);
+		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
+		
+		// TODO: add validações
+		
+		sprint.setSituacao(SituacaoSprintEnum.CONCLUIDA);
+		sprintService.save(sprint);
+	}
+	
 	public void cancelarSprint(Long idSprint) throws Exception {
 		var sprint = sprintService.getById(idSprint);
 		var idProjeto = sprint.getProjeto().getId();
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(idProjeto);
 		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
-
+		
 		sprint.setSituacao(SituacaoSprintEnum.CANCELADA);
 		sprintService.save(sprint);
 	}
@@ -282,6 +295,16 @@ public class SprintFacade {
 	}
 
 	public SprintReviewDTO getSprintReview(Long idSprint) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public SprintRetrospectiveDTO saveSprintRetrospective(Long idSprint, SprintRetrospectiveDTO retrospectiveDTO, boolean isUpdate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public SprintRetrospectiveDTO getSprintRetrospective(Long idSprint) {
 		// TODO Auto-generated method stub
 		return null;
 	}

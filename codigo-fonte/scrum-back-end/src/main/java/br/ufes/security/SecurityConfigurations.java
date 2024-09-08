@@ -66,7 +66,6 @@ public class SecurityConfigurations {
 						
 						.requestMatchers(HttpMethod.GET, "/sprints/{idSprint}").hasAnyAuthority("PRODUCT_OWNER", "SCRUM_MASTER", "DEV_TEAM")
 						.requestMatchers(HttpMethod.PUT, "/sprints/{idSprint}").hasAnyAuthority("PRODUCT_OWNER", "SCRUM_MASTER")
-						.requestMatchers(HttpMethod.DELETE, "/sprints/{idSprint}").hasAnyAuthority("PRODUCT_OWNER", "SCRUM_MASTER")
 						.requestMatchers(HttpMethod.POST, "/sprints/{idSprint}/item-backlog-projeto/{idItemBacklogProjeto}/item-backlog-planejamento").hasAnyAuthority("PRODUCT_OWNER")
 						.requestMatchers(HttpMethod.DELETE, "/sprints/{idSprint}/item-backlog-planejamento/{idItemBacklogPlanejamento}").hasAnyAuthority("PRODUCT_OWNER")
 						.requestMatchers(HttpMethod.GET, "/sprints/{idSprint}/item-backlog-planejamento/search").authenticated()
@@ -83,6 +82,11 @@ public class SecurityConfigurations {
 						.requestMatchers(HttpMethod.POST, "/sprints/{idSprint}/review").hasAnyAuthority("SCRUM_MASTER")
 						.requestMatchers(HttpMethod.GET, "/sprints/{idSprint}/review").hasAnyAuthority("SCRUM_MASTER")
 						.requestMatchers(HttpMethod.PUT, "/sprints/{idSprint}/review").hasAnyAuthority("SCRUM_MASTER")
+						.requestMatchers(HttpMethod.POST, "/sprints/{idSprint}/retrospective").hasAnyAuthority("SCRUM_MASTER")
+						.requestMatchers(HttpMethod.GET, "/sprints/{idSprint}/retrospective").hasAnyAuthority("SCRUM_MASTER")
+						.requestMatchers(HttpMethod.PUT, "/sprints/{idSprint}/retrospective").hasAnyAuthority("SCRUM_MASTER")
+						.requestMatchers(HttpMethod.POST, "/sprints/{idSprint}/concluir").hasAnyAuthority("SCRUM_MASTER")
+						.requestMatchers(HttpMethod.POST, "/sprints/{idSprint}/cancelar").hasAnyAuthority("SCRUM_MASTER")
 						
 						.requestMatchers(HttpMethod.GET, "/item-backlog-sprint/{idItemBacklogSprint}").authenticated()
 						.requestMatchers(HttpMethod.PUT, "/item-backlog-sprint/{idItemBacklogSprint}").hasAnyAuthority("SCRUM_MASTER", "DEV_TEAM")
