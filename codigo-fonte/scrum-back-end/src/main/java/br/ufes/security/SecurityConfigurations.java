@@ -73,6 +73,9 @@ public class SecurityConfigurations {
 						.requestMatchers(HttpMethod.POST, "/sprints/{idSprint}/item-backlog-projeto/{idItemBacklogProjeto}/item-backlog-sprint").hasAnyAuthority("SCRUM_MASTER")
 						.requestMatchers(HttpMethod.GET, "/sprints/{idSprint}/item-backlog-sprint/search").authenticated()
 						.requestMatchers(HttpMethod.POST, "/sprints/{idSprint}/planning").hasAnyAuthority("SCRUM_MASTER")
+						.requestMatchers(HttpMethod.GET, "/sprints/{idSprint}/planning").hasAnyAuthority("SCRUM_MASTER")
+						.requestMatchers(HttpMethod.PUT, "/sprints/{idSprint}/planning").hasAnyAuthority("SCRUM_MASTER")
+						.requestMatchers(HttpMethod.POST, "/sprints/{idSprint}/concluir-planning").hasAnyAuthority("SCRUM_MASTER")
 						
 						.requestMatchers(HttpMethod.GET, "/item-backlog-sprint/{idItemBacklogSprint}").authenticated()
 						.requestMatchers(HttpMethod.PUT, "/item-backlog-sprint/{idItemBacklogSprint}").hasAnyAuthority("SCRUM_MASTER", "DEV_TEAM")
