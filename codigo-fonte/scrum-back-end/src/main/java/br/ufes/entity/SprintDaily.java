@@ -2,6 +2,7 @@ package br.ufes.entity;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
@@ -21,7 +22,7 @@ import lombok.Setter;
 @Table(name = "SPRINT_DAILY")
 public class SprintDaily extends Evento {
 
-	@OneToMany(mappedBy = "sprintDaily", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "sprintDaily", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<RegistroDaily> registroDaily;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

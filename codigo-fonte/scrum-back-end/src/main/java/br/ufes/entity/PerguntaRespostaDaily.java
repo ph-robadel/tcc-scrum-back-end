@@ -31,7 +31,15 @@ public class PerguntaRespostaDaily {
 	private String resposta;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_SPRINT_PLANNING")
-	private SprintPlanning sprintPlanning;
+	@JoinColumn(name = "ID_REGISTRO_DAILY")
+	private RegistroDaily registroDaily;
+
+	public PerguntaRespostaDaily(String pergunta, String resposta, RegistroDaily registroDaily) {
+		this.pergunta = pergunta;
+		this.resposta = resposta;
+		this.registroDaily = registroDaily;
+	}
+	
+	
 
 }

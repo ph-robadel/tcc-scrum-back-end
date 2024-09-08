@@ -1,5 +1,6 @@
 package br.ufes.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.util.ObjectUtils;
@@ -14,7 +15,11 @@ public class EventoService {
 	public void atualizarParticipantesEvento(EventoDTO eventoDTO, List<Usuario> timeProjeto,
 			Evento evento) {
 		
-		evento.getParticipantes().clear();
+		if(evento.getParticipantes() == null) {
+			evento.setParticipantes(new ArrayList<>());
+		}else {
+			evento.getParticipantes().clear();
+		}
 		if (!ObjectUtils.isEmpty(eventoDTO.getIdsParticipantes())) {
 			eventoDTO.getIdsParticipantes().stream().forEach(idParticipante -> {
 				var usuario = timeProjeto.stream().filter(u -> u.getId().equals(idParticipante)).findFirst();

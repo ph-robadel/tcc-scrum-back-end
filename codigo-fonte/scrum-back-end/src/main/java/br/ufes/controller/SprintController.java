@@ -184,21 +184,21 @@ public class SprintController {
 	
 	@Operation(summary = "Atualizar a daily da sprint")
 	@PutMapping("/{idSprint}/daily/{idDaily}")
-	public ResponseEntity<SprintPlanningDTO> updateSprintDaily(@PathVariable Long idSprint, @PathVariable Long idDaily, @RequestBody SprintDailyDTO dailyDTO) throws Exception {
+	public ResponseEntity<SprintDailyDTO> updateSprintDaily(@PathVariable Long idSprint, @PathVariable Long idDaily, @RequestBody SprintDailyDTO dailyDTO) throws Exception {
 		
-		var daily = sprintFacade.updateSprintPlanning(idSprint, idDaily, dailyDTO);
+		var daily = sprintFacade.updateSprintDaily(idSprint, idDaily, dailyDTO);
 		return ResponseEntity.ok().body(daily);
 	}
 	
 	@Operation(summary = "Pesquisar dailys da sprint")
 	@GetMapping("/{idSprint}/daily/search")
 	public ResponseEntity<ResponseSearch<SprintDailyBasicDTO>> pesquisarSprintDaily(@PathVariable Long idSprint, @RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "prioridade") String fieldSort,
-			@RequestParam(defaultValue = "ASC") String sortOrder) throws Exception {
+			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "inicio") String fieldSort,
+			@RequestParam(defaultValue = "DESC") String sortOrder) throws Exception {
 		
 		var filterDTO = new SprintDailyFilterDTO();
 		filterDTO.setPageAndSorting(page, size, fieldSort, sortOrder);
-		var dailys = sprintFacade.SprintDailyBasicDTO(idSprint, filterDTO);
+		var dailys = sprintFacade.searchDaily(idSprint, filterDTO);
 		return ResponseEntity.ok().body(dailys);
 	}
 	

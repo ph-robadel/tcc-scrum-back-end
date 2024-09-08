@@ -2,6 +2,7 @@ package br.ufes.facade;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -25,6 +26,7 @@ import br.ufes.entity.ItemBacklogPlanejamento;
 import br.ufes.entity.ItemBacklogSprint;
 import br.ufes.entity.ProjetoUsuario;
 import br.ufes.entity.Sprint;
+import br.ufes.entity.SprintDaily;
 import br.ufes.entity.SprintPlanning;
 import br.ufes.enums.SituacaoItemSprintEnum;
 import br.ufes.enums.SituacaoProjetoEnum;
@@ -34,6 +36,7 @@ import br.ufes.services.ItemBacklogPlanejamentoService;
 import br.ufes.services.ItemBacklogProjetoService;
 import br.ufes.services.ItemBacklogSprintService;
 import br.ufes.services.ProjetoService;
+import br.ufes.services.SprintDailyService;
 import br.ufes.services.SprintPlanningService;
 import br.ufes.services.SprintService;
 import br.ufes.services.UsuarioService;
@@ -42,6 +45,8 @@ import br.ufes.util.ResponseSearch;
 import br.ufes.validate.ItemBacklogPlanejamentoValidate;
 import br.ufes.validate.ProjetoUsuarioValidate;
 import br.ufes.validate.ProjetoValidate;
+import br.ufes.validate.SprintDailyValidate;
+import br.ufes.validate.SprintPlanningValidate;
 import br.ufes.validate.SprintValidate;
 
 @Component
@@ -52,6 +57,12 @@ public class SprintFacade {
 
 	@Autowired
 	private SprintValidate sprintValidate;
+	
+	@Autowired
+	private SprintPlanningValidate sprintPlanningValidate;
+	
+	@Autowired
+	private SprintDailyValidate sprintDailyValidate;
 
 	@Autowired
 	private ProjetoService projetoService;
@@ -76,6 +87,9 @@ public class SprintFacade {
 
 	@Autowired
 	private SprintPlanningService sprintPlanningService;
+	
+	@Autowired
+	private SprintDailyService sprintDailyService;
 	
 	@Autowired
 	private UsuarioService usuarioService;
@@ -199,7 +213,7 @@ public class SprintFacade {
 		var sprint = sprintService.getById(idSprint);
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
-		sprintValidate.validateSavePlanning(sprint, planningDTO, isUpdate);
+		sprintPlanningValidate.validateSavePlanning(sprint, planningDTO, isUpdate);
 		var timeProjeto = sprint.getProjeto().getTime().stream().map(ProjetoUsuario::getUsuario)
 				.collect(Collectors.toList());
 		var itensPlanejamento = sprint.getBacklogPlanejamento().stream()
@@ -239,7 +253,7 @@ public class SprintFacade {
 		var sprint = sprintService.getById(idSprint);
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
-		sprintValidate.validateConcluirPlanning(sprint);	
+		sprintPlanningValidate.validateConcluirPlanning(sprint);	
 		
 		gerarItensBacklogSprintByPlanning(sprint);
 
@@ -270,23 +284,71 @@ public class SprintFacade {
 	}
 
 	public SprintDailyDTO insertSprintDaily(Long idSprint, SprintDailyDTO dailyDTO) {
-		// TODO Auto-generated method stub
-		return null;
+		var sprint = sprintService.getById(idSprint);
+		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
+		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
+		
+		sprintDailyValidate.validateSaveDaily(sprint, dailyDTO, false);
+		var timeProjeto = sprint.getProjeto().getTime().stream().map(ProjetoUsuario::getUsuario)
+				.collect(Collectors.toList());
+
+		var sprintDaily = new SprintDaily();
+		sprintDaily.atualizarAtributos(dailyDTO);
+		sprintDaily.setSprint(sprint);
+
+		sprintDailyService.atualizarParticipantesEvento(dailyDTO, timeProjeto, sprintDaily);
+		sprintDailyService.atualizarRegistroDaily(dailyDTO, timeProjeto, sprintDaily);
+
+		var dailySave = sprintDailyService.save(sprintDaily);
+
+		if(ObjectUtils.isArray(sprint.getDailys())) {
+			sprint.setDailys(new ArrayList<>());
+		}
+		
+		sprint.getDailys().add(sprintDaily);
+		sprintService.save(sprint);
+
+		return modelMapper.map(dailySave, SprintDailyDTO.class);
+	}
+
+	public SprintDailyDTO updateSprintDaily(Long idSprint, Long idDaily, SprintDailyDTO dailyDTO) {
+		var sprint = sprintService.getById(idSprint);
+		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
+		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
+		
+		dailyDTO.setId(idDaily);
+		sprintDailyValidate.validateSaveDaily(sprint, dailyDTO, true);
+		var timeProjeto = sprint.getProjeto().getTime().stream().map(ProjetoUsuario::getUsuario)
+				.collect(Collectors.toList());
+
+		var sprintDaily = sprint.getDailys().stream().filter(daily -> daily.getId().equals(idDaily)).findAny().get();
+		sprintDaily.atualizarAtributos(dailyDTO);
+
+		sprintDailyService.atualizarParticipantesEvento(dailyDTO, timeProjeto, sprintDaily);
+		sprintDailyService.atualizarRegistroDaily(dailyDTO, timeProjeto, sprintDaily);
+
+		var dailySave = sprintDailyService.save(sprintDaily);
+
+		return modelMapper.map(dailySave, SprintDailyDTO.class);
 	}
 
 	public SprintDailyDTO getSprintDaily(Long idSprint, Long idDaily) {
-		// TODO Auto-generated method stub
-		return null;
+		var sprint = sprintService.getById(idSprint);
+		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
+		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
+		sprintDailyValidate.validarDailyEncontrada(sprint, idDaily);
+		
+		var sprintDaily = sprint.getDailys().stream().filter(daily -> daily.getId().equals(idDaily)).findAny().get();
+		
+		return modelMapper.map(sprintDaily, SprintDailyDTO.class);
 	}
 
-	public SprintPlanningDTO updateSprintPlanning(Long idSprint, Long idDaily, SprintDailyDTO dailyDTO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public ResponseSearch<SprintDailyBasicDTO> SprintDailyBasicDTO(Long idSprint, SprintDailyFilterDTO filterDTO) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResponseSearch<SprintDailyBasicDTO> searchDaily(Long idSprint, SprintDailyFilterDTO filterDTO) {
+		var sprint = sprintService.getById(idSprint);
+		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
+		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
+		
+		return sprintDailyService.search(filterDTO);
 	}
 
 	public SprintReviewDTO saveSprintReview(Long idSprint, SprintReviewDTO reviewDTO, boolean isUpdate) {

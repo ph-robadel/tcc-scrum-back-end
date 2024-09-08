@@ -1,14 +1,24 @@
 package br.ufes.controller.handler;
 
+import java.net.URI;
+import java.time.Instant;
+import java.util.Arrays;
+import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.auth0.jwt.exceptions.TokenExpiredException;
@@ -84,4 +94,5 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 		exception.printStackTrace();
 		return ResponseEntity.internalServerError().body(mensagemError);
 	}
+	
 }

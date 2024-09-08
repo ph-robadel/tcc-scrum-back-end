@@ -34,7 +34,7 @@ public class RegistroDaily {
 	@JoinColumn(name = "ID_USUARIO_AUTOR")
 	private Usuario usuario;
 	
-	@OneToMany(mappedBy = "sprintPlanning", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "registroDaily", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<PerguntaRespostaDaily> perguntaResposta;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

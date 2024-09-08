@@ -17,7 +17,7 @@ import lombok.Setter;
 public class SprintDailyFilterDTO extends BaseFilterSearch {
 
 	@JsonIgnore
-	private Long idDaily;
+	private Long idSprint;
 
 	@Override
 	public void setFieldSort(String nomeCampo) {

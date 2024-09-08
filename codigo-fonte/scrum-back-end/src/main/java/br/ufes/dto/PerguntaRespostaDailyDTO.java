@@ -20,6 +20,4 @@ public class PerguntaRespostaDailyDTO {
 
 	private String resposta;
 
-	
-
 }
