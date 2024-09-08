@@ -2,8 +2,11 @@ package br.ufes.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,5 +29,9 @@ public class PerguntaRespostaDaily {
 	private String pergunta;
 
 	private String resposta;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_SPRINT_PLANNING")
+	private SprintPlanning sprintPlanning;
 
 }

@@ -76,11 +76,15 @@ public class SecurityConfigurations {
 						.requestMatchers(HttpMethod.GET, "/sprints/{idSprint}/planning").hasAnyAuthority("SCRUM_MASTER")
 						.requestMatchers(HttpMethod.PUT, "/sprints/{idSprint}/planning").hasAnyAuthority("SCRUM_MASTER")
 						.requestMatchers(HttpMethod.POST, "/sprints/{idSprint}/concluir-planning").hasAnyAuthority("SCRUM_MASTER")
+						.requestMatchers(HttpMethod.POST, "/sprints/{idSprint}/daily").hasAnyAuthority("SCRUM_MASTER")
+						.requestMatchers(HttpMethod.GET, "/sprints/{idSprint}/daily/{idDaily}").hasAnyAuthority("SCRUM_MASTER")
+						.requestMatchers(HttpMethod.PUT, "/sprints/{idSprint}/daily/{idDaily}").hasAnyAuthority("SCRUM_MASTER")
+						.requestMatchers(HttpMethod.GET, "/sprints/{idSprint}/daily/search").hasAnyAuthority("SCRUM_MASTER")
 						
 						.requestMatchers(HttpMethod.GET, "/item-backlog-sprint/{idItemBacklogSprint}").authenticated()
 						.requestMatchers(HttpMethod.PUT, "/item-backlog-sprint/{idItemBacklogSprint}").hasAnyAuthority("SCRUM_MASTER", "DEV_TEAM")
 						.requestMatchers(HttpMethod.DELETE, "/item-backlog-sprint/{idItemBacklogSprint}").hasAnyAuthority("SCRUM_MASTER")
-						
+						 
 						.anyRequest().authenticated()
 				)
 				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

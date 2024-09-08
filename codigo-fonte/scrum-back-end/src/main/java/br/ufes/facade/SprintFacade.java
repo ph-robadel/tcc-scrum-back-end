@@ -11,9 +11,12 @@ import org.springframework.stereotype.Component;
 import br.ufes.dto.ItemBacklogProjetoSimpleDTO;
 import br.ufes.dto.SprintBasicDTO;
 import br.ufes.dto.SprintDTO;
+import br.ufes.dto.SprintDailyBasicDTO;
+import br.ufes.dto.SprintDailyDTO;
 import br.ufes.dto.SprintPlanningDTO;
 import br.ufes.dto.SprintUpsertDTO;
 import br.ufes.dto.filter.ItemBacklogPlanejamentoFilterDTO;
+import br.ufes.dto.filter.SprintDailyFilterDTO;
 import br.ufes.dto.filter.SprintFilterDTO;
 import br.ufes.entity.ItemBacklogPlanejamento;
 import br.ufes.entity.ItemBacklogSprint;
@@ -245,6 +248,26 @@ public class SprintFacade {
 			itemBacklogSprint.setSituacao(SituacaoItemSprintEnum.A_FAZER);
 			itemBacklogSprint = itemBacklogSprintService.save(itemBacklogSprint);
 		}
+	}
+
+	public SprintDailyDTO insertSprintDaily(Long idSprint, SprintDailyDTO dailyDTO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public SprintDailyDTO getSprintDaily(Long idSprint, Long idDaily) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public SprintPlanningDTO updateSprintPlanning(Long idSprint, Long idDaily, SprintDailyDTO dailyDTO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ResponseSearch<SprintDailyBasicDTO> SprintDailyBasicDTO(Long idSprint, SprintDailyFilterDTO filterDTO) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
