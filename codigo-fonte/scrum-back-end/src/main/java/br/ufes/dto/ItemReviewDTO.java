@@ -23,6 +23,6 @@ public class ItemReviewDTO {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private ItemBacklogProjetoBasicDTO itemBacklogProjeto;
 
-	private String justificativa;
+	private String descricao;
 
 }

@@ -28,6 +28,8 @@ import br.ufes.entity.ProjetoUsuario;
 import br.ufes.entity.Sprint;
 import br.ufes.entity.SprintDaily;
 import br.ufes.entity.SprintPlanning;
+import br.ufes.entity.SprintRetrospective;
+import br.ufes.entity.SprintReview;
 import br.ufes.enums.SituacaoItemSprintEnum;
 import br.ufes.enums.SituacaoProjetoEnum;
 import br.ufes.enums.SituacaoSprintEnum;
@@ -38,6 +40,8 @@ import br.ufes.services.ItemBacklogSprintService;
 import br.ufes.services.ProjetoService;
 import br.ufes.services.SprintDailyService;
 import br.ufes.services.SprintPlanningService;
+import br.ufes.services.SprintRetrospectiveService;
+import br.ufes.services.SprintReviewService;
 import br.ufes.services.SprintService;
 import br.ufes.services.UsuarioService;
 import br.ufes.util.DateUtils;
@@ -47,6 +51,8 @@ import br.ufes.validate.ProjetoUsuarioValidate;
 import br.ufes.validate.ProjetoValidate;
 import br.ufes.validate.SprintDailyValidate;
 import br.ufes.validate.SprintPlanningValidate;
+import br.ufes.validate.SprintRetrospectiveValidate;
+import br.ufes.validate.SprintReviewValidate;
 import br.ufes.validate.SprintValidate;
 
 @Component
@@ -57,10 +63,10 @@ public class SprintFacade {
 
 	@Autowired
 	private SprintValidate sprintValidate;
-	
+
 	@Autowired
 	private SprintPlanningValidate sprintPlanningValidate;
-	
+
 	@Autowired
 	private SprintDailyValidate sprintDailyValidate;
 
@@ -87,12 +93,24 @@ public class SprintFacade {
 
 	@Autowired
 	private SprintPlanningService sprintPlanningService;
-	
+
 	@Autowired
 	private SprintDailyService sprintDailyService;
-	
+
 	@Autowired
 	private UsuarioService usuarioService;
+
+	@Autowired
+	private SprintReviewService sprintReviewService;
+
+	@Autowired
+	private SprintRetrospectiveService sprintRetrospectiveService;
+
+	@Autowired
+	private SprintReviewValidate sprintReviewValidate;
+
+	@Autowired
+	private SprintRetrospectiveValidate sprintRetrospectiveValidate;
 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -154,28 +172,6 @@ public class SprintFacade {
 		return modelMapper.map(sprint, SprintDTO.class);
 	}
 
-	public void concluirSprint(Long idSprint) throws Exception {
-		var sprint = sprintService.getById(idSprint);
-		var idProjeto = sprint.getProjeto().getId();
-		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(idProjeto);
-		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
-		
-		// TODO: add validações
-		
-		sprint.setSituacao(SituacaoSprintEnum.CONCLUIDA);
-		sprintService.save(sprint);
-	}
-	
-	public void cancelarSprint(Long idSprint) throws Exception {
-		var sprint = sprintService.getById(idSprint);
-		var idProjeto = sprint.getProjeto().getId();
-		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(idProjeto);
-		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
-		
-		sprint.setSituacao(SituacaoSprintEnum.CANCELADA);
-		sprintService.save(sprint);
-	}
-
 	public ItemBacklogProjetoSimpleDTO adicionarItemBacklogPlanejamento(Long idSprint, Long idItemBacklogProjeto)
 			throws BusinessException {
 		var sprint = sprintService.getById(idSprint);
@@ -224,11 +220,12 @@ public class SprintFacade {
 
 		sprintPlanningService.atualizarParticipantesEvento(planningDTO, timeProjeto, sprintPlanning);
 		sprintPlanningService.atualizarCapacidadePlanning(planningDTO, timeProjeto, sprintPlanning);
-		sprintPlanningService.atualizarItensSelecionadosPlanning(planningDTO, timeProjeto, itensPlanejamento, sprintPlanning);
+		sprintPlanningService.atualizarItensSelecionadosPlanning(planningDTO, timeProjeto, itensPlanejamento,
+				sprintPlanning);
 
 		var planningSave = sprintPlanningService.save(sprintPlanning);
 
-		if(!isUpdate) {
+		if (!isUpdate) {
 			sprint.setSituacao(SituacaoSprintEnum.EM_PLANEJAMENTO);
 		}
 		sprint.setPlanning(planningSave);
@@ -241,8 +238,8 @@ public class SprintFacade {
 		var sprint = sprintService.getById(idSprint);
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
-		
-		if(ObjectUtils.isEmpty(sprint.getPlanning())) {
+
+		if (ObjectUtils.isEmpty(sprint.getPlanning())) {
 			throw new BusinessException("Planning não cadastrada");
 		}
 
@@ -253,8 +250,8 @@ public class SprintFacade {
 		var sprint = sprintService.getById(idSprint);
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
-		sprintPlanningValidate.validateConcluirPlanning(sprint);	
-		
+		sprintPlanningValidate.validateConcluirPlanning(sprint);
+
 		gerarItensBacklogSprintByPlanning(sprint);
 
 		sprint.setSituacao(SituacaoSprintEnum.EM_ANDAMENTO);
@@ -263,8 +260,8 @@ public class SprintFacade {
 
 	private void gerarItensBacklogSprintByPlanning(Sprint sprint) {
 		var dataHoraAtual = LocalDateTime.now();
-		
-		for(var item: sprint.getPlanning().getItensSelecionados()) {
+
+		for (var item : sprint.getPlanning().getItensSelecionados()) {
 			var itemBacklogSprint = new ItemBacklogSprint();
 			var usuarioAutenticado = usuarioService.getUsuarioAutenticado();
 			var prioridadeNovoItem = itemBacklogSprintService.obterNumeroPrioridadeNovoItem(sprint.getId());
@@ -287,7 +284,7 @@ public class SprintFacade {
 		var sprint = sprintService.getById(idSprint);
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
-		
+
 		sprintDailyValidate.validateSaveDaily(sprint, dailyDTO, false);
 		var timeProjeto = sprint.getProjeto().getTime().stream().map(ProjetoUsuario::getUsuario)
 				.collect(Collectors.toList());
@@ -301,10 +298,10 @@ public class SprintFacade {
 
 		var dailySave = sprintDailyService.save(sprintDaily);
 
-		if(ObjectUtils.isArray(sprint.getDailys())) {
+		if (ObjectUtils.isArray(sprint.getDailys())) {
 			sprint.setDailys(new ArrayList<>());
 		}
-		
+
 		sprint.getDailys().add(sprintDaily);
 		sprintService.save(sprint);
 
@@ -315,7 +312,7 @@ public class SprintFacade {
 		var sprint = sprintService.getById(idSprint);
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
-		
+
 		dailyDTO.setId(idDaily);
 		sprintDailyValidate.validateSaveDaily(sprint, dailyDTO, true);
 		var timeProjeto = sprint.getProjeto().getTime().stream().map(ProjetoUsuario::getUsuario)
@@ -337,9 +334,9 @@ public class SprintFacade {
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
 		sprintDailyValidate.validarDailyEncontrada(sprint, idDaily);
-		
+
 		var sprintDaily = sprint.getDailys().stream().filter(daily -> daily.getId().equals(idDaily)).findAny().get();
-		
+
 		return modelMapper.map(sprintDaily, SprintDailyDTO.class);
 	}
 
@@ -347,28 +344,102 @@ public class SprintFacade {
 		var sprint = sprintService.getById(idSprint);
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
-		
+
 		return sprintDailyService.search(filterDTO);
 	}
 
 	public SprintReviewDTO saveSprintReview(Long idSprint, SprintReviewDTO reviewDTO, boolean isUpdate) {
-		// TODO Auto-generated method stub
-		return null;
+		var sprint = sprintService.getById(idSprint);
+		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
+		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
+		sprintReviewValidate.validateSaveReview(sprint, reviewDTO, isUpdate);
+		var timeProjeto = sprint.getProjeto().getTime().stream().map(ProjetoUsuario::getUsuario)
+				.collect(Collectors.toList());
+
+		var itensSprint = sprint.getBacklog().stream().map(ItemBacklogSprint::getItemBacklogProjeto)
+				.collect(Collectors.toList());
+
+		var sprintReview = isUpdate ? sprint.getReview() : new SprintReview();
+		sprintReview.atualizarAtributos(reviewDTO);
+
+		sprintReviewService.atualizarParticipantesEvento(reviewDTO, timeProjeto, sprintReview);
+		sprintReviewService.atualizarItensReview(reviewDTO, itensSprint, sprintReview);
+
+		var reviewSave = sprintReviewService.save(sprintReview);
+
+		sprint.setReview(reviewSave);
+		sprintService.save(sprint);
+
+		return modelMapper.map(reviewSave, SprintReviewDTO.class);
 	}
 
 	public SprintReviewDTO getSprintReview(Long idSprint) {
-		// TODO Auto-generated method stub
-		return null;
+		var sprint = sprintService.getById(idSprint);
+		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
+		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
+
+		if (ObjectUtils.isEmpty(sprint.getReview())) {
+			throw new BusinessException("Review não cadastrada");
+		}
+
+		return modelMapper.map(sprint.getReview(), SprintReviewDTO.class);
 	}
 
-	public SprintRetrospectiveDTO saveSprintRetrospective(Long idSprint, SprintRetrospectiveDTO retrospectiveDTO, boolean isUpdate) {
-		// TODO Auto-generated method stub
-		return null;
+	public SprintRetrospectiveDTO saveSprintRetrospective(Long idSprint, SprintRetrospectiveDTO retrospectiveDTO,
+			boolean isUpdate) {
+		var sprint = sprintService.getById(idSprint);
+		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
+		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
+		sprintRetrospectiveValidate.validateSaveRetrospective(sprint, retrospectiveDTO, isUpdate);
+		var timeProjeto = sprint.getProjeto().getTime().stream().map(ProjetoUsuario::getUsuario)
+				.collect(Collectors.toList());
+
+		var sprintRetrospective = isUpdate ? sprint.getRetrospective() : new SprintRetrospective();
+		sprintRetrospective.atualizarAtributos(retrospectiveDTO);
+
+		sprintRetrospectiveService.atualizarParticipantesEvento(retrospectiveDTO, timeProjeto, sprintRetrospective);
+
+		var retrospectiveSave = sprintRetrospectiveService.save(sprintRetrospective);
+
+		sprint.setRetrospective(retrospectiveSave);
+		sprintService.save(sprint);
+
+		return modelMapper.map(retrospectiveSave, SprintRetrospectiveDTO.class);
 	}
 
 	public SprintRetrospectiveDTO getSprintRetrospective(Long idSprint) {
-		// TODO Auto-generated method stub
-		return null;
+		var sprint = sprintService.getById(idSprint);
+		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
+		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
+
+		if (ObjectUtils.isEmpty(sprint.getRetrospective())) {
+			throw new BusinessException("Retrospective não cadastrada");
+		}
+
+		return modelMapper.map(sprint.getRetrospective(), SprintRetrospectiveDTO.class);
+	}
+
+	public void concluirSprint(Long idSprint) throws Exception {
+		var sprint = sprintService.getById(idSprint);
+		var idProjeto = sprint.getProjeto().getId();
+		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(idProjeto);
+		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
+		sprintValidate.validarFinalizacaoSprint(sprint);
+		sprintValidate.validarConclusaoProjeto(sprint);
+
+		sprint.setSituacao(SituacaoSprintEnum.CONCLUIDA);
+		sprintService.save(sprint);
+	}
+
+	public void cancelarSprint(Long idSprint) throws Exception {
+		var sprint = sprintService.getById(idSprint);
+		var idProjeto = sprint.getProjeto().getId();
+		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(idProjeto);
+		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
+		sprintValidate.validarFinalizacaoSprint(sprint);
+		
+		sprint.setSituacao(SituacaoSprintEnum.CANCELADA);
+		sprintService.save(sprint);
 	}
 
 }

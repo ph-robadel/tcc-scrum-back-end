@@ -31,12 +31,11 @@ public class SprintPlanningValidate {
 	
 	public void validateSavePlanning(Sprint sprint, SprintPlanningDTO planningDTO, boolean isUpdate) {
 		List<String> erros = new ArrayList<>();
-		var nomeEvento = "Planning";
 		
 		if (!isUpdate && !ObjectUtils.isEmpty(sprint.getPlanning())) {
-			throw new BusinessException(nomeEvento + " já cadastrada para na sprint");
+			throw new BusinessException("Planning já cadastrada para na sprint");
 		} else if(isUpdate && ObjectUtils.isEmpty(sprint.getPlanning())) {
-			throw new BusinessException(nomeEvento + " não cadastrada na sprint");
+			throw new BusinessException("Planning não cadastrada na sprint");
 		}
 
 		List<Usuario> timeProjeto = sprint.getProjeto().getTime().stream()

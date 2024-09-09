@@ -2,6 +2,7 @@ package br.ufes.entity;
 
 import java.util.List;
 
+import br.ufes.dto.SprintRetrospectiveDTO;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -31,5 +32,12 @@ public class SprintRetrospective extends Evento {
 	@ElementCollection(targetClass = String.class)
 	@Enumerated(EnumType.STRING)
 	private List<String> oqueDeuCerto;
+	
+	public void atualizarAtributos(SprintRetrospectiveDTO retrospectiveDTO) {
+		super.atualizarAtributos(retrospectiveDTO);
+		this.oqueMelhorar = retrospectiveDTO.getOqueMelhorar();
+		this.oqueDeuErrado = retrospectiveDTO.getOqueDeuErrado();
+		this.oqueDeuCerto = retrospectiveDTO.getOqueDeuCerto();
+	}
 
 }

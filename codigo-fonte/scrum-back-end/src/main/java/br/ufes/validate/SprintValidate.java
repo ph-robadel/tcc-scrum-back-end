@@ -11,6 +11,9 @@ import org.springframework.util.ObjectUtils;
 
 import br.ufes.dto.SprintUpsertDTO;
 import br.ufes.entity.Projeto;
+import br.ufes.entity.Sprint;
+import br.ufes.enums.EventoFinalizacaoProjetoEnum;
+import br.ufes.enums.SituacaoSprintEnum;
 import br.ufes.exception.BusinessException;
 import br.ufes.services.SprintService;
 import br.ufes.util.DateUtils;
@@ -46,6 +49,40 @@ public class SprintValidate {
 			}
 		}
 
+		if (!ObjectUtils.isEmpty(erros)) {
+			throw new BusinessException(erros);
+		}
+	}
+	
+	public void validarFinalizacaoSprint(Sprint sprint) {
+		var situacaoSprint = sprint.getSituacao();
+		if (SituacaoSprintEnum.CANCELADA.equals(situacaoSprint) || SituacaoSprintEnum.CONCLUIDA.equals(situacaoSprint)) {
+			throw new BusinessException("Sprint já está finalizada com a situação " + situacaoSprint.getSituacao());
+		}
+	}
+	
+	public void validarConclusaoProjeto(Sprint sprint) {
+		List<String> erros = new ArrayList<>();
+		
+		var eventoFinalizacao = sprint.getProjeto().getEventoFinalizacao();
+		if(ObjectUtils.isEmpty(sprint.getPlanning())) {
+			erros.add("Planning não cadastrada");
+		}
+		
+		if(ObjectUtils.isEmpty(sprint.getDailys())) {
+			erros.add("Daily não cadastrada");
+		}
+		
+		if(ObjectUtils.isEmpty(sprint.getReview())) {
+			erros.add("Review não cadastrada");
+		}
+		
+		if(EventoFinalizacaoProjetoEnum.RETROSPECTIVE.equals(eventoFinalizacao)) {
+			if(ObjectUtils.isEmpty(sprint.getRetrospective())) {
+				erros.add("Retrospective não cadastrada");
+			}
+		}
+		
 		if (!ObjectUtils.isEmpty(erros)) {
 			throw new BusinessException(erros);
 		}

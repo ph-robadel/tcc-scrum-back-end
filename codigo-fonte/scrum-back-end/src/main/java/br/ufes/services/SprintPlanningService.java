@@ -1,5 +1,6 @@
 package br.ufes.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,17 +24,22 @@ public class SprintPlanningService extends EventoService {
 	public SprintPlanning save(SprintPlanning sprintPlanning) {
 		return sprintPlanningRepository.save(sprintPlanning);
 	}
-	
-	public void atualizarItensSelecionadosPlanning(SprintPlanningDTO planningDTO,List<Usuario> timeProjeto,
+
+	public void atualizarItensSelecionadosPlanning(SprintPlanningDTO planningDTO, List<Usuario> timeProjeto,
 			List<ItemBacklogProjeto> itensPlanejamento, SprintPlanning sprintPlanning) {
-		
-		sprintPlanning.getItensSelecionados().clear();
+
+		if (sprintPlanning.getItensSelecionados() == null) {
+			sprintPlanning.setItensSelecionados(new ArrayList<>());
+		} else {
+			sprintPlanning.getItensSelecionados().clear();
+		}
 		if (!ObjectUtils.isEmpty(planningDTO.getItensSelecionados())) {
 			planningDTO.getItensSelecionados().stream().forEach(itemDTO -> {
 				var itemPlanning = new ItemBacklogPlanning();
-				var responsavelRealizacao = timeProjeto.stream().filter(u -> u.getId().equals(itemDTO.getIdResponsavelRealizacao()))
-						.findFirst();
-				var item = itensPlanejamento.stream().filter(ibp -> ibp.getId().equals(itemDTO.getIdItemBacklogProjeto())).findFirst();
+				var responsavelRealizacao = timeProjeto.stream()
+						.filter(u -> u.getId().equals(itemDTO.getIdResponsavelRealizacao())).findFirst();
+				var item = itensPlanejamento.stream()
+						.filter(ibp -> ibp.getId().equals(itemDTO.getIdItemBacklogProjeto())).findFirst();
 				itemPlanning.setDescricao(itemDTO.getDescricao());
 				itemPlanning.setHorasEstimadas(itemDTO.getHorasEstimadas());
 				itemPlanning.setSprintPlanning(sprintPlanning);
@@ -41,14 +47,18 @@ public class SprintPlanningService extends EventoService {
 				itemPlanning.setResponsavelRealizacao(responsavelRealizacao.get());
 				sprintPlanning.getItensSelecionados().add(itemPlanning);
 			});
-			
+
 		}
 	}
-	
+
 	public void atualizarCapacidadePlanning(SprintPlanningDTO planningDTO, List<Usuario> timeProjeto,
 			SprintPlanning sprintPlanning) {
-		
-		sprintPlanning.getCapacidadeTime().clear();
+
+		if (sprintPlanning.getCapacidadeTime() == null) {
+			sprintPlanning.setCapacidadeTime(new ArrayList<>());
+		} else {
+			sprintPlanning.getCapacidadeTime().clear();
+		}
 		if (!ObjectUtils.isEmpty(planningDTO.getCapacidadeTime())) {
 			planningDTO.getCapacidadeTime().stream().forEach(capacidadeDTO -> {
 				var capacidadeUsuario = new CapacidadeUsuario();
@@ -62,5 +72,5 @@ public class SprintPlanningService extends EventoService {
 			});
 		}
 	}
-	
+
 }

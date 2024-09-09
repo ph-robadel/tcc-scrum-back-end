@@ -29,6 +29,10 @@ public class SprintDailyService extends EventoService {
 
 	public void atualizarRegistroDaily(SprintDailyDTO dailyDTO, List<Usuario> timeProjeto, SprintDaily sprintDaily) {
 
+		if(sprintDaily.getRegistroDaily() == null) {
+			sprintDaily.setRegistroDaily(new ArrayList<>());
+		}
+		sprintDaily.getRegistroDaily().clear();
 		if (!ObjectUtils.isEmpty(dailyDTO.getRegistroDaily())) {
 			dailyDTO.getRegistroDaily().stream().forEach(registroDTO -> {
 				var registroDaily = new RegistroDaily();
