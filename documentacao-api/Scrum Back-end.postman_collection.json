@@ -1,0 +1,2301 @@
+{
+	"info": {
+		"_postman_id": "01d3454f-b276-45f1-878e-edba7c5187c3",
+		"name": "Scrum Back-end",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19436698",
+		"_collection_link": "https://solar-sunset-905773.postman.co/workspace/Vida~e0dda534-133f-45f3-bf27-1234c4b9ef30/collection/19436698-01d3454f-b276-45f1-878e-edba7c5187c3?action=share&source=collection_link&creator=19436698"
+	},
+	"item": [
+		{
+			"name": "login",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nomeUsuario\": \"po.1\",\n    \"senha\": \"1234acb\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "usuarios",
+			"item": [
+				{
+					"name": "cadastrar usuário",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nomeCompleto\": \"Usuário Scrum Master 1\",\n    \"nomeUsuario\": \"sm.1\",\n    \"senha\": \"1234acb\",\n    \"email\": \"ph.robadel@gmail.com\",\n    \"perfil\": \"scrum_master\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usuarios",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obter por id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usuarios/52",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuarios",
+								"52"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obter usuário autenticado",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usuarios/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuarios",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizar usuário autenticado",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nomeCompleto\": \"Usuário PO\",\n    \"nomeUsuario\": \"po.1\",\n    \"email\": \"ph.robadel@gmail.com\",\n    \"ativo\": true,\n    \"perfil\": \"SCRUM_MASTER\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usuarios/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuarios",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizar usuário por id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nomeCompleto\": \"Kelly Pedroza\",\n    \"nomeUsuario\": \"kp\",\n    \"email\": \"kelly@gmail.com\",\n    \"perfil\": \"DEV_TEAM\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usuarios/453",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuarios",
+								"453"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inativar usuário autenticado",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usuarios/inativar",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuarios",
+								"inativar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inativar usuário por id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usuarios/402/inativar",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuarios",
+								"402",
+								"inativar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reativar usuário por id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usuarios/402/reativar",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuarios",
+								"402",
+								"reativar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizar senha usuário autenticado",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"senhaAtual\": \"1234\",\n    \"novaSenha\": \"123abc\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usuarios/atualizar-senha",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuarios",
+								"atualizar-senha"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pesquisar usuários",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usuarios",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuarios"
+							],
+							"query": [
+								{
+									"key": "perfil",
+									"value": "scrum_master",
+									"disabled": true
+								},
+								{
+									"key": "nome",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "sortOrder",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "fieldSort",
+									"value": "fdsjakl",
+									"disabled": true
+								},
+								{
+									"key": "apenasAtivo",
+									"value": "false",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "projetos",
+			"item": [
+				{
+					"name": "Cadastrar projetos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Projeto nova estrutura\",\n    \"descricao\": \"projeto para testes\",\n    \"quantidadeDiasSprint\": \"10\",\n    \"duracaoHorasDaily\": \"0.5\",\n    \"duracaoHorasPlanning\": \"1\",\n    \"duracaoHorasReview\": \"0\",\n    \"duracaoHorasRetrospective\": \"0\",\n    \"eventoFinalizacao\": \"RETROSPECTIVE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projetos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar projetos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Projeto 2\",\n    \"descricao\": \"2° projeto para teste update\",\n    \"quantidadeDiasSprint\": \"10\",\n    \"duracaoHorasDaily\": \"0.5\",\n    \"duracaoHorasPlanning\": \"1\",\n    \"duracaoHorasReview\": \"1\",\n    \"duracaoHorasRetrospective\": \"0.75\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projetos/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obter por id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projetos/152",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos",
+								"152"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inativar projeto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projetos/1/inativar",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos",
+								"1",
+								"inativar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reativar projeto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projetos/1/reativar",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos",
+								"1",
+								"reativar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pesquisar projetos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projetos/search",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos",
+								"search"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "pro",
+									"disabled": true
+								},
+								{
+									"key": "apenasAtivo",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "sortOrder",
+									"value": "asc",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar usuário ao projeto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projetos/152/usuarios/654",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos",
+								"152",
+								"usuarios",
+								"654"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inativar usuário ao projeto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projetos/2/usuarios/502/inativar",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos",
+								"2",
+								"usuarios",
+								"502",
+								"inativar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reativar usuário ao projeto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projetos/2/usuarios/502/reativar",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos",
+								"2",
+								"usuarios",
+								"502",
+								"reativar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pesquisar usuário do projeto",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projetos/152/usuarios/search",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos",
+								"152",
+								"usuarios",
+								"search"
+							],
+							"query": [
+								{
+									"key": "sortOrder",
+									"value": "asc",
+									"disabled": true
+								},
+								{
+									"key": "nomeUsuario",
+									"value": "po",
+									"disabled": true
+								},
+								{
+									"key": "perfil",
+									"value": "SCRUM_MASTER",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar item ao backlog projeto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"TESTE DELETE\",\n    \"descricao\": \"Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi. Admodum accumsan disputationi eu sit. Vide electram sadipscing et per. Per aumento de cachacis, eu reclamis. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis. Interagi no mé, cursus quis, vehicula ac nisi. Segunda-feiris nun dá, eu vô me pirulitá! Sapien in monti palavris qui num significa nadis i pareci latim\",\n    \"categoria\": \"requisito_nao_funcional\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projetos/152/item-backlog-projeto",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos",
+								"152",
+								"item-backlog-projeto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pesquisar itens de backlog projeto",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projetos/152/item-backlog-projeto/search",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos",
+								"152",
+								"item-backlog-projeto",
+								"search"
+							],
+							"query": [
+								{
+									"key": "codigo",
+									"value": "RF",
+									"disabled": true
+								},
+								{
+									"key": "categoria",
+									"value": "REQUISITO_FUNCIONAL",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar sprint",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dataInicio\": \"2024-10-05\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projetos/152/sprints",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos",
+								"152",
+								"sprints"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pesquisar sprint",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projetos/152/sprints/search",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos",
+								"152",
+								"sprints",
+								"search"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "itemBacklogProjeto",
+			"item": [
+				{
+					"name": "Obter por id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/item-backlog-projeto/353",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"item-backlog-projeto",
+								"353"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar ItemBacklogProjeto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Algum requisito funcional 5\",\n    \"descricao\": \"Descricao update. Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi. Admodum accumsan disputationi eu sit. Vide electram sadipscing et per. Per aumento de cachacis, eu reclamis. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis. Interagi no mé, cursus quis, vehicula ac nisi. Segunda-feiris nun dá, eu vô me pirulitá! Sapien in monti palavris qui num significa nadis i pareci latim.\",\n    \"situacao\": \"APROVADO\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/item-backlog-projeto/356",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"item-backlog-projeto",
+								"356"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Repriorizar Item Backlog Projeto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"[update]Validação de segurança\",\n    \"descricao\": \"Descricao update. Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi. Admodum accumsan disputationi eu sit. Vide electram sadipscing et per. Per aumento de cachacis, eu reclamis. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis. Interagi no mé, cursus quis, vehicula ac nisi. Segunda-feiris nun dá, eu vô me pirulitá! Sapien in monti palavris qui num significa nadis i pareci latim.\",\n    \"situacao\": \"REDIGINDO\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/item-backlog-projeto/305/repriorizar/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"item-backlog-projeto",
+								"305",
+								"repriorizar",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete por id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/item-backlog-projeto/402",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"item-backlog-projeto",
+								"402"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sprint",
+			"item": [
+				{
+					"name": "Obter por id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sprints/153",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sprints",
+								"153"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Sprint",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dataInicio\" : \"2024-09-02\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sprints/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sprints",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar itens backlog da sprint",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"descricao\": \"Teste Doc 1\",\n    \"idResponsavelRealizacao\": \"\",\n    \"horasEstimadas\": \"\",\n    \"horasRealizadas\": \"\",\n    \"situacao\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sprints/1/item-backlog-projeto/254/item-backlog-sprint",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sprints",
+								"1",
+								"item-backlog-projeto",
+								"254",
+								"item-backlog-sprint"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pesquisar itens backlog da sprint",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sprints/153/item-backlog-sprint/search",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sprints",
+								"153",
+								"item-backlog-sprint",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar itens backlog de Planejamento da sprint",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"descricao\": \"Teste Doc 1\",\n    \"idResponsavelRealizacao\": \"\",\n    \"horasEstimadas\": \"\",\n    \"horasRealizadas\": \"\",\n    \"situacao\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sprints/153/item-backlog-projeto/356/item-backlog-planejamento",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sprints",
+								"153",
+								"item-backlog-projeto",
+								"356",
+								"item-backlog-planejamento"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remover item backlog de Planejamento da sprint",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"descricao\": \"Teste Doc 1\",\n    \"idResponsavelRealizacao\": \"\",\n    \"horasEstimadas\": \"\",\n    \"horasRealizadas\": \"\",\n    \"situacao\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sprints/2/item-backlog-planejamento/352",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sprints",
+								"2",
+								"item-backlog-planejamento",
+								"352"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pesquisar itens backlog de Planejamento da sprint",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sprints/153/item-backlog-planejamento/search",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sprints",
+								"153",
+								"item-backlog-planejamento",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar planning",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\": \"Planning Sprint 3\",\n\t\"descricao\": \"Reunião para planejamento da sprint\",\n\t\"anexos\": [\n        \"arquivo1\",\n        \"arquivo2\"\n    ],\n\t\"idsParticipantes\": [\n\t\t602, 652, 653, 654\n\t],\n\t\"inicio\": \"2024-09-04T10:00:23.209\",\n\t\"fim\": \"2024-09-04T10:50:23.209\",\n\t\"duracaoMinutos\": \"50\",\n\t\"capacidadeTime\": [\n\t\t{\n\t\t\t\"idUsuario\": 652,\n\t\t\t\"horas\": 40,\n\t\t\t\"justificativa\": \"Horário normal\"\n\t\t},\n        {\n\t\t\t\"idUsuario\": 653,\n\t\t\t\"horas\": 45,\n\t\t\t\"justificativa\": \"\"\n\t\t}\n\t],\n\t\"objetivo\": \"Planejar sprint\",\n\t\"itensSelecionados\": [\n\t\t{\n\t\t\t\"idItemBacklogProjeto\": 353,\n\t\t\t\"descricao\": \"Descrição 352 item planning\",\n            \"horasEstimadas\": 8,\n            \"idResponsavelRealizacao\": 652\n\t\t},\n\t\t{\n\t\t\t\"idItemBacklogProjeto\": 354,\n\t\t\t\"descricao\": \"Descrição 352 item planning\",\n            \"horasEstimadas\": 16,\n            \"idResponsavelRealizacao\": 653\n\t\t},\n\t\t{\n\t\t\t\"idItemBacklogProjeto\": 355,\n\t\t\t\"descricao\": \"Descrição 352 item planning\",\n            \"horasEstimadas\": 14,\n            \"idResponsavelRealizacao\": 652\n\t\t},\n\t\t{\n\t\t\t\"idItemBacklogProjeto\": 356,\n\t\t\t\"descricao\": \"Descrição 352 item planning\",\n            \"horasEstimadas\": 2,\n            \"idResponsavelRealizacao\": 653\n\t\t}\n\t]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sprints/153/planning",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sprints",
+								"153",
+								"planning"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obter dados planning",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sprints/2/planning",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sprints",
+								"2",
+								"planning"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar planning",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\": \"Planning Sprint 2 UPDATE FINAL!\",\n\t\"descricao\": \"Reunião para planejamento da sprint\",\n\t\"anexos\": [\n        \"arquivo1\",\n        \"arquivo2\"\n    ],\n\t\"idsParticipantes\": [\n\t\t602\n\t],\n\t\"inicio\": \"2024-09-04T10:00:23.209\",\n\t\"fim\": \"2024-09-04T10:50:23.209\",\n\t\"duracaoMinutos\": \"50\",\n\t\"capacidadeTime\": [\n\t\t{\n\t\t\t\"idUsuario\": 602,\n\t\t\t\"horas\": 10,\n\t\t\t\"justificativa\": \"Horário estagiário\"\n\t\t}\n\t],\n\t\"objetivo\": \"Planejar sprint\",\n\t\"itensSelecionados\": [\n\t\t{\n\t\t\t\"idItemBacklogProjeto\": 352,\n\t\t\t\"descricao\": \"Descrição 352 item planning\",\n            \"horasEstimadas\": 10,\n            \"idResponsavelRealizacao\": 602\n\t\t}\n\t]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sprints/2/planning",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sprints",
+								"2",
+								"planning"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Concluir Planning",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sprints/153/concluir-planning",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sprints",
+								"153",
+								"concluir-planning"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar daily",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Daily 2\",\n    \"inicio\": \"2024-09-10T09:00:00.000\",\n    \"fim\": \"2024-09-10T09:00:00.000\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sprints/2/daily",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sprints",
+								"2",
+								"daily"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obter dados daily",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sprints/2/daily/452",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sprints",
+								"2",
+								"daily",
+								"452"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar dados daily",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Daily 1 UPDATE\",\n    \"descricao\": \"Teste\",\n    \"inicio\": \"2024-09-09T09:00:00.000\",\n    \"fim\": \"2024-09-09T10:00:00.000\",\n    \"anexos\": [\n        \"Teste anexo 1\",\n        \"Teste anexo 2\"\n    ],\n    \"idsParticipantes\": [602],\n    \"duracaoMinutos\": 60,\n    \"registroDaily\": [\n        {\n            \"idUsuario\": 602,\n            \"perguntaResposta\":[\n                {\n                    \"pergunta\": \"O que foi feito?\",\n                    \"resposta\": \"Finalizado item x e iniciado o item y\"\n                },\n                {\n                    \"pergunta\": \"O que vai fazer?\",\n                    \"resposta\": \"Finalizar o item y\"\n                },\n                {\n                    \"pergunta\": \"Algum impedimento?\",\n                    \"resposta\": \"Nenhum impedimento\"\n                }\n            ]\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sprints/2/daily/452",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sprints",
+								"2",
+								"daily",
+								"452"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pesquisar daily",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sprints/2/daily/search",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sprints",
+								"2",
+								"daily",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\": \"Review Sprint\",\n\t\"descricao\": \"Reunião de revisão da sprint\",\n\t\"anexos\": [\n        \"arquivo5\",\n        \"arquivo6\"\n    ],\n\t\"idsParticipantes\": [\n\t\t602\n\t],\n\t\"inicio\": \"2024-09-20T10:00:23.209\",\n\t\"fim\": \"2024-09-20T10:50:23.209\",\n\t\"duracaoMinutos\": \"50\",\n\t\"itensAprovados\": [\n\t\t{\n\t\t\t\"idItemBacklogProjeto\": 352,\n\t\t\t\"descricao\": \"Descrição Aprovação\"\n\t\t}\n\t],\n    \"itensRejeitados\": [\n\t\t{\n\t\t\t\"idItemBacklogProjeto\": 352,\n\t\t\t\"descricao\": \"Descrição Rejeição\"\n\t\t}\n\t],\n    \"itensAprovadosParcialmente\": [\n\t\t{\n\t\t\t\"idItemBacklogProjeto\": 352,\n\t\t\t\"descricao\": \"Descrição Aprovação parcial\"\n\t\t}\n\t]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sprints/2/review",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sprints",
+								"2",
+								"review"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obter dados review",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sprints/2/review",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sprints",
+								"2",
+								"review"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar dados review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\": \"Review Sprint [UPDATE]\",\n\t\"descricao\": \"Reunião de revisão da sprint\",\n\t\"anexos\": [\n        \"arquivo5\",\n        \"arquivo6\"\n    ],\n\t\"idsParticipantes\": [\n\t\t602\n\t],\n\t\"inicio\": \"2024-09-20T10:00:23.209\",\n\t\"fim\": \"2024-09-20T10:50:23.209\",\n\t\"duracaoMinutos\": \"50\",\n\t\"itensAprovados\": [\n\t\t{\n\t\t\t\"idItemBacklogProjeto\": 352,\n\t\t\t\"descricao\": \"Descrição Aprovação\"\n\t\t}\n\t],\n    \"itensRejeitados\": [\n\t\t{\n\t\t\t\"idItemBacklogProjeto\": 352,\n\t\t\t\"descricao\": \"Descrição Rejeição\"\n\t\t}\n\t],\n    \"itensAprovadosParcialmente\": [\n\t\t{\n\t\t\t\"idItemBacklogProjeto\": 352,\n\t\t\t\"descricao\": \"Descrição Aprovação parcial\"\n\t\t}\n\t]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sprints/2/review",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sprints",
+								"2",
+								"review"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar retrospective",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\": \"Retrospective Sprint\",\n\t\"descricao\": \"Reunião de retrospectiva da sprint\",\n\t\"anexos\": [\n        \"arquivo9\",\n        \"arquivo10\"\n    ],\n\t\"idsParticipantes\": [\n\t\t602\n\t],\n\t\"inicio\": \"2024-09-20T15:00:00.000\",\n\t\"fim\": \"2024-09-20T15:50:00.000\",\n\t\"duracaoMinutos\": \"50\",\n\t\"oqueMelhorar\": [\n\t\t\"Comunicação do time\",\n\t\t\"Qualidade do produto desenvolvido\"\n\t],\n    \"oqueDeuErrado\": [\n\t\t\"Dividir o desenvolvedor x com outro projeto\",\n\t\t\"A frequência da Daily\"\n\t],\n    \"oqueDeuCerto\": [\n\t\t\"Todos os itens foram desenvolvidos\"\n\t]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sprints/2/retrospective",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sprints",
+								"2",
+								"retrospective"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obter dados retrospective",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sprints/2/retrospective",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sprints",
+								"2",
+								"retrospective"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar dados retrospective",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\": \"Retrospective Sprint\",\n\t\"descricao\": \"Reunião de retrospectiva da sprint\",\n\t\"anexos\": [\n        \"arquivo10\",\n        \"arquivo15\"\n    ],\n\t\"idsParticipantes\": [\n\t\t602\n\t],\n\t\"inicio\": \"2024-09-20T15:00:00.000\",\n\t\"fim\": \"2024-09-20T15:50:00.000\",\n\t\"duracaoMinutos\": \"50\",\n\t\"oqueMelhorar\": [\n\t\t\"Comunicação do time\",\n\t\t\"Qualidade do produto desenvolvido\"\n\t],\n    \"oqueDeuErrado\": [\n\t\t\"Dividir o desenvolvedor x com outro projeto\",\n\t\t\"A frequência da Daily\"\n\t],\n    \"oqueDeuCerto\": [\n\t\t\"Todos os itens foram desenvolvidos\"\n\t]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sprints/2/retrospective",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sprints",
+								"2",
+								"retrospective"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Concluir sprint",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sprints/2/concluir",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sprints",
+								"2",
+								"concluir"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancelar sprint",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sprints/152/cancelar",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sprints",
+								"152",
+								"cancelar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "itemBacklogSprint",
+			"item": [
+				{
+					"name": "Obter item backlog da sprint",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"descricao\": \"Teste Doc 1\",\n    \"idResponsavelRealizacao\": \"\",\n    \"horasEstimadas\": \"\",\n    \"horasRealizadas\": \"\",\n    \"situacao\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/item-backlog-sprint/55",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"item-backlog-sprint",
+								"55"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remover item backlog da sprint",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"descricao\": \"Teste Doc 1\",\n    \"idResponsavelRealizacao\": \"\",\n    \"horasEstimadas\": \"\",\n    \"horasRealizadas\": \"\",\n    \"situacao\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/item-backlog-sprint/52",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"item-backlog-sprint",
+								"52"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar itens backlog da sprint",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"descricao\": \"Descrição 352 item planning\",\n    \"idResponsavelRealizacao\":653,\n    \"horasEstimadas\": 2.00,\n    \"horasRealizadas\": 4.00,\n    \"situacao\": \"DESENVOLVENDO\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/item-backlog-sprint/55",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"item-backlog-sprint",
+								"55"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Repriorizar item backlog da sprint",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"descricao\": \"Teste Doc 1\",\n    \"idResponsavelRealizacao\": \"\",\n    \"horasEstimadas\": \"\",\n    \"horasRealizadas\": \"\",\n    \"situacao\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/item-backlog-sprint/53/repriorizar/3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"item-backlog-sprint",
+								"53",
+								"repriorizar",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
