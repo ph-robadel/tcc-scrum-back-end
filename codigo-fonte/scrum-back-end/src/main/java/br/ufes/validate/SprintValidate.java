@@ -54,10 +54,10 @@ public class SprintValidate {
 		}
 	}
 	
-	public void validarFinalizacaoSprint(Sprint sprint) {
+	public void validarAlterarDadosSprint(Sprint sprint) {
 		var situacaoSprint = sprint.getSituacao();
 		if (SituacaoSprintEnum.CANCELADA.equals(situacaoSprint) || SituacaoSprintEnum.CONCLUIDA.equals(situacaoSprint)) {
-			throw new BusinessException("Sprint já está finalizada com a situação " + situacaoSprint.getSituacao());
+			throw new BusinessException("A sprint está "+ situacaoSprint.getSituacao());
 		}
 	}
 	

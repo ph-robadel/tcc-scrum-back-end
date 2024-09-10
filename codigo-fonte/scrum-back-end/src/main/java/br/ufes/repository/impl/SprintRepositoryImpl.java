@@ -9,6 +9,7 @@ import org.springframework.util.ObjectUtils;
 
 import br.ufes.dto.SprintBasicDTO;
 import br.ufes.dto.filter.SprintFilterDTO;
+import br.ufes.enums.SituacaoSprintEnum;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
@@ -25,13 +26,14 @@ public class SprintRepositoryImpl {
 
 		sqlBuider.append(" SELECT new br.ufes.dto.SprintBasicDTO (");
 		sqlBuider.append("   s.id, ");
-		sqlBuider.append("   s.numero ");
+		sqlBuider.append("   s.numero, ");
+		sqlBuider.append("   s.situacao ");
 		sqlBuider.append(" ) ");
 
 		searchFrom(filterDTO, sqlBuider, params);
 
 		if (!ObjectUtils.isEmpty(filterDTO.getFieldSort()) && !ObjectUtils.isEmpty(filterDTO.getSortOrder())) {
-			sqlBuider.append(" ORDER BY p." + filterDTO.getFieldSort() + " " + filterDTO.getSortOrder().name());
+			sqlBuider.append(" ORDER BY s." + filterDTO.getFieldSort() + " " + filterDTO.getSortOrder().name());
 		}
 
 		var query = manager.createQuery(sqlBuider.toString(), SprintBasicDTO.class);
@@ -63,12 +65,12 @@ public class SprintRepositoryImpl {
 		sqlBuider.append("   join s.projeto p");
 		sqlBuider.append(" WHERE 1=1 ");
 
-		if (ObjectUtils.isEmpty(filterDTO.getIdProjeto())) {
+		if (!ObjectUtils.isEmpty(filterDTO.getIdProjeto())) {
 			sqlBuider.append(" and p.id = :idProjeto");
 			params.put("idProjeto", filterDTO.getIdProjeto());
 		}
 
-		if (ObjectUtils.isEmpty(filterDTO.getNumero())) {
+		if (!ObjectUtils.isEmpty(filterDTO.getNumero())) {
 			sqlBuider.append(" and s.numero = :numero");
 			params.put("numero", filterDTO.getNumero());
 		}
@@ -78,7 +80,8 @@ public class SprintRepositoryImpl {
 		var sqlBuider = new StringBuilder();
 		sqlBuider.append(" SELECT new br.ufes.dto.SprintBasicDTO ( ");
 		sqlBuider.append("   s.id, ");
-		sqlBuider.append("   s.numero ");
+		sqlBuider.append("   s.numero, ");
+		sqlBuider.append("   s.situacao ");
 		sqlBuider.append(" ) ");
 		sqlBuider.append(" FROM Sprint s ");
 		sqlBuider.append(" WHERE s.dataInicio >= :data ");
@@ -97,10 +100,12 @@ public class SprintRepositoryImpl {
 		var sqlBuider = new StringBuilder();
 		sqlBuider.append(" SELECT new br.ufes.dto.SprintBasicDTO ( ");
 		sqlBuider.append("   s.id, ");
-		sqlBuider.append("   s.numero ");
+		sqlBuider.append("   s.numero, ");
+		sqlBuider.append("   s.situacao ");
 		sqlBuider.append(" ) ");
 		sqlBuider.append(" FROM Sprint s ");
 		sqlBuider.append(" WHERE s.projeto.id = :idProjeto ");
+		sqlBuider.append(" 		 AND s.situacao != :cancelada ");
 		sqlBuider.append(" 	     and ((s.dataInicio >= :dataInicial and s.dataInicio <= :dataFinal ) or ");
 		sqlBuider.append("       (s.dataFim >= :dataInicial and s.dataFim <= :dataFinal )) ");
 		
@@ -109,6 +114,7 @@ public class SprintRepositoryImpl {
 		query.setParameter("idProjeto", idProjeto);
 		query.setParameter("dataInicial", dataInicial);
 		query.setParameter("dataFinal", dataFinal);
+		query.setParameter("cancelada", SituacaoSprintEnum.CANCELADA);
 		
 		return query.getResultList();
 	}

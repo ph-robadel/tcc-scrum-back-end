@@ -12,7 +12,6 @@ import br.ufes.dto.SprintRetrospectiveDTO;
 import br.ufes.entity.ProjetoUsuario;
 import br.ufes.entity.Sprint;
 import br.ufes.entity.Usuario;
-import br.ufes.enums.SituacaoSprintEnum;
 import br.ufes.exception.BusinessException;
 import br.ufes.services.SprintService;
 
@@ -28,20 +27,15 @@ public class SprintRetrospectiveValidate {
 	public void validateSaveRetrospective(Sprint sprint, SprintRetrospectiveDTO retrospectiveDTO, boolean isUpdate) {
 		List<String> erros = new ArrayList<>();
 
-		if (!isUpdate && !ObjectUtils.isEmpty(sprint.getPlanning())) {
+		if (!isUpdate && !ObjectUtils.isEmpty(sprint.getRetrospective())) {
 			throw new BusinessException("Retrospective já cadastrada para na sprint");
-		} else if (isUpdate && ObjectUtils.isEmpty(sprint.getPlanning())) {
+		} else if (isUpdate && ObjectUtils.isEmpty(sprint.getRetrospective())) {
 			throw new BusinessException("Retrospective não cadastrada na sprint");
 		}
 
 		List<Usuario> timeProjeto = sprint.getProjeto().getTime().stream()
 				.filter(projUsr -> projUsr.isAtivo() && projUsr.getUsuario().isAtivo()).map(ProjetoUsuario::getUsuario)
 				.collect(Collectors.toList());
-
-		var listaSituacaoImutavelSprint = List.of(SituacaoSprintEnum.CONCLUIDA, SituacaoSprintEnum.CANCELADA);
-		if (listaSituacaoImutavelSprint.contains(sprint.getSituacao())) {
-			throw new BusinessException("A sprint possui a situação " + sprint.getSituacao().getSituacao());
-		}
 
 		var listaIdsParticipantesDTO = retrospectiveDTO.getIdsParticipantes();
 

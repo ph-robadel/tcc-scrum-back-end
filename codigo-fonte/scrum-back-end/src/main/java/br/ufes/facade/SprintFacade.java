@@ -1,7 +1,5 @@
 package br.ufes.facade;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -24,13 +22,14 @@ import br.ufes.dto.filter.SprintDailyFilterDTO;
 import br.ufes.dto.filter.SprintFilterDTO;
 import br.ufes.entity.ItemBacklogPlanejamento;
 import br.ufes.entity.ItemBacklogSprint;
+import br.ufes.entity.ItemReview;
 import br.ufes.entity.ProjetoUsuario;
 import br.ufes.entity.Sprint;
 import br.ufes.entity.SprintDaily;
 import br.ufes.entity.SprintPlanning;
 import br.ufes.entity.SprintRetrospective;
 import br.ufes.entity.SprintReview;
-import br.ufes.enums.SituacaoItemSprintEnum;
+import br.ufes.enums.SituacaoItemProjetoEnum;
 import br.ufes.enums.SituacaoProjetoEnum;
 import br.ufes.enums.SituacaoSprintEnum;
 import br.ufes.exception.BusinessException;
@@ -209,7 +208,9 @@ public class SprintFacade {
 		var sprint = sprintService.getById(idSprint);
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
+		sprintValidate.validarAlterarDadosSprint(sprint);
 		sprintPlanningValidate.validateSavePlanning(sprint, planningDTO, isUpdate);
+		
 		var timeProjeto = sprint.getProjeto().getTime().stream().map(ProjetoUsuario::getUsuario)
 				.collect(Collectors.toList());
 		var itensPlanejamento = sprint.getBacklogPlanejamento().stream()
@@ -246,44 +247,30 @@ public class SprintFacade {
 		return modelMapper.map(sprint.getPlanning(), SprintPlanningDTO.class);
 	}
 
-	public void concluirSprintPlanning(Long idSprint) {
+	public void concluirPlanning(Long idSprint) {
 		var sprint = sprintService.getById(idSprint);
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
 		sprintPlanningValidate.validateConcluirPlanning(sprint);
 
-		gerarItensBacklogSprintByPlanning(sprint);
+		var itensSprint = itemBacklogSprintService.gerarItensBacklogSprintByPlanning(sprint,
+				usuarioService.getUsuarioAutenticado());
+
+		itensSprint.forEach(itemSprint -> {
+			var itemProjeto = itemSprint.getItemBacklogProjeto();
+			itemProjeto.setSituacao(SituacaoItemProjetoEnum.EM_DESENVOLVIMENTO);
+			itemBacklogProjetoService.save(itemProjeto);
+		});
 
 		sprint.setSituacao(SituacaoSprintEnum.EM_ANDAMENTO);
 		sprintService.save(sprint);
 	}
 
-	private void gerarItensBacklogSprintByPlanning(Sprint sprint) {
-		var dataHoraAtual = LocalDateTime.now();
-
-		for (var item : sprint.getPlanning().getItensSelecionados()) {
-			var itemBacklogSprint = new ItemBacklogSprint();
-			var usuarioAutenticado = usuarioService.getUsuarioAutenticado();
-			var prioridadeNovoItem = itemBacklogSprintService.obterNumeroPrioridadeNovoItem(sprint.getId());
-
-			itemBacklogSprint.setPrioridade(prioridadeNovoItem);
-			itemBacklogSprint.setDescricao(item.getDescricao());
-			itemBacklogSprint.setHorasEstimadas(item.getHorasEstimadas());
-			itemBacklogSprint.setHorasRealizadas(BigDecimal.ZERO);
-			itemBacklogSprint.setResponsavelRealizacao(item.getResponsavelRealizacao());
-			itemBacklogSprint.setResponsavelInclusao(usuarioAutenticado);
-			itemBacklogSprint.setSprint(sprint);
-			itemBacklogSprint.setItemBacklogProjeto(item.getItemBacklogProjeto());
-			itemBacklogSprint.setDataInclusao(dataHoraAtual);
-			itemBacklogSprint.setSituacao(SituacaoItemSprintEnum.A_FAZER);
-			itemBacklogSprint = itemBacklogSprintService.save(itemBacklogSprint);
-		}
-	}
-
-	public SprintDailyDTO insertSprintDaily(Long idSprint, SprintDailyDTO dailyDTO) {
+	public SprintDailyDTO insertDaily(Long idSprint, SprintDailyDTO dailyDTO) {
 		var sprint = sprintService.getById(idSprint);
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
+		sprintValidate.validarAlterarDadosSprint(sprint);
 
 		sprintDailyValidate.validateSaveDaily(sprint, dailyDTO, false);
 		var timeProjeto = sprint.getProjeto().getTime().stream().map(ProjetoUsuario::getUsuario)
@@ -312,6 +299,7 @@ public class SprintFacade {
 		var sprint = sprintService.getById(idSprint);
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
+		sprintValidate.validarAlterarDadosSprint(sprint);
 
 		dailyDTO.setId(idDaily);
 		sprintDailyValidate.validateSaveDaily(sprint, dailyDTO, true);
@@ -352,6 +340,7 @@ public class SprintFacade {
 		var sprint = sprintService.getById(idSprint);
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
+		sprintValidate.validarAlterarDadosSprint(sprint);
 		sprintReviewValidate.validateSaveReview(sprint, reviewDTO, isUpdate);
 		var timeProjeto = sprint.getProjeto().getTime().stream().map(ProjetoUsuario::getUsuario)
 				.collect(Collectors.toList());
@@ -390,6 +379,7 @@ public class SprintFacade {
 		var sprint = sprintService.getById(idSprint);
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
+		sprintValidate.validarAlterarDadosSprint(sprint);
 		sprintRetrospectiveValidate.validateSaveRetrospective(sprint, retrospectiveDTO, isUpdate);
 		var timeProjeto = sprint.getProjeto().getTime().stream().map(ProjetoUsuario::getUsuario)
 				.collect(Collectors.toList());
@@ -424,8 +414,13 @@ public class SprintFacade {
 		var idProjeto = sprint.getProjeto().getId();
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(idProjeto);
 		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
-		sprintValidate.validarFinalizacaoSprint(sprint);
+		sprintValidate.validarAlterarDadosSprint(sprint);
 		sprintValidate.validarConclusaoProjeto(sprint);
+
+		sprint.getReview().getItensAprovados().stream().map(ItemReview::getItemBacklogProjeto).forEach(itemProjeto -> {
+			itemProjeto.setSituacao(SituacaoItemProjetoEnum.CONCLUIDO);
+			itemBacklogProjetoService.save(itemProjeto);
+		});
 
 		sprint.setSituacao(SituacaoSprintEnum.CONCLUIDA);
 		sprintService.save(sprint);
@@ -436,8 +431,8 @@ public class SprintFacade {
 		var idProjeto = sprint.getProjeto().getId();
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(idProjeto);
 		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
-		sprintValidate.validarFinalizacaoSprint(sprint);
-		
+		sprintValidate.validarAlterarDadosSprint(sprint);
+
 		sprint.setSituacao(SituacaoSprintEnum.CANCELADA);
 		sprintService.save(sprint);
 	}

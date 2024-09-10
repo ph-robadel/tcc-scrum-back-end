@@ -91,6 +91,7 @@ public class SecurityConfigurations {
 						.requestMatchers(HttpMethod.GET, "/item-backlog-sprint/{idItemBacklogSprint}").authenticated()
 						.requestMatchers(HttpMethod.PUT, "/item-backlog-sprint/{idItemBacklogSprint}").hasAnyAuthority("SCRUM_MASTER", "DEV_TEAM")
 						.requestMatchers(HttpMethod.DELETE, "/item-backlog-sprint/{idItemBacklogSprint}").hasAnyAuthority("SCRUM_MASTER")
+						.requestMatchers(HttpMethod.POST, "/item-backlog-sprint/{idItemBacklogSprint}/repriorizar/{valorPrioridade}").hasAnyAuthority("SCRUM_MASTER")
 						 
 						.anyRequest().authenticated()
 				)

@@ -27,4 +27,6 @@ public interface ItemBacklogProjetoRepository extends JpaRepository<ItemBacklogP
 
 	void repriorizarDeleteItem(Long itemBacklogProjeto);
 
+	boolean possuiItemSprintAssociado(Long idItemBacklogProjeto);
+
 }

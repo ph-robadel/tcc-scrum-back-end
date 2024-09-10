@@ -2,6 +2,8 @@ package br.ufes.dto;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.ufes.enums.SituacaoItemSprintEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +22,7 @@ public class ItemBacklogSprintBasicDTO {
 
 	private UsuarioBasicDTO responsavelRealizacao;
 
+	@JsonIgnore
 	private SprintBasicDTO sprint;
 
 	private BigDecimal horasEstimadas;

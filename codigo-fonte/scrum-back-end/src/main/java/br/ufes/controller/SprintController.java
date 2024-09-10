@@ -63,13 +63,6 @@ public class SprintController {
 		return ResponseEntity.ok(sprint);
 	}
 
-	@Operation(summary = "Remover sprint")
-	@DeleteMapping("/{idSprint}")
-	public ResponseEntity<Object> deleteSprint(@PathVariable Long idSprint) throws Exception {
-		sprintFacade.cancelarSprint(idSprint);
-		return ResponseEntity.ok().build();
-	}
-
 	@Operation(summary = "Adicionar novo item ao backlog de planejamento")
 	@PostMapping("/{idSprint}/item-backlog-projeto/{idItemBacklogProjeto}/item-backlog-planejamento")
 	public ResponseEntity<ItemBacklogProjetoSimpleDTO> adicionarItemBacklogPlanejamento(@PathVariable Long idSprint,
@@ -160,7 +153,7 @@ public class SprintController {
 	@PostMapping("/{idSprint}/concluir-planning")
 	public ResponseEntity<Object> concluirSprintPlanning(@PathVariable Long idSprint) throws Exception {
 		
-		sprintFacade.concluirSprintPlanning(idSprint);
+		sprintFacade.concluirPlanning(idSprint);
 		return ResponseEntity.ok().body(null);
 	}
 	
@@ -170,7 +163,7 @@ public class SprintController {
 			@RequestBody SprintDailyDTO dailyDTO)
 			throws Exception {
 
-		var daily = sprintFacade.insertSprintDaily(idSprint, dailyDTO);
+		var daily = sprintFacade.insertDaily(idSprint, dailyDTO);
 		return ResponseEntity.status(HttpStatus.CREATED).body(daily);
 	}
 	

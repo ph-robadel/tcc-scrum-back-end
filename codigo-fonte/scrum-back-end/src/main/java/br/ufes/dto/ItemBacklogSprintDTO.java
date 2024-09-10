@@ -14,10 +14,10 @@ import lombok.Setter;
 public class ItemBacklogSprintDTO {
 
 	private Long id;
+	
+	private String descricao;
 
 	private UsuarioBasicDTO responsavelRealizacao;
-
-	private SprintBasicDTO sprint;
 
 	private BigDecimal horasEstimadas;
 
@@ -27,20 +27,11 @@ public class ItemBacklogSprintDTO {
 
 	private SituacaoItemSprintEnum situacao;
 
-	private String descricaoBloqueio;
-
 	private Long prioridade;
-
-	private Boolean pendenteAprovacao;
-	
-	private Boolean pendenteRemocao;
 
 	private UsuarioBasicDTO responsavelInclusao;
 
 	private LocalDateTime dataInclusao;
 
-	private UsuarioBasicDTO responsavelAprovacao;
-
-	private LocalDateTime dataAprovacao;
 
 }

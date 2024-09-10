@@ -49,11 +49,6 @@ public class SprintPlanningValidate {
 		var listaIdsParticipantesDTO = planningDTO.getIdsParticipantes();
 		var listaItensDTO = planningDTO.getItensSelecionados();
 
-		var listaSituacaoImutavelSprint = List.of(SituacaoSprintEnum.CONCLUIDA, SituacaoSprintEnum.CANCELADA);
-		if (listaSituacaoImutavelSprint.contains(sprint.getSituacao())) {
-			throw new BusinessException("A sprint possui a situação " + sprint.getSituacao().getSituacao());
-		}
-
 		eventoValidate.validateCamposEvento(planningDTO, erros);
 		eventoValidate.validateParticipantesEvento(erros, timeProjeto, listaIdsParticipantesDTO);
 

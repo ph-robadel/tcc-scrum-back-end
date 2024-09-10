@@ -2,18 +2,19 @@ package br.ufes.util;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.List;
 
 public class DateUtils {
 
 	public static LocalDate adicionarDiasUteis(LocalDate dataInicial, int diasUteis) {
 		LocalDate dataFinal = dataInicial;
-		int diasAdicionados = 1;
+		var listaDiasNaoUteis = List.of(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
+		var diasAdicionados = listaDiasNaoUteis.contains(dataInicial.getDayOfWeek()) ? 0 : 1;
 
 		while (diasAdicionados < diasUteis) {
 			dataFinal = dataFinal.plusDays(1);
 
-			if (!DayOfWeek.SATURDAY.equals(dataFinal.getDayOfWeek())
-					&& !DayOfWeek.SUNDAY.equals(dataFinal.getDayOfWeek())) {
+			if (!listaDiasNaoUteis.contains(dataFinal.getDayOfWeek())) {
 				diasAdicionados++;
 			}
 		}

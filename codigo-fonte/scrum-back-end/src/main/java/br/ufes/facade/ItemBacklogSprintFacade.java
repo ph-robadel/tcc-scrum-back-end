@@ -21,6 +21,7 @@ import br.ufes.util.ResponseSearch;
 import br.ufes.validate.ItemBacklogSprintValidate;
 import br.ufes.validate.ProjetoUsuarioValidate;
 import br.ufes.validate.ProjetoValidate;
+import br.ufes.validate.SprintValidate;
 
 @Component
 public class ItemBacklogSprintFacade {
@@ -45,6 +46,9 @@ public class ItemBacklogSprintFacade {
 
 	@Autowired
 	private ItemBacklogSprintValidate itemBacklogSprintValidate;
+	
+	@Autowired
+	private SprintValidate sprintValidate;
 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -128,6 +132,19 @@ public class ItemBacklogSprintFacade {
 		projetoValidate.validateProjetoAtivo(projeto);
 
 		itemBacklogSprintService.delete(idItemBacklogSprint);
+	}
+
+	public void repriorizarItemBacklogSprint(Long idItemBacklogSprint, Long valorPrioridade) {
+		var itemBacklogSprint = itemBacklogSprintService.getById(idItemBacklogSprint);
+		var sprint = itemBacklogSprint.getSprint();
+		var projeto = sprint.getProjeto();
+		
+		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(projeto.getId());
+		projetoValidate.validateProjetoAtivo(projeto);
+		sprintValidate.validarAlterarDadosSprint(sprint);
+		
+		itemBacklogSprintService.repriorizarItemBacklogSprint(itemBacklogSprint, valorPrioridade);
+		
 	}
 
 }

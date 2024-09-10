@@ -15,7 +15,6 @@ import br.ufes.entity.ItemBacklogSprint;
 import br.ufes.entity.ProjetoUsuario;
 import br.ufes.entity.Sprint;
 import br.ufes.entity.Usuario;
-import br.ufes.enums.SituacaoSprintEnum;
 import br.ufes.exception.BusinessException;
 import br.ufes.services.SprintService;
 
@@ -31,9 +30,9 @@ public class SprintReviewValidate {
 	public void validateSaveReview(Sprint sprint, SprintReviewDTO reviewDTO, boolean isUpdate) {
 		List<String> erros = new ArrayList<>();
 
-		if (!isUpdate && !ObjectUtils.isEmpty(sprint.getPlanning())) {
+		if (!isUpdate && !ObjectUtils.isEmpty(sprint.getReview())) {
 			throw new BusinessException("Review já cadastrada para na sprint");
-		} else if (isUpdate && ObjectUtils.isEmpty(sprint.getPlanning())) {
+		} else if (isUpdate && ObjectUtils.isEmpty(sprint.getReview())) {
 			throw new BusinessException("Review não cadastrada na sprint");
 		}
 
@@ -41,14 +40,9 @@ public class SprintReviewValidate {
 				.filter(projUsr -> projUsr.isAtivo() && projUsr.getUsuario().isAtivo()).map(ProjetoUsuario::getUsuario)
 				.collect(Collectors.toList());
 
-		List<ItemBacklogProjeto> itensSprint = !ObjectUtils.isEmpty(sprint.getBacklogPlanejamento()) ? sprint
+		List<ItemBacklogProjeto> itensSprint = !ObjectUtils.isEmpty(sprint.getBacklog()) ? sprint
 				.getBacklog().stream().map(ItemBacklogSprint::getItemBacklogProjeto).collect(Collectors.toList())
 				: new ArrayList<>();
-
-		var listaSituacaoImutavelSprint = List.of(SituacaoSprintEnum.CONCLUIDA, SituacaoSprintEnum.CANCELADA);
-		if (listaSituacaoImutavelSprint.contains(sprint.getSituacao())) {
-			throw new BusinessException("A sprint possui a situação " + sprint.getSituacao().getSituacao());
-		}
 
 		var listaIdsParticipantesDTO = reviewDTO.getIdsParticipantes();
 

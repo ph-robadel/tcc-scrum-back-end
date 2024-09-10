@@ -61,7 +61,7 @@ public class SprintDailyValidate {
 		var listaRegistroDailyDTO = dailyDTO.getRegistroDaily();
 		var listaIdsParticipantesDTO = dailyDTO.getIdsParticipantes();
 
-		eventoValidate.validateSituacaoSprint(sprint);
+		eventoValidate.validateUpsertEvento(sprint);
 		eventoValidate.validateCamposEvento(dailyDTO, erros);
 		eventoValidate.validateParticipantesEvento(erros, timeProjeto, listaIdsParticipantesDTO);
 

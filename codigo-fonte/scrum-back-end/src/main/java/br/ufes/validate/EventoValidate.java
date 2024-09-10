@@ -47,10 +47,10 @@ public class EventoValidate {
 		}
 	}
 	
-	public void validateSituacaoSprint(Sprint sprint) {
+	public void validateUpsertEvento(Sprint sprint) {
 		var listaSituacaoImutavelSprint = List.of(SituacaoSprintEnum.CONCLUIDA, SituacaoSprintEnum.CANCELADA);
 		if (listaSituacaoImutavelSprint.contains(sprint.getSituacao())) {
-			throw new BusinessException("A sprint possui a situação " + sprint.getSituacao().getSituacao());
+			throw new BusinessException("A sprint está " + sprint.getSituacao().getSituacao());
 		}
 	}
 

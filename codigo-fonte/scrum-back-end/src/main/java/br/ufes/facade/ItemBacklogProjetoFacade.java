@@ -13,9 +13,7 @@ import br.ufes.dto.ItemBacklogProjetoInsertDTO;
 import br.ufes.dto.ItemBacklogProjetoUpdateDTO;
 import br.ufes.dto.filter.ItemBacklogProjetoFilterDTO;
 import br.ufes.entity.ItemBacklogProjeto;
-import br.ufes.enums.PerfilUsuarioEnum;
 import br.ufes.enums.SituacaoItemProjetoEnum;
-import br.ufes.exception.BusinessException;
 import br.ufes.services.ItemBacklogProjetoService;
 import br.ufes.services.ProjetoService;
 import br.ufes.services.UsuarioService;
@@ -41,7 +39,7 @@ public class ItemBacklogProjetoFacade {
 
 	@Autowired
 	private ProjetoUsuarioValidate projetoUsuarioValidate;
-	
+
 	@Autowired
 	private ProjetoValidate projetoValidate;
 
@@ -50,11 +48,11 @@ public class ItemBacklogProjetoFacade {
 
 	public ItemBacklogProjetoDTO cadastrarItemBacklogProjeto(Long idProjeto,
 			ItemBacklogProjetoInsertDTO itemBacklogProjetoInsertDTO) throws Exception {
-		
+
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(idProjeto);
 		var projeto = projetoService.getById(idProjeto);
 		projetoValidate.validateProjetoAtivo(projeto);
-		
+
 		itemBacklogProjetoValidate.validateSave(itemBacklogProjetoInsertDTO);
 		var itemBacklogProjeto = modelMapper.map(itemBacklogProjetoInsertDTO, ItemBacklogProjeto.class);
 
@@ -106,16 +104,8 @@ public class ItemBacklogProjetoFacade {
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(itemBacklogProjeto.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(itemBacklogProjeto.getProjeto());
 
-		var usuarioAutenticado = usuarioService.getUsuarioAutenticado();
+		itemBacklogProjetoValidate.validateDeleteItemBacklogProjeto(itemBacklogProjeto);
 
-		if (!PerfilUsuarioEnum.PRODUCT_OWNER.equals(usuarioAutenticado.getPerfil())
-				&& usuarioAutenticado.equals(itemBacklogProjeto.getAutor())) {
-
-			throw new BusinessException("O usuário '" + usuarioAutenticado.getNomeUsuario()
-					+ "' possui permissão para remover apenas os itens de backlog de projeto de sua autoria");
-		}
-		
-//		TODO: Não deixar remover caso tenha itens backlog da sprint associado.
 		itemBacklogProjetoService.remover(idItemBacklogProjeto);
 	}
 
@@ -123,7 +113,7 @@ public class ItemBacklogProjetoFacade {
 		var itemBacklogProjeto = itemBacklogProjetoService.getById(idItemBacklogProjeto);
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(itemBacklogProjeto.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(itemBacklogProjeto.getProjeto());
-		
+
 		return modelMapper.map(itemBacklogProjeto, ItemBacklogProjetoDTO.class);
 	}
 
@@ -131,7 +121,7 @@ public class ItemBacklogProjetoFacade {
 		var itemBacklogProjeto = itemBacklogProjetoService.getById(idItemBacklogProjeto);
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(itemBacklogProjeto.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(itemBacklogProjeto.getProjeto());
-		
+
 		itemBacklogProjetoService.repriorizarItemBacklogProjeto(itemBacklogProjeto, valorPrioridade);
 	}
 

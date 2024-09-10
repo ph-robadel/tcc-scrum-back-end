@@ -65,7 +65,7 @@ public class ItemBacklogSprint {
 	public void atualizarAtributos(ItemBacklogSprintUpsertDTO itemBacklogSprintUpsertDTO) {
 		this.descricao = itemBacklogSprintUpsertDTO.getDescricao();
 		this.horasEstimadas = itemBacklogSprintUpsertDTO.getHorasEstimadas();
-		this.horasEstimadas = itemBacklogSprintUpsertDTO.getHorasRealizadas();
+		this.horasRealizadas = itemBacklogSprintUpsertDTO.getHorasRealizadas();
 		this.situacao = itemBacklogSprintUpsertDTO.getSituacao();
 	}
 

@@ -53,7 +53,7 @@ public class ItemBacklogProjetoService {
 		Long antigaPrioridade = itemBacklogProjeto.getPrioridade();
 		Long novaPrioridade = null;
 		if (valorNovaPrioridade <= 0) {
-			novaPrioridade = valorMaximoPrioridade = 1L;
+			novaPrioridade = 1L;
 		} else if (valorNovaPrioridade < valorMaximoPrioridade) {
 			novaPrioridade = valorNovaPrioridade;
 		} else {
@@ -73,5 +73,9 @@ public class ItemBacklogProjetoService {
 	public void remover(Long itemBacklogProjeto) {
 		itemBacklogProjetoRepository.repriorizarDeleteItem(itemBacklogProjeto);
 		itemBacklogProjetoRepository.deleteById(itemBacklogProjeto);
+	}
+
+	public boolean possuiItemSprintAssociado(Long idItemBacklogProjeto) {
+		return itemBacklogProjetoRepository.possuiItemSprintAssociado(idItemBacklogProjeto);
 	}
 }

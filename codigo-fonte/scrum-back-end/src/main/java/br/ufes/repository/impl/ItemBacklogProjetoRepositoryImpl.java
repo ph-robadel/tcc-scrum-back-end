@@ -210,4 +210,23 @@ public class ItemBacklogProjetoRepositoryImpl {
 		updatePrioridadeQuery.setParameter("nova", novaPrioridade);
 		updatePrioridadeQuery.executeUpdate();
 	}
+	
+	public boolean possuiItemSprintAssociado(Long idItemBacklogProjeto) {
+		var sqlBuider = new StringBuilder();
+		var params = new HashMap<String, Object>();
+
+		sqlBuider.append(" SELECT count(1) ");
+		sqlBuider.append(" FROM ItemBacklogSprint ibs ");
+		sqlBuider.append(" 		JOIN ibs.itemBacklogProjeto ibp ");
+		sqlBuider.append(" WHERE ibp.id = :idItemProjeto ");
+
+		params.put("idItemProjeto", idItemBacklogProjeto);
+
+		var query = manager.createQuery(sqlBuider.toString(), Long.class);
+		params.forEach(query::setParameter);
+
+		var result = query.getResultList();
+
+		return !ObjectUtils.isEmpty(result) && !ObjectUtils.isEmpty(result.get(0)) && result.get(0) > 0;
+	}
 }
