@@ -24,22 +24,22 @@ public class ProjetoValidate {
 			erros.add("Informe a quantidade de dias úteis da sprint");
 		}
 
-		if (ObjectUtils.isEmpty(projetoInsertDTO.getDuracaoHorasDaily())) {
+		if (ObjectUtils.isEmpty(projetoInsertDTO.getDuracaoMinutosDaily())) {
 			erros.add("Informe em horas a duração da daily");
 		}
 
-		if (ObjectUtils.isEmpty(projetoInsertDTO.getDuracaoHorasPlanning())) {
+		if (ObjectUtils.isEmpty(projetoInsertDTO.getDuracaoMinutosPlanning())) {
 			erros.add("Informe em horas a duração da planning");
 		}
 
-		if (ObjectUtils.isEmpty(projetoInsertDTO.getDuracaoHorasReview())) {
+		if (ObjectUtils.isEmpty(projetoInsertDTO.getDuracaoMinutosReview())) {
 			erros.add("Informe em horas a duração da review");
 		}
 
-		if (ObjectUtils.isEmpty(projetoInsertDTO.getDuracaoHorasRetrospective())) {
+		if (ObjectUtils.isEmpty(projetoInsertDTO.getDuracaoMinutosRetrospective())) {
 			erros.add("Informe em horas a duração da sprint retrospective");
 		}
-		
+
 		if (ObjectUtils.isEmpty(projetoInsertDTO.getEventoFinalizacao())) {
 			erros.add("Informe o evento de finalização da sprint");
 		}

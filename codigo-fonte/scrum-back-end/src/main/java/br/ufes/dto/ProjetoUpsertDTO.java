@@ -18,13 +18,13 @@ public class ProjetoUpsertDTO {
 
 	private Integer quantidadeDiasSprint;
 
-	private BigDecimal duracaoHorasDaily;
+	private BigDecimal duracaoMinutosDaily;
 
-	private BigDecimal duracaoHorasPlanning;
+	private BigDecimal duracaoMinutosPlanning;
 
-	private BigDecimal duracaoHorasReview;
+	private BigDecimal duracaoMinutosReview;
 
-	private BigDecimal duracaoHorasRetrospective;
+	private BigDecimal duracaoMinutosRetrospective;
 	
 	private EventoFinalizacaoProjetoEnum eventoFinalizacao;
 	

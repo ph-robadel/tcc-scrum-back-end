@@ -37,13 +37,13 @@ public class Projeto {
 
 	private Integer quantidadeDiasSprint;
 
-	private BigDecimal duracaoHorasDaily;
+	private BigDecimal duracaoMinutosDaily;
 
-	private BigDecimal duracaoHorasPlanning;
+	private BigDecimal duracaoMinutosPlanning;
 
-	private BigDecimal duracaoHorasReview;
+	private BigDecimal duracaoMinutosReview;
 
-	private BigDecimal duracaoHorasRetrospective;
+	private BigDecimal duracaoMinutosRetrospective;
 
 	private SituacaoProjetoEnum situacao;
 	
@@ -62,10 +62,10 @@ public class Projeto {
 		setNome(projetoInsertDTO.getNome());
 		setDescricao(projetoInsertDTO.getDescricao());
 		setQuantidadeDiasSprint(projetoInsertDTO.getQuantidadeDiasSprint());
-		setDuracaoHorasDaily(projetoInsertDTO.getDuracaoHorasDaily());
-		setDuracaoHorasPlanning(projetoInsertDTO.getDuracaoHorasPlanning());
-		setDuracaoHorasReview(projetoInsertDTO.getDuracaoHorasReview());
-		setDuracaoHorasRetrospective(projetoInsertDTO.getDuracaoHorasRetrospective());
+		setDuracaoMinutosDaily(projetoInsertDTO.getDuracaoMinutosDaily());
+		setDuracaoMinutosPlanning(projetoInsertDTO.getDuracaoMinutosPlanning());
+		setDuracaoMinutosReview(projetoInsertDTO.getDuracaoMinutosReview());
+		setDuracaoMinutosRetrospective(projetoInsertDTO.getDuracaoMinutosRetrospective());
 	}
 	
 	public boolean isAtivo() {
