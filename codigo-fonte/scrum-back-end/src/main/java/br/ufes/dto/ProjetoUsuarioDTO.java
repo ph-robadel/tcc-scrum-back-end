@@ -9,10 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EventoUsuarioDTO {
+public class ProjetoUsuarioDTO {
 
 	private UsuarioBasicDTO usuario;
-	
-	private Boolean ativo;
 
 }

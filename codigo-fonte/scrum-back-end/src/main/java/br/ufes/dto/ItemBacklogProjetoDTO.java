@@ -38,6 +38,7 @@ public class ItemBacklogProjetoDTO {
 
 	private UsuarioBasicDTO autor;
 
+	@JsonIgnore
 	private ProjetoBasicDTO projeto;
 
 	@JsonProperty(access = Access.READ_ONLY)

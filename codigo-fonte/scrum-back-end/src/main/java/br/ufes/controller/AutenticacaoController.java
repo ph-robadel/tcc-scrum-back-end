@@ -15,6 +15,8 @@ import br.ufes.dto.LoginResponseDTO;
 import br.ufes.entity.Usuario;
 import br.ufes.security.TokenService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -28,7 +30,10 @@ public class AutenticacaoController {
 	@Autowired
 	private TokenService tokenService;
 
-	@Operation(summary = "Obter token de autenticação")
+	@Operation(summary = "Obter token de autenticação", responses = {
+			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content()),
+			@ApiResponse(responseCode = "400", ref = "badRequest"),
+			@ApiResponse(responseCode = "500", ref = "internalServerError") }, security = {} )
 	@PostMapping
 	public ResponseEntity<LoginResponseDTO> login(@RequestBody @Validated AuthenticationDTO data) {
 		String nomeUsuario = data.nomeUsuario() != null ? data.nomeUsuario().toLowerCase() : "";

@@ -1,6 +1,7 @@
 package br.ufes.dto;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import br.ufes.enums.EventoFinalizacaoProjetoEnum;
 import br.ufes.enums.SituacaoProjetoEnum;
@@ -11,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ProjetoDTO {
+public class ProjetoExportDTO {
 
 	private Long id;
 
@@ -32,5 +33,11 @@ public class ProjetoDTO {
 	private SituacaoProjetoEnum situacao;
 	
 	private EventoFinalizacaoProjetoEnum eventoFinalizacao;
+	
+	private List<SprintExportDTO> sprints;
+	
+	private List<ItemBacklogProjetoDTO> backlog;
+	
+	private List<ProjetoUsuarioDTO> time;
 
 }

@@ -1,8 +1,7 @@
 package br.ufes.dto;
 
 import java.time.LocalDate;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
 
 import br.ufes.enums.SituacaoSprintEnum;
 import lombok.AllArgsConstructor;
@@ -14,7 +13,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SprintDTO {
+public class SprintExportDTO {
 
 	private Long id;
 
@@ -25,9 +24,17 @@ public class SprintDTO {
 	private LocalDate dataFim;
 	
 	private SituacaoSprintEnum situacao;
-
-	@JsonIgnore
-	private ProjetoBasicDTO projeto;
 	
+	private List<ItemBacklogPlanejamentoExportDTO> backlogPlanejamento;
+	
+	private List<ItemBacklogSprintExportDTO> backlog;
+	
+	private SprintPlanningDTO planning;
+	
+	private List<SprintDailyDTO> dailys;
+	
+	private SprintReviewDTO review;
+	
+	private SprintRetrospectiveDTO retrospective;
 
 }

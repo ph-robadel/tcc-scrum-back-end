@@ -1,13 +1,19 @@
 package br.ufes.facade;
 
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import br.ufes.dto.ItemBacklogProjetoDTO;
 import br.ufes.dto.ProjetoBasicDTO;
 import br.ufes.dto.ProjetoDTO;
+import br.ufes.dto.ProjetoExportDTO;
 import br.ufes.dto.ProjetoUpsertDTO;
+import br.ufes.dto.ProjetoUsuarioDTO;
+import br.ufes.dto.SprintExportDTO;
 import br.ufes.dto.UsuarioResponseDTO;
 import br.ufes.dto.filter.ProjetoFilterDTO;
 import br.ufes.dto.filter.ProjetoUsuarioFilterDTO;
@@ -77,7 +83,7 @@ public class ProjetoFacade {
 		var projeto = projetoService.getById(idProjeto);
 
 		if (!projeto.isAtivo()) {
-			throw new BusinessException("Projeto não está em andamento");
+			throw new BusinessException("Projeto não está " + projeto.getSituacao().getSituacao());
 		}
 
 		projeto.setSituacao(SituacaoProjetoEnum.CONCLUIDO);
@@ -111,9 +117,9 @@ public class ProjetoFacade {
 
 	public ProjetoDTO atualizarProjeto(Long idProjeto, ProjetoUpsertDTO projetoInsertDTO) throws Exception {
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(idProjeto);
-		projetoValidate.validateSave(projetoInsertDTO);
 		var projeto = projetoService.getById(idProjeto);
 		projetoValidate.validateProjetoAtivo(projeto);
+		projetoValidate.validateSave(projetoInsertDTO);
 
 		projeto.atualizarAtributos(projetoInsertDTO);
 
@@ -182,6 +188,29 @@ public class ProjetoFacade {
 
 		projetoUsuario.setAtivo(true);
 		projetoUsuarioService.save(projetoUsuario);
+	}
+
+	public ProjetoExportDTO exportarProjeto(Long idProjeto) {
+//		TODO: Configurar modelMapper para resolver problema de PersistentBag to List e loop de referência
+		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(idProjeto);
+		var projeto = projetoService.getById(idProjeto);
+		var projetoExportDTO = new ProjetoExportDTO();
+		
+		projetoExportDTO.setId(projeto.getId());
+		projetoExportDTO.setNome(projeto.getNome());
+		projetoExportDTO.setDescricao(projeto.getDescricao());
+		projetoExportDTO.setQuantidadeDiasSprint(projeto.getQuantidadeDiasSprint());
+		projetoExportDTO.setDuracaoMinutosDaily(projeto.getDuracaoMinutosDaily());
+		projetoExportDTO.setDuracaoMinutosPlanning(projeto.getDuracaoMinutosPlanning());
+		projetoExportDTO.setDuracaoMinutosReview(projeto.getDuracaoMinutosReview());
+		projetoExportDTO.setDuracaoMinutosRetrospective(projeto.getDuracaoMinutosRetrospective());
+		projetoExportDTO.setSituacao(projeto.getSituacao());
+		projetoExportDTO.setEventoFinalizacao(projeto.getEventoFinalizacao());
+		projetoExportDTO.setSprints(projeto.getSprints().stream().map(sprint -> modelMapper.map(sprint, SprintExportDTO.class)).collect(Collectors.toList()));
+		projetoExportDTO.setBacklog(projeto.getBacklog().stream().map(backlog -> modelMapper.map(backlog, ItemBacklogProjetoDTO.class)).collect(Collectors.toList()));
+		projetoExportDTO.setTime(projeto.getTime().stream().map(time -> modelMapper.map(time, ProjetoUsuarioDTO.class)).collect(Collectors.toList()));
+		
+		return projetoExportDTO;
 	}
 
 }

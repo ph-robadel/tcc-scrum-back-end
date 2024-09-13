@@ -16,6 +16,9 @@ import br.ufes.dto.ItemBacklogSprintDTO;
 import br.ufes.dto.ItemBacklogSprintUpsertDTO;
 import br.ufes.facade.ItemBacklogSprintFacade;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -29,14 +32,24 @@ public class ItemBackLogSprintController {
 	@Autowired
 	private ItemBacklogSprintFacade itemBacklogSprintFacade;
 
-	@Operation(summary = "Obter item do backlog da sprint")
+	@Operation(summary = "Obter item do backlog da sprint", responses = {
+			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = ItemBacklogSprintDTO.class))),
+			@ApiResponse(responseCode = "400", ref = "badRequest"),
+			@ApiResponse(responseCode = "404", description = "Item Backlog da Sprint não encontrado", content = @Content()),
+			@ApiResponse(responseCode = "403", ref = "forbidden"),
+			@ApiResponse(responseCode = "500", ref = "internalServerError") })
 	@GetMapping("/{idItemBacklogSprint}")
 	public ResponseEntity<ItemBacklogSprintDTO> getById(@PathVariable Long idItemBacklogSprint) throws Exception {
 		var sprint = itemBacklogSprintFacade.getById(idItemBacklogSprint);
 		return ResponseEntity.ok(sprint);
 	}
 
-	@Operation(summary = "Atualizar item do backlog da sprint")
+	@Operation(summary = "Atualizar item do backlog da sprint", responses = {
+			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = ItemBacklogSprintDTO.class))),
+			@ApiResponse(responseCode = "400", ref = "badRequest"),
+			@ApiResponse(responseCode = "404", description = "Item Backlog da Sprint não encontrado", content = @Content()),
+			@ApiResponse(responseCode = "403", ref = "forbidden"),
+			@ApiResponse(responseCode = "500", ref = "internalServerError") })
 	@PutMapping("/{idItemBacklogSprint}")
 	public ResponseEntity<ItemBacklogSprintDTO> atualizar(@PathVariable Long idItemBacklogSprint,
 			@RequestBody ItemBacklogSprintUpsertDTO itemBacklogSprintUpsertDTO) throws Exception {
@@ -45,14 +58,24 @@ public class ItemBackLogSprintController {
 		return ResponseEntity.ok(itemBacklogSprintDTO);
 	}
 
-	@Operation(summary = "Remover item do backlog da sprint")
+	@Operation(summary = "Remover item do backlog da sprint", responses = {
+			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content()),
+			@ApiResponse(responseCode = "400", ref = "badRequest"),
+			@ApiResponse(responseCode = "404", description = "Item Backlog da Sprint não encontrado", content = @Content()),
+			@ApiResponse(responseCode = "403", ref = "forbidden"),
+			@ApiResponse(responseCode = "500", ref = "internalServerError") })
 	@DeleteMapping("/{idItemBacklogSprint}")
 	public ResponseEntity<Object> delete(@PathVariable Long idItemBacklogSprint) throws Exception {
 		itemBacklogSprintFacade.delete(idItemBacklogSprint);
 		return ResponseEntity.ok().build();
 	}
 	
-	@Operation(summary = "Repriorizar Item Backlog Sprint")
+	@Operation(summary = "Repriorizar Item Backlog Sprint", responses = {
+			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content()),
+			@ApiResponse(responseCode = "400", ref = "badRequest"),
+			@ApiResponse(responseCode = "404", description = "Item Backlog da Sprint não encontrado", content = @Content()),
+			@ApiResponse(responseCode = "403", ref = "forbidden"),
+			@ApiResponse(responseCode = "500", ref = "internalServerError") })
 	@PostMapping("/{idItemBacklogSprint}/repriorizar/{valorPrioridade}")
 	public ResponseEntity<Object> deleteItemBacklogProjeto(@PathVariable Long idItemBacklogSprint, @PathVariable Long valorPrioridade) throws Exception {
 		itemBacklogSprintFacade.repriorizarItemBacklogSprint(idItemBacklogSprint, valorPrioridade);

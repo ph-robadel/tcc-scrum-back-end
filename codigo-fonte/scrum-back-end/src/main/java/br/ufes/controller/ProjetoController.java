@@ -18,6 +18,7 @@ import br.ufes.dto.ItemBacklogProjetoDTO;
 import br.ufes.dto.ItemBacklogProjetoInsertDTO;
 import br.ufes.dto.ProjetoBasicDTO;
 import br.ufes.dto.ProjetoDTO;
+import br.ufes.dto.ProjetoExportDTO;
 import br.ufes.dto.ProjetoUpsertDTO;
 import br.ufes.dto.SprintBasicDTO;
 import br.ufes.dto.SprintDTO;
@@ -32,6 +33,9 @@ import br.ufes.facade.ProjetoFacade;
 import br.ufes.facade.SprintFacade;
 import br.ufes.util.ResponseSearch;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -51,7 +55,11 @@ public class ProjetoController {
 	@Autowired
 	private ItemBacklogProjetoFacade itemBacklogProjetoFacade;
 
-	@Operation(summary = "Cadastrar um novo projeto")
+	@Operation(summary = "Cadastrar um novo projeto", responses = {
+			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = ProjetoDTO.class))),
+			@ApiResponse(responseCode = "400", ref = "badRequest"),
+			@ApiResponse(responseCode = "403", ref = "forbidden"),
+			@ApiResponse(responseCode = "500", ref = "internalServerError") })
 	@PostMapping
 	public ResponseEntity<ProjetoDTO> cadastrarProjeto(@RequestBody ProjetoUpsertDTO projetoInsertDTO)
 			throws Exception {
@@ -59,7 +67,11 @@ public class ProjetoController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(projeto);
 	}
 
-	@Operation(summary = "buscar projetos do usuário autenticado")
+	@Operation(summary = "buscar projetos do usuário autenticado", responses = {
+			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = ResponseSearch.class))),
+			@ApiResponse(responseCode = "400", ref = "badRequest"),
+			@ApiResponse(responseCode = "403", ref = "forbidden"),
+			@ApiResponse(responseCode = "500", ref = "internalServerError") })
 	@GetMapping("/search")
 	public ResponseEntity<ResponseSearch<ProjetoBasicDTO>> search(@RequestParam(defaultValue = "") String nome,
 			@RequestParam(defaultValue = "true") Boolean apenasAtivo, @RequestParam(defaultValue = "0") int page,
@@ -73,7 +85,12 @@ public class ProjetoController {
 		return ResponseEntity.ok(projeto);
 	}
 
-	@Operation(summary = "Obter projeto por id")
+	@Operation(summary = "Obter projeto por id", responses = {
+			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = ProjetoDTO.class))),
+			@ApiResponse(responseCode = "400", ref = "badRequest"),
+			@ApiResponse(responseCode = "404", description = "Projeto não encontrado", content = @Content()),
+			@ApiResponse(responseCode = "403", ref = "forbidden"),
+			@ApiResponse(responseCode = "500", ref = "internalServerError") })
 	@GetMapping("/{idProjeto}")
 	public ResponseEntity<ProjetoDTO> getById(@PathVariable Long idProjeto) throws Exception {
 		var projeto = projetoFacade.getById(idProjeto);
@@ -81,7 +98,12 @@ public class ProjetoController {
 
 	}
 
-	@Operation(summary = "Atualizar projeto")
+	@Operation(summary = "Atualizar projeto", responses = {
+			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = ProjetoDTO.class))),
+			@ApiResponse(responseCode = "400", ref = "badRequest"),
+			@ApiResponse(responseCode = "404", description = "Projeto não encontrado", content = @Content()),
+			@ApiResponse(responseCode = "403", ref = "forbidden"),
+			@ApiResponse(responseCode = "500", ref = "internalServerError") })
 	@PutMapping("/{idProjeto}")
 	public ResponseEntity<ProjetoDTO> atualizarProjeto(@PathVariable Long idProjeto,
 			@RequestBody ProjetoUpsertDTO projetoUpdateDTO) throws Exception {
@@ -89,28 +111,48 @@ public class ProjetoController {
 		return ResponseEntity.ok(projeto);
 	}
 
-	@Operation(summary = "Sinalizar conclusão do projeto")
+	@Operation(summary = "Sinalizar conclusão do projeto", responses = {
+			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content()),
+			@ApiResponse(responseCode = "400", ref = "badRequest"),
+			@ApiResponse(responseCode = "404", description = "Projeto não encontrado", content = @Content()),
+			@ApiResponse(responseCode = "403", ref = "forbidden"),
+			@ApiResponse(responseCode = "500", ref = "internalServerError") })
 	@PostMapping("/{idProjeto}/concluir")
 	public ResponseEntity<Object> concluirProjeto(@PathVariable Long idProjeto) throws Exception {
 		projetoFacade.concluirProjeto(idProjeto);
 		return ResponseEntity.ok().build();
 	}
 	
-	@Operation(summary = "Sinalizar cancelamento do projeto")
+	@Operation(summary = "Sinalizar cancelamento do projeto", responses = {
+			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content()),
+			@ApiResponse(responseCode = "400", ref = "badRequest"),
+			@ApiResponse(responseCode = "404", description = "Projeto não encontrado", content = @Content()),
+			@ApiResponse(responseCode = "403", ref = "forbidden"),
+			@ApiResponse(responseCode = "500", ref = "internalServerError") })
 	@PostMapping("/{idProjeto}/cancelar")
 	public ResponseEntity<Object> cancelarProjeto(@PathVariable Long idProjeto) throws Exception {
 		projetoFacade.cancelarProjeto(idProjeto);
 		return ResponseEntity.ok().build();
 	}
 
-	@Operation(summary = "Ativar projeto")
+	@Operation(summary = "Ativar projeto", responses = {
+			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content()),
+			@ApiResponse(responseCode = "400", ref = "badRequest"),
+			@ApiResponse(responseCode = "404", description = "Projeto não encontrado", content = @Content()),
+			@ApiResponse(responseCode = "403", ref = "forbidden"),
+			@ApiResponse(responseCode = "500", ref = "internalServerError") })
 	@PostMapping("/{idProjeto}/reativar")
 	public ResponseEntity<Object> reativarProjeto(@PathVariable Long idProjeto) throws Exception {
 		projetoFacade.reativarProjeto(idProjeto);
 		return ResponseEntity.ok().build();
 	}
 
-	@Operation(summary = "Adicionar novo usuário ao projeto")
+	@Operation(summary = "Adicionar novo usuário ao projeto", responses = {
+			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content()),
+			@ApiResponse(responseCode = "400", ref = "badRequest"),
+			@ApiResponse(responseCode = "404", description = "Projeto e/ou usuário não encontrado", content = @Content()),
+			@ApiResponse(responseCode = "403", ref = "forbidden"),
+			@ApiResponse(responseCode = "500", ref = "internalServerError") })
 	@PostMapping("/{idProjeto}/usuarios/{idUsuario}")
 	public ResponseEntity<Object> cadastrarProjetoUsuario(@PathVariable("idProjeto") Long idProjeto,
 			@PathVariable("idUsuario") Long idUsuario) throws Exception {
@@ -118,7 +160,12 @@ public class ProjetoController {
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
-	@Operation(summary = "Inativar usuário do projeto")
+	@Operation(summary = "Inativar usuário do projeto", responses = {
+			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content()),
+			@ApiResponse(responseCode = "400", ref = "badRequest"),
+			@ApiResponse(responseCode = "404", description = "Projeto e/ou usuário não encontrado", content = @Content()),
+			@ApiResponse(responseCode = "403", ref = "forbidden"),
+			@ApiResponse(responseCode = "500", ref = "internalServerError") })
 	@PostMapping("/{idProjeto}/usuarios/{idUsuario}/inativar")
 	public ResponseEntity<Object> inativarProjetoUsuario(@PathVariable("idProjeto") Long idProjeto,
 			@PathVariable("idUsuario") Long idUsuario) throws Exception {
@@ -126,7 +173,12 @@ public class ProjetoController {
 		return ResponseEntity.ok().build();
 	}
 
-	@Operation(summary = "Reativar usuário do projeto")
+	@Operation(summary = "Reativar usuário do projeto", responses = {
+			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content()),
+			@ApiResponse(responseCode = "400", ref = "badRequest"),
+			@ApiResponse(responseCode = "404", description = "Projeto e/ou usuário não encontrado", content = @Content()),
+			@ApiResponse(responseCode = "403", ref = "forbidden"),
+			@ApiResponse(responseCode = "500", ref = "internalServerError") })
 	@PostMapping("/{idProjeto}/usuarios/{idUsuario}/reativar")
 	public ResponseEntity<Object> ativarProjetoUsuario(@PathVariable("idProjeto") Long idProjeto,
 			@PathVariable("idUsuario") Long idUsuario) throws Exception {
@@ -134,7 +186,12 @@ public class ProjetoController {
 		return ResponseEntity.ok().build();
 	}
 
-	@Operation(summary = "Buscar usuários do projeto")
+	@Operation(summary = "Buscar usuários do projeto", responses = {
+			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = ResponseSearch.class))),
+			@ApiResponse(responseCode = "400", ref = "badRequest"),
+			@ApiResponse(responseCode = "404", description = "Projeto não encontrado", content = @Content()),
+			@ApiResponse(responseCode = "403", ref = "forbidden"),
+			@ApiResponse(responseCode = "500", ref = "internalServerError") })
 	@GetMapping("/{idProjeto}/usuarios/search")
 	public ResponseEntity<ResponseSearch<UsuarioResponseDTO>> searchProjetoUsuario(@PathVariable Long idProjeto,
 			@RequestParam(defaultValue = "") String nomeUsuario, @RequestParam(defaultValue = "") String perfil,
@@ -149,7 +206,12 @@ public class ProjetoController {
 		return ResponseEntity.ok(projeto);
 	}
 
-	@Operation(summary = "Cadastrar um novo Item Backlog Projeto")
+	@Operation(summary = "Cadastrar um novo Item Backlog Projeto", responses = {
+			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = ItemBacklogProjetoDTO.class))),
+			@ApiResponse(responseCode = "400", ref = "badRequest"),
+			@ApiResponse(responseCode = "404", description = "Projeto não encontrado", content = @Content()),
+			@ApiResponse(responseCode = "403", ref = "forbidden"),
+			@ApiResponse(responseCode = "500", ref = "internalServerError") })
 	@PostMapping("/{idProjeto}/item-backlog-projeto")
 	public ResponseEntity<ItemBacklogProjetoDTO> cadastrarItemBacklogProjeto(@PathVariable Long idProjeto,
 			@RequestBody ItemBacklogProjetoInsertDTO projetoInsertDTO) throws Exception {
@@ -159,7 +221,12 @@ public class ProjetoController {
 
 	}
 
-	@Operation(summary = "Buscar itens do Backlog do Projeto")
+	@Operation(summary = "Buscar itens do Backlog do Projeto", responses = {
+			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = ResponseSearch.class))),
+			@ApiResponse(responseCode = "400", ref = "badRequest"),
+			@ApiResponse(responseCode = "404", description = "Projeto não encontrado", content = @Content()),
+			@ApiResponse(responseCode = "403", ref = "forbidden"),
+			@ApiResponse(responseCode = "500", ref = "internalServerError") })
 	@GetMapping("/{idProjeto}/item-backlog-projeto/search")
 	public ResponseEntity<ResponseSearch<ItemBacklogProjetoBasicDTO>> searchItemBacklogProjeto(
 			@PathVariable Long idProjeto, @RequestParam(defaultValue = "") String titulo,
@@ -177,7 +244,12 @@ public class ProjetoController {
 
 	}
 
-	@Operation(summary = "Cadastrar uma nova sprint ao projeto")
+	@Operation(summary = "Cadastrar uma nova sprint ao projeto", responses = {
+			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = SprintDTO.class))),
+			@ApiResponse(responseCode = "400", ref = "badRequest"),
+			@ApiResponse(responseCode = "404", description = "Projeto não encontrado", content = @Content()),
+			@ApiResponse(responseCode = "403", ref = "forbidden"),
+			@ApiResponse(responseCode = "500", ref = "internalServerError") })
 	@PostMapping("/{idProjeto}/sprints")
 	public ResponseEntity<SprintDTO> cadastrarSprint(@PathVariable("idProjeto") Long idProjeto,
 			@RequestBody SprintUpsertDTO sprintUpsertDTO) throws Exception {
@@ -187,7 +259,12 @@ public class ProjetoController {
 
 	}
 
-	@Operation(summary = "Buscar sprints do projeto")
+	@Operation(summary = "Buscar sprints do projeto", responses = {
+			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = ResponseSearch.class))),
+			@ApiResponse(responseCode = "400", ref = "badRequest"),
+			@ApiResponse(responseCode = "404", description = "Projeto não encontrado", content = @Content()),
+			@ApiResponse(responseCode = "403", ref = "forbidden"),
+			@ApiResponse(responseCode = "500", ref = "internalServerError") })
 	@GetMapping("/{idProjeto}/sprints/search")
 	public ResponseEntity<ResponseSearch<SprintBasicDTO>> searchSprint(@PathVariable("idProjeto") Long idProjeto,
 			@RequestParam(defaultValue = "") Integer numero, @RequestParam(defaultValue = "0") int page,
@@ -200,6 +277,18 @@ public class ProjetoController {
 		var itemBacklogProjetoDTO = sprintFacade.search(idProjeto, sprintFilterDTO);
 		return ResponseEntity.ok(itemBacklogProjetoDTO);
 
+	}
+	
+	@Operation(summary = "Exportar dados projeto - formato JSON", responses = {
+			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = UsuarioResponseDTO.class))),
+			@ApiResponse(responseCode = "400", ref = "badRequest"),
+			@ApiResponse(responseCode = "404", description = "Usuário não encontrado", content = @Content()),
+			@ApiResponse(responseCode = "403", ref = "forbidden"),
+			@ApiResponse(responseCode = "500", ref = "internalServerError") })
+	@GetMapping("/{idProjeto}/exportar-dados")
+	public ResponseEntity<ProjetoExportDTO> exportarProjeto(@PathVariable("idProjeto") Long idProjeto) throws Exception {
+		var projeto = projetoFacade.exportarProjeto(idProjeto);
+		return ResponseEntity.ok(projeto);
 	}
 
 }

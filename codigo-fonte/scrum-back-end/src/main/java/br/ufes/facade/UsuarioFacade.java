@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import br.ufes.dto.UsuarioDTO;
 import br.ufes.dto.UsuarioResponseDTO;
 import br.ufes.dto.UsuarioUpdateSenhaAdminDTO;
 import br.ufes.dto.UsuarioUpdateSenhaDTO;
@@ -101,23 +100,23 @@ public class UsuarioFacade {
 		atualizarSenha(udpateSenhaDTO.getNovaSenha(), usuario);
 	}
 
-	public UsuarioDTO atualizarUsuarioAutenticado(UsuarioUpsertDTO usuarioUpdateDTO) throws Exception {
+	public UsuarioResponseDTO atualizarUsuarioAutenticado(UsuarioUpsertDTO usuarioUpdateDTO) throws Exception {
 		var usuarioAutenticado = usuarioService.getUsuarioAutenticado();
 		return updateUsuario(usuarioUpdateDTO, usuarioAutenticado.getId());
 	}
 
-	public UsuarioDTO atualizarUsuario(Long idUsuario, UsuarioUpsertDTO usuarioUpdateDTO) throws Exception {
+	public UsuarioResponseDTO atualizarUsuario(Long idUsuario, UsuarioUpsertDTO usuarioUpdateDTO) throws Exception {
 		return updateUsuario(usuarioUpdateDTO, idUsuario);
 	}
 
-	private UsuarioDTO updateUsuario(UsuarioUpsertDTO usuarioUpdateDTO, Long idUsuario) throws Exception {
+	private UsuarioResponseDTO updateUsuario(UsuarioUpsertDTO usuarioUpdateDTO, Long idUsuario) throws Exception {
 		usuarioValidate.validateSave(usuarioUpdateDTO, idUsuario);
 
 		var usuario = usuarioService.getById(idUsuario);
 		usuario.atualizarAtributos(usuarioUpdateDTO);
 		usuarioService.save(usuario);
 
-		return modelMapper.map(usuario, UsuarioDTO.class);
+		return modelMapper.map(usuario, UsuarioResponseDTO.class);
 	}
 
 	private void atualizarSenha(String novaSenha, Usuario usuario) throws Exception {
