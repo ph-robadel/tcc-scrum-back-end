@@ -77,7 +77,7 @@ public class SprintController {
 	}
 
 	@Operation(summary = "Adicionar novo item ao backlog de planejamento", responses = {
-			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = ItemBacklogProjetoSimpleDTO.class))),
+			@ApiResponse(responseCode = "201", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = ItemBacklogProjetoSimpleDTO.class))),
 			@ApiResponse(responseCode = "400", ref = "badRequest"),
 			@ApiResponse(responseCode = "404", description = "Sprint e/ou item backlog do projeto não encontrado", content = @Content()),
 			@ApiResponse(responseCode = "403", ref = "forbidden"),
@@ -125,7 +125,7 @@ public class SprintController {
 	}
 
 	@Operation(summary = "Adicionar novo item backlog a sprint", responses = {
-			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = ItemBacklogSprintDTO.class))),
+			@ApiResponse(responseCode = "201", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = ItemBacklogSprintDTO.class))),
 			@ApiResponse(responseCode = "400", ref = "badRequest"),
 			@ApiResponse(responseCode = "404", description = "Sprint e/ou item backlog do projeto não encontrado", content = @Content()),
 			@ApiResponse(responseCode = "403", ref = "forbidden"),

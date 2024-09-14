@@ -61,7 +61,7 @@ public class SprintValidate {
 		}
 	}
 	
-	public void validarConclusaoProjeto(Sprint sprint) {
+	public void validarConclusaoSprint(Sprint sprint) {
 		List<String> erros = new ArrayList<>();
 		
 		var eventoFinalizacao = sprint.getProjeto().getEventoFinalizacao();

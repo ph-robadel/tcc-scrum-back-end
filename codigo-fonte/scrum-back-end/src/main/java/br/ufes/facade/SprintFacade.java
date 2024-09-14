@@ -415,7 +415,7 @@ public class SprintFacade {
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(idProjeto);
 		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
 		sprintValidate.validarAlterarDadosSprint(sprint);
-		sprintValidate.validarConclusaoProjeto(sprint);
+		sprintValidate.validarConclusaoSprint(sprint);
 
 		sprint.getReview().getItensAprovados().stream().map(ItemReview::getItemBacklogProjeto).forEach(itemProjeto -> {
 			itemProjeto.setSituacao(SituacaoItemProjetoEnum.CONCLUIDO);

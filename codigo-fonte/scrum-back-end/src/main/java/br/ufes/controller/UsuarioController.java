@@ -38,7 +38,7 @@ public class UsuarioController {
 	private UsuarioFacade usuarioFacade;
 
 	@Operation(summary = "Cadastrar um novo usuário", responses = {
-			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = UsuarioResponseDTO.class))),
+			@ApiResponse(responseCode = "201", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = UsuarioResponseDTO.class))),
 			@ApiResponse(responseCode = "400", ref = "badRequest"),
 			@ApiResponse(responseCode = "403", ref = "forbidden"),
 			@ApiResponse(responseCode = "500", ref = "internalServerError") }, security = {})

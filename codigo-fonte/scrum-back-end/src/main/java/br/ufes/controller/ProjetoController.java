@@ -56,7 +56,7 @@ public class ProjetoController {
 	private ItemBacklogProjetoFacade itemBacklogProjetoFacade;
 
 	@Operation(summary = "Cadastrar um novo projeto", responses = {
-			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = ProjetoDTO.class))),
+			@ApiResponse(responseCode = "201", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = ProjetoDTO.class))),
 			@ApiResponse(responseCode = "400", ref = "badRequest"),
 			@ApiResponse(responseCode = "403", ref = "forbidden"),
 			@ApiResponse(responseCode = "500", ref = "internalServerError") })
@@ -148,7 +148,7 @@ public class ProjetoController {
 	}
 
 	@Operation(summary = "Adicionar novo usuário ao projeto", responses = {
-			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content()),
+			@ApiResponse(responseCode = "201", description = "Sucesso na requisição", content = @Content()),
 			@ApiResponse(responseCode = "400", ref = "badRequest"),
 			@ApiResponse(responseCode = "404", description = "Projeto e/ou usuário não encontrado", content = @Content()),
 			@ApiResponse(responseCode = "403", ref = "forbidden"),
@@ -207,7 +207,7 @@ public class ProjetoController {
 	}
 
 	@Operation(summary = "Cadastrar um novo Item Backlog Projeto", responses = {
-			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = ItemBacklogProjetoDTO.class))),
+			@ApiResponse(responseCode = "201", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = ItemBacklogProjetoDTO.class))),
 			@ApiResponse(responseCode = "400", ref = "badRequest"),
 			@ApiResponse(responseCode = "404", description = "Projeto não encontrado", content = @Content()),
 			@ApiResponse(responseCode = "403", ref = "forbidden"),
@@ -245,7 +245,7 @@ public class ProjetoController {
 	}
 
 	@Operation(summary = "Cadastrar uma nova sprint ao projeto", responses = {
-			@ApiResponse(responseCode = "200", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = SprintDTO.class))),
+			@ApiResponse(responseCode = "201", description = "Sucesso na requisição", content = @Content(schema = @Schema(implementation = SprintDTO.class))),
 			@ApiResponse(responseCode = "400", ref = "badRequest"),
 			@ApiResponse(responseCode = "404", description = "Projeto não encontrado", content = @Content()),
 			@ApiResponse(responseCode = "403", ref = "forbidden"),
