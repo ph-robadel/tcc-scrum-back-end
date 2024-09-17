@@ -11,7 +11,7 @@ import lombok.Getter;
 public enum SituacaoItemProjetoEnum {
 	REDIGINDO("redigindo"),
 	ESCRITA_FINALIZADA("escrita finalizada"),
-	APROVADO("aprovado"),	
+	APROVADO("aprovado"),
 	EM_DESENVOLVIMENTO("em desenvolvimento"),	
 	CONCLUIDO("concluído");
 

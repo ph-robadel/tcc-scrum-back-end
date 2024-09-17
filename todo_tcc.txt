@@ -7,28 +7,19 @@ Aplicação Java:
 [x] tratar TokenExpiredException
 [x] Rollback
 [x] PathParams para os métodos de search ( https://www.bezkoder.com/spring-boot-pagination-filter-jpa-pageable/ | https://bezkoder.com/spring-data-sort-multiple-columns/ | https://dev.to/markbdsouza/paginationwith-hateoas-filtering-sorting-with-spring-boot-and-jpa-1mpp)
-[ ] Resolver dilema do usuário adm. (Sobre criar o usuário padrão)
+[x] Resolver dilema do usuário adm. (Sobre criar o usuário padrão)
 
 
 [x] Implementar recursos UsuarioController.
 [x] Implementar recursos ProjetoController.
-[0] Implementar recursos ItemBacklogProjetoController.
-[ ] Implementar recursos SprintController.
-[ ] Implementar recursos ItemBackLogSprintController.
-
-Testes:
-[ ] Escrever testes para recursos do AutenticacaoController
-[ ] Escrever testes para recursos do UsuarioController
-[ ] Escrever testes para recursos do ProjetoController
-[ ] Escrever testes para recursos do SprintController
-[ ] Escrever testes para recursos do ItemBacklogProjetoController
-[ ] Escrever testes para recursos do ItemBackLogSprintController
+[x] Implementar recursos ItemBacklogProjetoController.
+[x] Implementar recursos SprintController.
+[x] Implementar recursos ItemBackLogSprintController.
 
 Docker:
-[ ] Escrever docker-file
-[ ] Publicar no docker-hub
+[x] Escrever docker-file
+[x] Publicar no docker-hub
 
 TCC:
-[ ] Escrever tópico 'Resultado Obitido'.
-[ ] Melhorar tópico introdução.
+[x] Escrever tópico 'Resultado Obitido'.
 [ ] Criar slide de apresentação.

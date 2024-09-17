@@ -56,7 +56,7 @@ public class SecurityConfigurations {
 						.requestMatchers(HttpMethod.POST, "/projetos/{idProjeto}/usuarios/{idUsuario}/reativar").hasAnyAuthority("ADMINISTRADOR")
 						.requestMatchers(HttpMethod.POST, "/projetos/{idProjeto}/item-backlog-projeto").hasAnyAuthority("PRODUCT_OWNER", "SCRUM_MASTER", "DEV_TEAM")
 						.requestMatchers(HttpMethod.GET, "/projetos/{idProjeto}/item-backlog-projeto/search").hasAnyAuthority("PRODUCT_OWNER", "SCRUM_MASTER", "DEV_TEAM")
-						.requestMatchers(HttpMethod.POST, "/projetos/{idProjeto}/sprints").hasAnyAuthority("PRODUCT_OWNER", "SCRUM_MASTER")
+						.requestMatchers(HttpMethod.POST, "/projetos/{idProjeto}/sprints").hasAnyAuthority("SCRUM_MASTER")
 						.requestMatchers(HttpMethod.GET, "/projetos/{idProjeto}/sprints/search").authenticated()
 						
 						.requestMatchers(HttpMethod.GET, "/item-backlog-projeto/{idItemBacklogProjeto}").authenticated()
