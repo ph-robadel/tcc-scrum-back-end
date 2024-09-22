@@ -4,29 +4,9 @@
 
 Este repositório contém o trabalho de conclusão de curso desenvolvido para a Universidade Federal do Espírito Santo destinado ao curso Sistemas de Informação. O objetivo deste projeto é desenvolver um sistema back-end que disponibilize um conjunto API's para gerenciar projetos baseados na metodologia ágil Scrum, que permite uma gestão mais eficiente de projetos de software.
 
-No diretório "diagrama-caso-de-uso" e "diagrama-de-classe", estará disponível a representação gráfica em PDF e o projeto editável dos diagramas de caso de uso e diagrama de classe desenvolvidos no software Astah UML. No diretório "documentacao-api", estará disponível a documentação das API's REST utilizando Swagger.
+No diretório [diagramas](https://github.com/ph-robadel/tcc-scrum-back-end/tree/main/diagramas) está disponível as imagens e o projeto editável dos diagramas desenvolvidos no software Astah UML. No diretório [documentacao-api](https://github.com/ph-robadel/tcc-scrum-back-end/tree/main/documentacao-api), está disponível o arquivo [api-docs.json](https://github.com/ph-robadel/tcc-scrum-back-end/blob/main/documentacao-api/api-docs.json) que contém a documentação das API's REST utilizando Swagger, e também o arquivo [Scrum Back-end.postman_collection.json](https://github.com/ph-robadel/tcc-scrum-back-end/blob/main/documentacao-api/Scrum%20Back-end.postman_collection.json) que é uma exportação da coleção de API para o Postman.
 
-Além disso, o repositório contém o código-fonte completo do sistema, que foi desenvolvido utilizando a linguagem de programação Java na versão 11 e o Framework Spring.
-
-## Cronograma
-
-Intervalo em dias do semestre 2023/01 (11/03/2024 - 12/07/2024): 
-Total dias do semestre letivo: 123 dias
-Restantes: 123 dias (17 semanas)
-
-| Atividades                         | Status da Atividade | Março | Abril | Maio | Junho | Julho |
-| ---------------------------------- | ------------------- | ----- | ----- | ---- | ----- | ----- |
-| Modelar diagrama de caso de uso    | Concluído           |       |       |      |       |       |
-| Modelar diagrama de classe         | Concluído           |       |       |      |       |       |
-| Escrever TCC 1                     | Concluído           |       |       |      |       |       |
-| Montar slide da apresentação TCC 1 | Concluído           |       |       |      |       |       |
-| Apresentar TCC 1                   | Concluído           |       |       |      |       |       |
-|                                    |                     |       |       |      |       |       |
-| Documentar API's com Swagger.      | Pendente            | x     |       |      |       |       |
-| Implementar Software.              | Pendente            | x     | x     | x    | x     |       |
-| Escrever TCC 2                     | Ativo               | x     | x     | x    | x     |       |
-| Montar slide da apresentação TCC 2 | Pendente            |       |       |      | x     |       |
-| Apresentar TCC 2                   | Pendente            |       |       |      |       | x     |
+Além disso, o repositório contém o diretório [código-fonte](https://github.com/ph-robadel/tcc-scrum-back-end/tree/main/codigo-fonte) que contém o código-fonte da aplicação que foi desenvolvida utilizando a linguagem de programação Java na versão 21 e o Framework Spring.
 
 ## Informações sobre o TCC
 
@@ -63,3 +43,9 @@ docker run --name scrum-api -e USER_DB=postgres -e PASSWD_DB=123456 -e URL_DB=jd
 - PASSWD_DB: senha do usuário do banco
 - URL_DB: Url de conexão completa do banco de dados. Para executar localmente, verificar se estão na mesma rede (network).
 - JWT_SECRET: Valor base para a geração da criptografia das senhas dos usuários.
+
+## Lista de melhorias desejadas para o futuro
+
+- [ ] Versionamento na rota da API. A API deve ter um sistema de controle de versão claramente definido para permitir que os usuários migrem para novas versões de maneira controlada e reversível.
+- [ ] A API deve ter recursos de monitoramento e registro para rastrear e diagnosticar problemas. Isso deve incluir logs detalhados de todas as solicitações e respostas, bem como monitoramento em tempo real da saúde e desempenho da API.
+- [ ] A API deve seguir os padrões de segurança como OAuth 2.0 para autenticação e autorização.
