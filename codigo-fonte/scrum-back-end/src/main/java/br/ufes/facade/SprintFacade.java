@@ -206,23 +206,22 @@ public class SprintFacade {
 
 	public SprintPlanningDTO saveSprintPlanning(Long idSprint, SprintPlanningDTO planningDTO, boolean isUpdate) {
 		var sprint = sprintService.getById(idSprint);
+		var projeto = sprint.getProjeto();
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(sprint.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(sprint.getProjeto());
 		sprintValidate.validarAlterarDadosSprint(sprint);
 		sprintPlanningValidate.validateSavePlanning(sprint, planningDTO, isUpdate);
-		
+
 		var timeProjeto = sprint.getProjeto().getTime().stream().map(ProjetoUsuario::getUsuario)
 				.collect(Collectors.toList());
-		var itensPlanejamento = sprint.getBacklogPlanejamento().stream()
-				.map(ItemBacklogPlanejamento::getItemBacklogProjeto).collect(Collectors.toList());
 
 		var sprintPlanning = isUpdate ? sprint.getPlanning() : new SprintPlanning();
 		sprintPlanning.atualizarAtributos(planningDTO);
 
 		sprintPlanningService.atualizarParticipantesEvento(planningDTO, timeProjeto, sprintPlanning);
 		sprintPlanningService.atualizarCapacidadePlanning(planningDTO, timeProjeto, sprintPlanning);
-		sprintPlanningService.atualizarItensSelecionadosPlanning(planningDTO, timeProjeto, itensPlanejamento,
-				sprintPlanning);
+		sprintPlanningService.atualizarItensSelecionadosPlanning(planningDTO, timeProjeto,
+				projeto.getItensBacklogValidosNovaSprint(), sprintPlanning);
 
 		var planningSave = sprintPlanningService.save(sprintPlanning);
 

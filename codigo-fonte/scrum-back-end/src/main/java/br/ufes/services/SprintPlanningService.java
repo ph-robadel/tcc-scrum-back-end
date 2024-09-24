@@ -26,7 +26,7 @@ public class SprintPlanningService extends EventoService {
 	}
 
 	public void atualizarItensSelecionadosPlanning(SprintPlanningDTO planningDTO, List<Usuario> timeProjeto,
-			List<ItemBacklogProjeto> itensPlanejamento, SprintPlanning sprintPlanning) {
+			List<ItemBacklogProjeto> itensBacklogProjeto, SprintPlanning sprintPlanning) {
 
 		if (sprintPlanning.getItensSelecionados() == null) {
 			sprintPlanning.setItensSelecionados(new ArrayList<>());
@@ -38,7 +38,7 @@ public class SprintPlanningService extends EventoService {
 				var itemPlanning = new ItemBacklogPlanning();
 				var responsavelRealizacao = timeProjeto.stream()
 						.filter(u -> u.getId().equals(itemDTO.getIdResponsavelRealizacao())).findFirst();
-				var item = itensPlanejamento.stream()
+				var item = itensBacklogProjeto.stream()
 						.filter(ibp -> ibp.getId().equals(itemDTO.getIdItemBacklogProjeto())).findFirst();
 				itemPlanning.setDescricao(itemDTO.getDescricao());
 				itemPlanning.setHorasEstimadas(itemDTO.getHorasEstimadas());

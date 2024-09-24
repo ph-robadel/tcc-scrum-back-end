@@ -1,10 +1,15 @@
 package br.ufes.entity;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.util.ObjectUtils;
 
 import br.ufes.dto.ProjetoUpsertDTO;
 import br.ufes.enums.EventoFinalizacaoProjetoEnum;
+import br.ufes.enums.SituacaoItemProjetoEnum;
 import br.ufes.enums.SituacaoProjetoEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -46,7 +51,7 @@ public class Projeto {
 	private BigDecimal duracaoMinutosRetrospective;
 
 	private SituacaoProjetoEnum situacao;
-	
+
 	private EventoFinalizacaoProjetoEnum eventoFinalizacao;
 
 	@OneToMany(mappedBy = "projeto", fetch = FetchType.LAZY)
@@ -67,9 +72,16 @@ public class Projeto {
 		setDuracaoMinutosReview(projetoInsertDTO.getDuracaoMinutosReview());
 		setDuracaoMinutosRetrospective(projetoInsertDTO.getDuracaoMinutosRetrospective());
 	}
-	
+
 	public boolean isAtivo() {
 		return !SituacaoProjetoEnum.CONCLUIDO.equals(situacao) && !SituacaoProjetoEnum.CANCELADO.equals(situacao);
+	}
+
+	public List<ItemBacklogProjeto> getItensBacklogValidosNovaSprint() {
+		return !ObjectUtils.isEmpty(getBacklog()) ? getBacklog().stream()
+				.filter(item -> SituacaoItemProjetoEnum.APROVADO.equals(item.getSituacao())
+						|| SituacaoItemProjetoEnum.EM_DESENVOLVIMENTO.equals(item.getSituacao()))
+				.collect(Collectors.toList()) : new ArrayList<>();
 	}
 
 }

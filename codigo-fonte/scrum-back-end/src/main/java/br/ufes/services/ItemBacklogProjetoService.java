@@ -1,5 +1,7 @@
 package br.ufes.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -78,4 +80,5 @@ public class ItemBacklogProjetoService {
 	public boolean possuiItemSprintAssociado(Long idItemBacklogProjeto) {
 		return itemBacklogProjetoRepository.possuiItemSprintAssociado(idItemBacklogProjeto);
 	}
+
 }
