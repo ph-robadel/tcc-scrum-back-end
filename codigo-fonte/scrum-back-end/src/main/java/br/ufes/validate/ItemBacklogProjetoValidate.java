@@ -100,7 +100,7 @@ public class ItemBacklogProjetoValidate {
 
 		var usuarioAutenticado = usuarioService.getUsuarioAutenticado();
 		if (!PerfilUsuarioEnum.PRODUCT_OWNER.equals(usuarioAutenticado.getPerfil())
-				&& usuarioAutenticado.equals(itemBacklogProjeto.getAutor())) {
+				&& !usuarioAutenticado.equals(itemBacklogProjeto.getAutor())) {
 
 			throw new BusinessException("O usuário '" + usuarioAutenticado.getNomeUsuario()
 					+ "' possui permissão para remover apenas os itens de backlog de projeto de sua autoria");
