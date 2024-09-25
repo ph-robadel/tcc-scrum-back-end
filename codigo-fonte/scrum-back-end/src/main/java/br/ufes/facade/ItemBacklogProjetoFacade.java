@@ -80,7 +80,7 @@ public class ItemBacklogProjetoFacade {
 
 		projetoUsuarioValidate.validarAcessoUsuarioAutenticadoAoProjeto(itemBacklogProjeto.getProjeto().getId());
 		projetoValidate.validateProjetoAtivo(itemBacklogProjeto.getProjeto());
-		itemBacklogProjetoValidate.validateSave(itemBacklogProjetoUpsertDTO);
+		itemBacklogProjetoValidate.validateSave(itemBacklogProjetoUpsertDTO, itemBacklogProjeto);
 
 		itemBacklogProjeto.atualizarAtributos(itemBacklogProjetoUpsertDTO);
 

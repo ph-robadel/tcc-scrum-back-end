@@ -15,7 +15,7 @@ public enum SituacaoItemProjetoEnum {
 	EM_DESENVOLVIMENTO("em desenvolvimento"),	
 	CONCLUIDO("concluído");
 
-	private String situacao;
+	private String descricao;
 	
 	public static SituacaoItemProjetoEnum fromString(String valor) {
 		if (StringUtils.isEmpty(valor)) {

@@ -17,7 +17,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nomeUsuario\": \"po.1\",\n    \"senha\": \"1234acb\"\n}",
+							"raw": "{\n    \"nomeUsuario\": \"scrum_master\",\n    \"senha\": \"1234abc\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -58,7 +58,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nomeCompleto\": \"Usuário Scrum Master 1\",\n    \"nomeUsuario\": \"sm.1\",\n    \"senha\": \"1234acb\",\n    \"email\": \"ph.robadel@gmail.com\",\n    \"perfil\": \"scrum_master\"\n}",
+							"raw": "{\n    \"nomeCompleto\": \"Usuário Desenvolvedor\",\n    \"nomeUsuario\": \"usuario_dev\",\n    \"senha\": \"1234abc\",\n    \"email\": \"exemplo@ufes.br\",\n    \"perfil\": \"DEV_TEAM\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -105,13 +105,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/usuarios/52",
+							"raw": "{{baseUrl}}/usuarios/1",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"usuarios",
-								"52"
+								"1"
 							]
 						}
 					},
@@ -479,7 +479,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nome\": \"Projeto nova estrutura\",\n    \"descricao\": \"projeto para testes\",\n    \"quantidadeDiasSprint\": \"10\",\n    \"duracaoHorasDaily\": \"0.5\",\n    \"duracaoHorasPlanning\": \"1\",\n    \"duracaoHorasReview\": \"0\",\n    \"duracaoHorasRetrospective\": \"0\",\n    \"eventoFinalizacao\": \"RETROSPECTIVE\"\n}",
+							"raw": "{\n    \"nome\": \"Projeto estudo de caso\",\n    \"descricao\": \"Descrição do projeto\",\n    \"quantidadeDiasSprint\": \"10\",\n    \"duracaoMinutosDaily\": \"15\",\n    \"duracaoMinutosPlanning\": \"60\",\n    \"duracaoMinutosReview\": \"30\",\n    \"duracaoMinutosRetrospective\": \"30\",\n    \"eventoFinalizacao\": \"RETROSPECTIVE\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -563,13 +563,92 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/projetos/152",
+							"raw": "{{baseUrl}}/projetos/1",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"projetos",
-								"152"
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Concluir projeto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projetos/1/concluir",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos",
+								"1",
+								"concluir"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exportar projeto",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projetos/152/exportar-dados",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projetos",
+								"152",
+								"exportar-dados"
 							]
 						}
 					},
@@ -743,15 +822,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/projetos/152/usuarios/654",
+							"raw": "{{baseUrl}}/projetos/1/usuarios/2",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"projetos",
-								"152",
+								"1",
 								"usuarios",
-								"654"
+								"2"
 							]
 						}
 					},
@@ -865,13 +944,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/projetos/152/usuarios/search",
+							"raw": "{{baseUrl}}/projetos/1/usuarios/search",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"projetos",
-								"152",
+								"1",
 								"usuarios",
 								"search"
 							],
@@ -913,7 +992,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"titulo\": \"TESTE DELETE\",\n    \"descricao\": \"Mussum Ipsum, cacilds vidis litro abertis. Interagi no mé, cursus quis, vehicula ac nisi. Admodum accumsan disputationi eu sit. Vide electram sadipscing et per. Per aumento de cachacis, eu reclamis. Copo furadis é disculpa de bebadis, arcu quam euismod magna. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis. Interagi no mé, cursus quis, vehicula ac nisi. Segunda-feiris nun dá, eu vô me pirulitá! Sapien in monti palavris qui num significa nadis i pareci latim\",\n    \"categoria\": \"requisito_nao_funcional\"\n}",
+							"raw": "{\n    \"titulo\": \"Registrar itens ao backlog do projeto\",\n    \"descricao\": \"O Product Owner deve ser capaz de cadastrar novos itens ao backlog do projeto.\",\n    \"categoria\": \"requisito_funcional\",\n    \"situacao\": \"APROVADO\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -921,13 +1000,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/projetos/152/item-backlog-projeto",
+							"raw": "{{baseUrl}}/projetos/1/item-backlog-projeto",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"projetos",
-								"152",
+								"1",
 								"item-backlog-projeto"
 							]
 						}
@@ -962,13 +1041,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/projetos/152/item-backlog-projeto/search",
+							"raw": "{{baseUrl}}/projetos/1/item-backlog-projeto/search",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"projetos",
-								"152",
+								"1",
 								"item-backlog-projeto",
 								"search"
 							],
@@ -1005,7 +1084,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"dataInicio\": \"2024-10-05\"\n}",
+							"raw": "{\n    \"dataInicio\": \"2024-09-16\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1013,13 +1092,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/projetos/152/sprints",
+							"raw": "{{baseUrl}}/projetos/1/sprints",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"projetos",
-								"152",
+								"1",
 								"sprints"
 							]
 						}
@@ -1259,13 +1338,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/sprints/153",
+							"raw": "{{baseUrl}}/sprints/1",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"sprints",
-								"153"
+								"1"
 							]
 						}
 					},
@@ -1376,13 +1455,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/sprints/153/item-backlog-sprint/search",
+							"raw": "{{baseUrl}}/sprints/1/item-backlog-sprint/search",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"sprints",
-								"153",
+								"1",
 								"item-backlog-sprint",
 								"search"
 							]
@@ -1407,7 +1486,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"descricao\": \"Teste Doc 1\",\n    \"idResponsavelRealizacao\": \"\",\n    \"horasEstimadas\": \"\",\n    \"horasRealizadas\": \"\",\n    \"situacao\": \"\"\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1415,15 +1494,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/sprints/153/item-backlog-projeto/356/item-backlog-planejamento",
+							"raw": "{{baseUrl}}/sprints/1/item-backlog-projeto/4/item-backlog-planejamento",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"sprints",
-								"153",
+								"1",
 								"item-backlog-projeto",
-								"356",
+								"4",
 								"item-backlog-planejamento"
 							]
 						}
@@ -1528,7 +1607,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"nome\": \"Planning Sprint 3\",\n\t\"descricao\": \"Reunião para planejamento da sprint\",\n\t\"anexos\": [\n        \"arquivo1\",\n        \"arquivo2\"\n    ],\n\t\"idsParticipantes\": [\n\t\t602, 652, 653, 654\n\t],\n\t\"inicio\": \"2024-09-04T10:00:23.209\",\n\t\"fim\": \"2024-09-04T10:50:23.209\",\n\t\"duracaoMinutos\": \"50\",\n\t\"capacidadeTime\": [\n\t\t{\n\t\t\t\"idUsuario\": 652,\n\t\t\t\"horas\": 40,\n\t\t\t\"justificativa\": \"Horário normal\"\n\t\t},\n        {\n\t\t\t\"idUsuario\": 653,\n\t\t\t\"horas\": 45,\n\t\t\t\"justificativa\": \"\"\n\t\t}\n\t],\n\t\"objetivo\": \"Planejar sprint\",\n\t\"itensSelecionados\": [\n\t\t{\n\t\t\t\"idItemBacklogProjeto\": 353,\n\t\t\t\"descricao\": \"Descrição 352 item planning\",\n            \"horasEstimadas\": 8,\n            \"idResponsavelRealizacao\": 652\n\t\t},\n\t\t{\n\t\t\t\"idItemBacklogProjeto\": 354,\n\t\t\t\"descricao\": \"Descrição 352 item planning\",\n            \"horasEstimadas\": 16,\n            \"idResponsavelRealizacao\": 653\n\t\t},\n\t\t{\n\t\t\t\"idItemBacklogProjeto\": 355,\n\t\t\t\"descricao\": \"Descrição 352 item planning\",\n            \"horasEstimadas\": 14,\n            \"idResponsavelRealizacao\": 652\n\t\t},\n\t\t{\n\t\t\t\"idItemBacklogProjeto\": 356,\n\t\t\t\"descricao\": \"Descrição 352 item planning\",\n            \"horasEstimadas\": 2,\n            \"idResponsavelRealizacao\": 653\n\t\t}\n\t]\n}",
+							"raw": "{\n\t\"nome\": \"Planning Sprint 1\",\n\t\"descricao\": \"Reunião para planejamento da sprint 1\",\n\t\"anexos\": [\n        \"link arquivo 1\",\n        \"link arquivo 2\"\n    ],\n\t\"idsParticipantes\": [\n\t\t2, 3, 4\n\t],\n\t\"inicio\": \"2024-09-16T10:00:23.209\",\n\t\"fim\": \"2024-09-16T10:50:23.209\",\n\t\"duracaoMinutos\": \"50\",\n\t\"capacidadeTime\": [\n\t\t{\n\t\t\t\"idUsuario\": 4,\n\t\t\t\"horas\": 30,\n\t\t\t\"justificativa\": \"Horário disponível ao projeto\"\n\t\t}\n\t],\n\t\"objetivo\": \"Planejar sprint\",\n\t\"itensSelecionados\": [\n\t\t{\n\t\t\t\"idItemBacklogProjeto\": 4,\n\t\t\t\"descricao\": \"Construir tela do item backlog do projeto\",\n            \"horasEstimadas\": 25,\n            \"idResponsavelRealizacao\": 4\n\t\t}\n\t]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1536,13 +1615,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/sprints/153/planning",
+							"raw": "{{baseUrl}}/sprints/1/planning",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"sprints",
-								"153",
+								"1",
 								"planning"
 							]
 						}
@@ -1653,13 +1732,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/sprints/153/concluir-planning",
+							"raw": "{{baseUrl}}/sprints/1/concluir-planning",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"sprints",
-								"153",
+								"1",
 								"concluir-planning"
 							]
 						}
@@ -1683,7 +1762,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nome\": \"Daily 2\",\n    \"inicio\": \"2024-09-10T09:00:00.000\",\n    \"fim\": \"2024-09-10T09:00:00.000\"\n}",
+							"raw": "{\n    \"nome\": \"Reunião diária 1\",\n    \"descricao\": \"Reunião diária 1\",\n    \"anexos\": [\"link arquivo 1\", \"link arquivo 2\"],\n    \"idsParticipantes\": [2,4],\n    \"inicio\": \"2024-09-16T11:00:23.209\",\n    \"fim\": \"2024-09-16T11:10:23.209\",\n    \"duracaoMinutos\": \"10\",\n    \"registroDaily\": [\n        {\n            \"idUsuario\": 4,\n            \"perguntaResposta\":[\n                {\n                    \"pergunta\": \"O que foi feito desde a última reunião diária?\",\n                    \"resposta\": \"Iniciado tela para cadastro do item backlog do projeto\"\n                },\n                {\n                    \"pergunta\": \"O que pretendo fazer até a próxima reunião diária?\",\n                    \"resposta\": \"Continuar no desenvolvimento da tela\"\n                },\n                {\n                    \"pergunta\": \"possui algum impedimento?\",\n                    \"resposta\": \"Não\"\n                }\n            ]\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1691,13 +1770,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/sprints/2/daily",
+							"raw": "{{baseUrl}}/sprints/1/daily",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"sprints",
-								"2",
+								"1",
 								"daily"
 							]
 						}
@@ -1844,7 +1923,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"nome\": \"Review Sprint\",\n\t\"descricao\": \"Reunião de revisão da sprint\",\n\t\"anexos\": [\n        \"arquivo5\",\n        \"arquivo6\"\n    ],\n\t\"idsParticipantes\": [\n\t\t602\n\t],\n\t\"inicio\": \"2024-09-20T10:00:23.209\",\n\t\"fim\": \"2024-09-20T10:50:23.209\",\n\t\"duracaoMinutos\": \"50\",\n\t\"itensAprovados\": [\n\t\t{\n\t\t\t\"idItemBacklogProjeto\": 352,\n\t\t\t\"descricao\": \"Descrição Aprovação\"\n\t\t}\n\t],\n    \"itensRejeitados\": [\n\t\t{\n\t\t\t\"idItemBacklogProjeto\": 352,\n\t\t\t\"descricao\": \"Descrição Rejeição\"\n\t\t}\n\t],\n    \"itensAprovadosParcialmente\": [\n\t\t{\n\t\t\t\"idItemBacklogProjeto\": 352,\n\t\t\t\"descricao\": \"Descrição Aprovação parcial\"\n\t\t}\n\t]\n}",
+							"raw": "{\n\t\"nome\": \"Review Sprint\",\n\t\"descricao\": \"Reunião de revisão da sprint\",\n\t\"anexos\": [\"arquivo5\",\"arquivo6\"],\n\t\"idsParticipantes\": [2,3,4],\n\t\"inicio\": \"2024-09-27T10:00:23.209\",\n\t\"fim\": \"2024-09-27T10:50:23.209\",\n\t\"duracaoMinutos\": \"50\",\n\t\"itensAprovados\": [\n\t\t{\n\t\t\t\"idItemBacklogProjeto\": 4,\n\t\t\t\"descricao\": \"Validado e aprovado pelo Product Owner\"\n\t\t}\n\t],\n    \"itensRejeitados\": [],\n    \"itensAprovadosParcialmente\": []\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1852,13 +1931,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/sprints/2/review",
+							"raw": "{{baseUrl}}/sprints/1/review",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"sprints",
-								"2",
+								"1",
 								"review"
 							]
 						}
@@ -1961,7 +2040,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"nome\": \"Retrospective Sprint\",\n\t\"descricao\": \"Reunião de retrospectiva da sprint\",\n\t\"anexos\": [\n        \"arquivo9\",\n        \"arquivo10\"\n    ],\n\t\"idsParticipantes\": [\n\t\t602\n\t],\n\t\"inicio\": \"2024-09-20T15:00:00.000\",\n\t\"fim\": \"2024-09-20T15:50:00.000\",\n\t\"duracaoMinutos\": \"50\",\n\t\"oqueMelhorar\": [\n\t\t\"Comunicação do time\",\n\t\t\"Qualidade do produto desenvolvido\"\n\t],\n    \"oqueDeuErrado\": [\n\t\t\"Dividir o desenvolvedor x com outro projeto\",\n\t\t\"A frequência da Daily\"\n\t],\n    \"oqueDeuCerto\": [\n\t\t\"Todos os itens foram desenvolvidos\"\n\t]\n}",
+							"raw": "{\n\t\"nome\": \"Retrospective Sprint\",\n\t\"descricao\": \"Reunião de retrospectiva da sprint\",\n\t\"anexos\": [\"arquivo9\",\"arquivo10\"],\n\t\"idsParticipantes\": [2, 4],\n\t\"inicio\": \"2024-09-27T16:00:00.000\",\n\t\"fim\": \"2024-09-27T16:30:00.000\",\n\t\"duracaoMinutos\": \"30\",\n\t\"oqueMelhorar\": [\n\t\t\"Comunicação do time\",\n\t\t\"Qualidade do produto desenvolvido\"\n\t],\n    \"oqueDeuErrado\": [\n\t\t\"Dividir o desenvolvedor x com outro projeto\",\n\t\t\"A frequência da Daily\"\n\t],\n    \"oqueDeuCerto\": [\n\t\t\"Todos os itens foram desenvolvidos\"\n\t]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1969,13 +2048,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/sprints/2/retrospective",
+							"raw": "{{baseUrl}}/sprints/1/retrospective",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"sprints",
-								"2",
+								"1",
 								"retrospective"
 							]
 						}
@@ -2236,7 +2315,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"descricao\": \"Descrição 352 item planning\",\n    \"idResponsavelRealizacao\":653,\n    \"horasEstimadas\": 2.00,\n    \"horasRealizadas\": 4.00,\n    \"situacao\": \"DESENVOLVENDO\"\n}",
+							"raw": "{\n    \"descricao\": \"Construir tela do item backlog do projeto\",\n    \"idResponsavelRealizacao\": 4,\n    \"horasEstimadas\": 25.00,\n    \"horasRealizadas\": 20.00,\n    \"situacao\": \"PRONTO\"\n}\n\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2244,13 +2323,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/item-backlog-sprint/55",
+							"raw": "{{baseUrl}}/item-backlog-sprint/1",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"item-backlog-sprint",
-								"55"
+								"1"
 							]
 						}
 					},

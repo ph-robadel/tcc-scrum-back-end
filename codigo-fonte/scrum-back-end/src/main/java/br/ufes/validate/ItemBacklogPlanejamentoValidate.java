@@ -42,7 +42,7 @@ public class ItemBacklogPlanejamentoValidate {
 				&& !SituacaoItemProjetoEnum.EM_DESENVOLVIMENTO.equals(situacaoItem)) {
 			erros.add(
 					"O item de backlog do projeto possui a situacao "
-							+ situacaoItem.getSituacao());
+							+ situacaoItem.getDescricao());
 		}
 
 		if (itemBacklogPlanejamentoService.possuiItemBacklogPlanejamento(sprint.getId(), itemBacklogProjeto.getId())) {
@@ -75,7 +75,7 @@ public class ItemBacklogPlanejamentoValidate {
 				&& !SituacaoItemProjetoEnum.EM_DESENVOLVIMENTO.equals(situacaoItem)) {
 			erros.add(
 					"Não é possível remover itens do backlog de planejamento da sprint com o item de backlog do projeto com situacao "
-							+ situacaoItem.getSituacao());
+							+ situacaoItem.getDescricao());
 		}
 
 		if (!ObjectUtils.isEmpty(erros)) {
