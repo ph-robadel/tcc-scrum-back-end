@@ -19,7 +19,7 @@ Além disso, o repositório contém o diretório [código-fonte](https://github.
 **Disciplinas**: 
 
 - [x] ~~COM11212 Trabalho de conclusão de curso I~~
-- [ ] COM11261 Trabalho de conclusão de curso II
+- [x] COM11261 Trabalho de conclusão de curso II
 
 ## Documentação OpenAPI
 
